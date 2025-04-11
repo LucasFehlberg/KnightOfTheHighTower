@@ -39,6 +39,8 @@ public static class Stats
 
     private static List<string> heldTiles = new() { null, null, null };
 
+    private static string currentlyHeldTile = null;
+
 
 
     /// <summary>
@@ -104,4 +106,18 @@ public static class Stats
     public static List<Vector2> AdditionalMovements { get => additionalMovements; set => additionalMovements = value; }
     public static List<Vector2> AdditionalAttacks { get => additionalAttacks; set => additionalAttacks = value; }
     public static List<string> HeldTiles { get => heldTiles; set => heldTiles = value; }
+    public static string CurrentlyHeldTile { get => currentlyHeldTile; set => currentlyHeldTile = value; }
+
+    /// <summary>
+    /// Properly resets all stats that need to be reset
+    /// </summary>
+    public static void ResetStats()
+    {
+        heldTiles = new()
+        {
+            null, null, null
+        };
+
+        heldItems.Clear();
+    }
 }

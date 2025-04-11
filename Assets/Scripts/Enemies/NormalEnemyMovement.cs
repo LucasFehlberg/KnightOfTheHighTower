@@ -2,7 +2,7 @@
 // File Name : NormalEnemyMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 1, 2025
-// Last Updated : April 9, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : Controls all normal enemy movement. Special movement will have their own scripts
 *****************************************************************************/
@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class NormalEnemyMovement : EnemyMovement
 {
-    [SerializeField] private LayerMask groundLayers;
+    //[SerializeField] private LayerMask groundLayers;
     [SerializeField] private LayerMask obstacleLayers;
     [SerializeField] private LayerMask nodeLayers;
 
@@ -35,6 +35,13 @@ public class NormalEnemyMovement : EnemyMovement
 
         Node start = Physics.OverlapBox(transform.position, Vector3.one * 0.5f, Quaternion.identity, nodeLayers)[0]
             .GetComponent<Node>();
+
+        if (tileTrigger)
+        {
+            enemy.Target = null;
+            moving = false;
+            return;
+        }
 
         //This is for enemies with multiple per-turn movements. If they already have a target locked, then just
         //Continue using this target

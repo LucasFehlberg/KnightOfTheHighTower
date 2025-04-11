@@ -171,7 +171,8 @@ public class PlayerMovement : MonoBehaviour
                 triggeredTiles.Clear();
 
                 //If there is no ground, DON'T ignore
-                if (!Physics.CheckBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, groundLayers))
+                if (!Physics.CheckBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, 
+                    groundLayers))
                 {
                     player.KillPlayerFunny();
                 }

@@ -14,6 +14,7 @@ TagManager:
   - RoomManager
   - StarterButton
   - SelectionButton
+  - InventoryTag
   layers:
   - Default
   - TransparentFX

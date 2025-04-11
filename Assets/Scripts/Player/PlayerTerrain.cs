@@ -7,7 +7,7 @@
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
 
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +34,7 @@ public class PlayerTerrain : MonoBehaviour
     private string type = "Wall";
 
     [SerializeField] private GameObject UI;
+    [SerializeField] private List<GameObject> slots = new();
 
     public bool Add { get => add; set => add = value; }
 
@@ -58,6 +59,23 @@ public class PlayerTerrain : MonoBehaviour
         UI.SetActive(true);
         add = false;
         type = "Wall";
+        int index = 0;
+        foreach(GameObject slot in slots)
+        {
+            if (Stats.HeldTiles[index] == null)
+            {
+                slot.transform.parent.gameObject.SetActive(false);
+                continue;
+            }
+
+            slot.transform.parent.gameObject.SetActive(true);
+
+            string description = Attatchment.AttatchmentDescriptions[Stats.HeldTiles[index]];
+            Sprite sprite = Attatchment.AttatchmentSprites[Stats.HeldTiles[index]];
+
+            slot.GetComponent<TileBox>().ButtonUI(description, Stats.HeldTiles[index], sprite);
+            index++;
+        }
     }
 
     /// <summary>
@@ -127,6 +145,12 @@ public class PlayerTerrain : MonoBehaviour
                 //We don't want to make a box on the player here
                 if (Physics.CheckBox(hit.collider.transform.position, Vector3.one * 0.45f, Quaternion.identity,
                     playerLayer))
+                {
+                    return;
+                }
+
+                //If it's a wall, check to see if the tile exists
+                if(type != "Wall" && !tile.GetComponent<Tile>().HasTile)
                 {
                     return;
                 }
@@ -203,6 +227,12 @@ public class PlayerTerrain : MonoBehaviour
                     continue;
                 }
 
+                //If it's a wall, check to see if the tile exists
+                if (type != "Wall" && !tile.GetComponent<Tile>().HasTile)
+                {
+                    continue;
+                }
+
                 GameObject newUI = Instantiate(indicator);
                 newUI.transform.position = tile.transform.position + (Vector3.up * 0.75f);
             }
@@ -265,5 +295,14 @@ public class PlayerTerrain : MonoBehaviour
         {
             ResetIndicators();
         }
+    }
+
+    /// <summary>
+    /// Same as above, but by Stats.HeldTiles
+    /// </summary>
+    /// <param name="id">ID number of held terrain</param>
+    public void AddTerrainByInt(int id)
+    {
+        AddTerrain(Stats.HeldTiles[id]);
     }
 }

@@ -22,7 +22,7 @@ public class UrsaMaledictus : Item
             + "enemies";
         itemNameDisplay = "Ursa Maledictus";
 
-        itemRarity = 2;
+        itemRarity = 3;
     }
     /// <summary>
     /// Add the modifier

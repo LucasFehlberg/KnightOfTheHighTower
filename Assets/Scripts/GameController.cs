@@ -100,7 +100,8 @@ public class GameController : MonoBehaviour
         }
 
         //Remove dead enemies from turn order
-        while (turnOrder[currentIndex].gameObject == null)
+        while (turnOrder[currentIndex].gameObject == null || (!turnOrder[currentIndex].gameObject.CompareTag("Player")
+            && turnOrder[currentIndex].GetComponent<EnemyBase>().Dying))
         {
             turnOrder.RemoveAt(currentIndex);
             if(currentIndex >= turnOrder.Count)
@@ -183,10 +184,37 @@ public class GameController : MonoBehaviour
             case ("Terrain Selection"):
                 terrainSelectionUI.SetActive(true);
 
+                List<string> tiles = new();
+                List<string> allTiles = new();
+                allTiles.AddRange(Attatchment.AttatchmentDescriptions.Keys);
+
+                while (tiles.Count < 2)
+                {
+                    string tile = allTiles[Random.Range(0, allTiles.Count)];
+                    //allTiles.Remove(tile);
+
+                    //if (Stats.HeldTiles.Contains(tile))
+                    //{
+                    //    continue;
+                    //}
+
+                    tiles.Add(tile);
+                }
+
                 foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {
-                    button.GetComponent<ItemButton>().SetItem(Item.SpawnItem(1, false));
+                    button.GetComponent<ItemButton>().SetTile(tiles[0]);
+                    tiles.RemoveAt(0);
                 }
+
+                int index = 0;
+
+                foreach(GameObject button in GameObject.FindGameObjectsWithTag("InventoryTag"))
+                {
+                    button.GetComponent<ItemButton>().SetTile(Stats.HeldTiles[index]);
+                    index++;
+                }
+
                 break;
         }
     }

@@ -255,6 +255,10 @@ MonoBehaviour:
     m_Bits: 8
   indicator: {fileID: 5638618798102373769, guid: b870fb129fb56ee40a6b371714ee701d, type: 3}
   UI: {fileID: 0}
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &7708034455951612038
 Rigidbody:
   m_ObjectHideFlags: 0

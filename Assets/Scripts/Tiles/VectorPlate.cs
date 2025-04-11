@@ -2,7 +2,7 @@
 // File Name : VectorPlate.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 8, 2025
-// Last Updated : April 9, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : Vector Plate script
 *****************************************************************************/
@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileAttatchment : MonoBehaviour
+public class VectorPlate : MonoBehaviour
 {
     [SerializeField] private LayerMask obstacleLayers;
 
@@ -67,7 +67,7 @@ public class TileAttatchment : MonoBehaviour
                 yield return null;
             }
 
-            Vector2 movement = possibleMovements[Random.Range(0, possibleMovements.Count - 1)];
+            Vector2 movement = possibleMovements[Random.Range(0, possibleMovements.Count)];
 
             player.OriginalPos = player.transform.position;
             player.DesiredPos = player.transform.position + new Vector3(movement.x, 0, movement.y);
@@ -90,12 +90,13 @@ public class TileAttatchment : MonoBehaviour
                 yield return null;
             }
 
-            Vector2 movement = possibleMovements[Random.Range(0, possibleMovements.Count - 1)];
+            Vector2 movement = possibleMovements[Random.Range(0, possibleMovements.Count)];
 
             enemy.OriginalPos = enemy.transform.position;
             enemy.DesiredPos = enemy.transform.position + new Vector3(movement.x, 0, movement.y);
             enemy.Percentage = 0;
             enemy.TileTrigger = false;
+            enemy.Moving = true;
         }
     }
 

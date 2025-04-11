@@ -14,8 +14,6 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private static List<string> attatchments = new();
-
     [SerializeField] private Material tileMaterial;
 
     [SerializeField] private GameObject tile;
@@ -39,8 +37,6 @@ public class Tile : MonoBehaviour
     public bool BuiltUpon { get => builtUpon; set => builtUpon = value; }
     public bool HasTile { get => hasTile; set => hasTile = value; }
     public int TileID { get => tileID; set => tileID = value; }
-    public static List<string> Attatchments { get => attatchments; set => attatchments = value; }
-
     /// <summary>
     /// Handles material setting and eventually level design
     /// </summary>
@@ -140,6 +136,12 @@ public class Tile : MonoBehaviour
     /// <param name="type">Type of tile</param>
     public void TileCreation(char type)
     {
+        if (Attatchment.AttatchmentValues.ContainsKey(type))
+        {
+            AddAttatchment(Attatchment.AttatchmentValues[type]);
+            return;
+        }
+
         switch (type)
         {
             case (' '):
@@ -151,11 +153,6 @@ public class Tile : MonoBehaviour
                 hasTile = true;
                 builtUpon = true;
                 wall.SetActive(true);
-                break;
-            case ('V'):
-                hasTile = true;
-                builtUpon = true;
-                AddAttatchment("VectorPlate");
                 break;
             case ('L'):
                 enemyPrefab = enemyPrefabs[0];
@@ -207,5 +204,6 @@ public class Tile : MonoBehaviour
     private void AddAttatchment(string attatchment)
     {
         Instantiate(Resources.Load("TileAttatchments/" + attatchment), attatchmentHolder.transform);
+        CheckPathfinding();
     }
 }

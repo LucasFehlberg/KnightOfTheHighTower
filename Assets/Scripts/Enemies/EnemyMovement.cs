@@ -2,7 +2,7 @@
 // File Name : EnemyMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 9, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : Base class for enemy movement
 *****************************************************************************/
@@ -25,8 +25,10 @@ public class EnemyMovement : MonoBehaviour
 
     protected List<GameObject> triggeredTiles = new();
 
+    [SerializeField] protected LayerMask groundLayers;
+
     public float Percentage { get => percentage; set => percentage = value; }
-    public bool Moving { get => moving; }
+    public bool Moving { get => moving; set => moving = value; }
     public bool TileTrigger { get => tileTrigger; set => tileTrigger = value; }
     public List<GameObject> TriggeredTiles { get => triggeredTiles; set => triggeredTiles = value; }
     public Vector3 DesiredPos { get => desiredPos; set => desiredPos = value; }
@@ -79,6 +81,13 @@ public class EnemyMovement : MonoBehaviour
             if(Percentage == 1f && !tileTrigger)
             {
                 TriggeredTiles.Clear();
+
+                //If there is no ground, DON'T ignore
+                if (!Physics.CheckBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity,
+                    groundLayers))
+                {
+                    enemy.KillEnemyFunny();
+                }
             }
         }
     }

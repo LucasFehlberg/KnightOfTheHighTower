@@ -181,6 +181,7 @@ public class RoomManager : MonoBehaviour
         rewardTypes.Add("Starter");
         //rewardTypes.Add("Shop");
         rewardTypes.Add("Normal Selection");
+        rewardTypes.Add("Terrain Selection");
         
     }
 

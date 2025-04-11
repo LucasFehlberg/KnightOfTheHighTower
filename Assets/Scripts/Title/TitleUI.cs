@@ -2,7 +2,7 @@
 // File Name : TitleUI.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : March 30, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : UI Stuff for the title
 *****************************************************************************/
@@ -60,30 +60,13 @@ public class TitleUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Changes scene to the main Gameplay
+    /// Starts the game
     /// </summary>
-    private void ChangeSceneToGame()
+    public void StartGame()
     {
-        SceneManager.LoadScene(1);
-    }
-
-    /// <summary>
-    /// Gives the player a SidestepCharm
-    /// </summary>
-    public void Charm()
-    {
-        Stats.HeldItems.Clear();
+        Stats.ResetStats();
         //Stats.HeldItems.Add(new SidestepCharm());
-        ChangeSceneToGame();
-    }
-
-    /// <summary>
-    /// Gives the player a RustyDagger
-    /// </summary>
-    public void Knife()
-    {
-        Stats.HeldItems.Clear();
-        Stats.HeldItems.Add(new RustyDagger());
-        ChangeSceneToGame();
+        SceneManager.LoadScene(1);
+        RoomManager.Floor = 0;
     }
 }

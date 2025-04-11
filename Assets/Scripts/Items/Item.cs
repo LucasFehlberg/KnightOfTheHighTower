@@ -234,8 +234,8 @@ public class Item
         }
 
         //Split it off into 3 tiers at least, being common, uncommon and rare
-        //5%
-        if(rng > 94)
+        //2%
+        if(rng > 97)
         {
             baseRarity += 2;
             if (baseRarity > highestRarity)
@@ -246,8 +246,8 @@ public class Item
             return rarities[baseRarity][UnityEngine.Random.Range(0, rarities[baseRarity].Count)].Clone();
         }
 
-        //20%
-        if (rng > 74)
+        //13%
+        if (rng > 84)
         {
             baseRarity += 1;
             if (baseRarity > highestRarity)
@@ -258,7 +258,7 @@ public class Item
             return rarities[baseRarity][UnityEngine.Random.Range(0, rarities[baseRarity].Count)].Clone();
         }
 
-        //75%
+        //85%
         return rarities[baseRarity][UnityEngine.Random.Range(0, rarities[baseRarity].Count)].Clone();
     }
 }
