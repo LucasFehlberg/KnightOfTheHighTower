@@ -30,7 +30,9 @@ public static class Stats
 
     //List Stats
     private static List<Vector2> possibleMovements = new();
+    private static List<Vector2> additionalMovements = new();
     private static List<Vector2> possibleAttacks = new();
+    private static List<Vector2> additionalAttacks = new();
 
     private static List<Item> heldItems = new();
     private static List<Modifier> currentModifiers = new();
@@ -99,4 +101,7 @@ public static class Stats
     /// Modifiers that are attatched to all enemies
     /// </summary>
     public static List<Modifier> CurrentModifiers { get => currentModifiers; set => currentModifiers = value; }
+    public static List<Vector2> AdditionalMovements { get => additionalMovements; set => additionalMovements = value; }
+    public static List<Vector2> AdditionalAttacks { get => additionalAttacks; set => additionalAttacks = value; }
+    public static List<string> HeldTiles { get => heldTiles; set => heldTiles = value; }
 }

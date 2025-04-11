@@ -201,6 +201,25 @@ public class PlayerBase : MonoBehaviour
         GetComponent<PlayerAttack>().enabled = false;
         GetComponent<PlayerTerrain>().enabled = false;
 
+        foreach (Vector2 movement in Stats.AdditionalMovements)
+        {
+            if (Stats.PossibleMovements.Contains(movement))
+            {
+                Stats.PossibleMovements.Remove(movement);
+            }
+        }
+
+        foreach (Vector2 attack in Stats.AdditionalAttacks)
+        {
+            if (Stats.PossibleAttacks.Contains(attack))
+            {
+                Stats.PossibleAttacks.Remove(attack);
+            }
+        }
+
+        Stats.AdditionalAttacks.Clear();
+        Stats.AdditionalMovements.Clear();
+
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
     }
 
@@ -210,6 +229,11 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public void OnStartTurn()
     {
+        foreach (Item item in Stats.HeldItems)
+        {
+            item.OnStartTurn();
+        }
+
         movementRemaining = Stats.Movement;
         manipulationRemaining = Stats.Manipulation;
         attackRemaining = Stats.Attack;
@@ -217,6 +241,29 @@ public class PlayerBase : MonoBehaviour
         SetAction(0);
 
         UpdateStats();
+        UpdateMovementOptions();
+    }
+
+    /// <summary>
+    /// Updates movement and attack options
+    /// </summary>
+    public void UpdateMovementOptions()
+    {
+        foreach (Vector2 movement in Stats.AdditionalMovements)
+        {
+            if (!Stats.PossibleMovements.Contains(movement))
+            {
+                Stats.PossibleMovements.Add(movement);
+            }
+        }
+
+        foreach (Vector2 attack in Stats.AdditionalAttacks)
+        {
+            if (!Stats.PossibleAttacks.Contains(attack))
+            {
+                Stats.PossibleAttacks.Add(attack);
+            }
+        }
     }
 
     /// <summary>
@@ -295,5 +342,7 @@ public class PlayerBase : MonoBehaviour
 
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().useGravity = true;
+
+        GetComponent<Rigidbody>().angularVelocity = Vector3.forward;
     }
 }

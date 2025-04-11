@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 9, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : Tile class. Basically, instead of instantiating and deleting everyting we have it all attatched
 //                     to the tile prefab. Stupid? Maybe, but allows for better control of what's active and inactive
@@ -14,6 +14,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private static List<string> attatchments = new();
+
     [SerializeField] private Material tileMaterial;
 
     [SerializeField] private GameObject tile;
@@ -37,6 +39,7 @@ public class Tile : MonoBehaviour
     public bool BuiltUpon { get => builtUpon; set => builtUpon = value; }
     public bool HasTile { get => hasTile; set => hasTile = value; }
     public int TileID { get => tileID; set => tileID = value; }
+    public static List<string> Attatchments { get => attatchments; set => attatchments = value; }
 
     /// <summary>
     /// Handles material setting and eventually level design
@@ -71,7 +74,15 @@ public class Tile : MonoBehaviour
             return false;
         }
 
-        return false;
+        if (builtUpon)
+        {
+            return false;
+        }
+
+        AddAttatchment(building);
+        builtUpon = true;
+
+        return true;
     }
 
     /// <summary>
@@ -84,6 +95,14 @@ public class Tile : MonoBehaviour
         {
             wall.SetActive(false);
             builtUpon = false;
+            CheckPathfinding();
+            return true;
+        }
+
+        if (builtUpon)
+        {
+            builtUpon = false;
+            Destroy(attatchmentHolder.transform.GetChild(0).gameObject);
             CheckPathfinding();
             return true;
         }
@@ -133,6 +152,11 @@ public class Tile : MonoBehaviour
                 builtUpon = true;
                 wall.SetActive(true);
                 break;
+            case ('V'):
+                hasTile = true;
+                builtUpon = true;
+                AddAttatchment("VectorPlate");
+                break;
             case ('L'):
                 enemyPrefab = enemyPrefabs[0];
                 hasTile = true;
@@ -175,5 +199,13 @@ public class Tile : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyPrefab);
         enemy.transform.position = EnemySpanwer.transform.position;
+    }
+
+    /// <summary>
+    /// Adds an attatchment to the tile
+    /// </summary>
+    private void AddAttatchment(string attatchment)
+    {
+        Instantiate(Resources.Load("TileAttatchments/" + attatchment), attatchmentHolder.transform);
     }
 }

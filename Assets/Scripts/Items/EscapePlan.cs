@@ -8,19 +8,35 @@
 //                     Grants +1 move for the first attack
 *****************************************************************************/
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EscapePlan : Item
 {
     private bool hasAttacked = false;
 
+    private readonly List<Vector2> newMovements = new()
+    {
+        Vector2.up * 2,
+        Vector2.down * 2,
+        Vector2.left * 2,
+        Vector2.right * 2,
+        Vector2.one * 2,
+        Vector2.one * -2,
+        new Vector2(-2, 2),
+        new Vector2(2, -2),
+    };
+
     /// <summary>
-    /// Sets 
+    /// Sets hasAttacked to false
     /// </summary>
-    public override void UpdateStats()
+    public override void OnStartTurn()
     {
         hasAttacked = false;
     }
+
+    
 
     /// <summary>
     /// On attack, give the player +1 movement and increased movement options
@@ -31,7 +47,13 @@ public class EscapePlan : Item
     {
         if (!hasAttacked)
         {
+            player.MovementRemaining++;
 
+            Stats.AdditionalMovements.AddRange(newMovements);
+            player.UpdateStats();
+            player.UpdateMovementOptions();
+
+            hasAttacked = true;
         }
     }
 

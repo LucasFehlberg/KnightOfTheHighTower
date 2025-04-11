@@ -7,6 +7,7 @@
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -144,7 +145,7 @@ public class PlayerTerrain : MonoBehaviour
                 }
 
                 //If there is no ground, DON'T ignore
-                if (!Physics.CheckBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, 
+                if (!Physics.CheckBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity,
                     groundLayers))
                 {
                     player.KillPlayerFunny();
@@ -165,7 +166,6 @@ public class PlayerTerrain : MonoBehaviour
                 ResetIndicators();
             }
         }
-
     }
 
     /// <summary>

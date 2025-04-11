@@ -51,6 +51,14 @@ public class Item
     }
 
     /// <summary>
+    /// When the turn is started
+    /// </summary>
+    public virtual void OnStartTurn()
+    {
+
+    }
+
+    /// <summary>
     /// Updates the stats on a new floor, such as changing movement, or increasing stats
     /// </summary>
     public virtual void UpdateStats()

@@ -155,9 +155,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 yValue = 0.75f;
             }
-
-            Vector3 newPos = Vector3.Lerp(originalPos, desiredPos, percentage);
-            transform.position = new(newPos.x, yValue, newPos.z);
+            if(desiredPos != originalPos)
+            {
+                Vector3 newPos = Vector3.Lerp(originalPos, desiredPos, percentage);
+                transform.position = new(newPos.x, yValue, newPos.z);
+            }
 
             if(percentage == 1f && !tileTrigger)
             {

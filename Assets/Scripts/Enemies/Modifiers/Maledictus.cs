@@ -2,7 +2,7 @@
 // File Name : Maledictus.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 8, 2025
+// Last Updated : April 10, 2025
 //
 // Brief Description : When this enemy is killed, all other enemies take 1 damage
 *****************************************************************************/
@@ -27,7 +27,7 @@ public class Maledictus : Modifier
     {
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if(enemy == this.enemy)
+            if(enemy == this.enemy.gameObject)
             {
                 return;
             }
