@@ -2,13 +2,12 @@
 // File Name : ModifierHandler.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 1, 2025
-// Last Updated : April 1, 2025
+// Last Updated : April 13, 2025
 //
 // Brief Description : Handles Modifiers
 *****************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ModifierHandler : MonoBehaviour
@@ -18,7 +17,7 @@ public class ModifierHandler : MonoBehaviour
         DOUBLE_STEP = 1
     }
 
-    [SerializeField] private List<Modifiers> modifiers = new List<Modifiers>();
+    [SerializeField] private List<Modifiers> modifiers = new();
     [SerializeField] private EnemyBase enemy;
     
     /// <summary>

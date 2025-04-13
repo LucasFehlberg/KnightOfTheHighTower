@@ -34,6 +34,7 @@ public class PlayerBase : MonoBehaviour
     public int NextTurnManipulateModifier { get => nextTurnManipulateModifier; set => nextTurnManipulateModifier = value; }
     public int NextTurnAttackModifier { get => nextTurnAttackModifier; set => nextTurnAttackModifier = value; }
     public int HealthRemaining { get => healthRemaining; set => healthRemaining = value; }
+    public AttatchmentBase CurrentTile { get => currentTile; set => currentTile = value; }
 
     [SerializeField] private TMP_Text movementText;
     [SerializeField] private TMP_Text attackText;
@@ -42,6 +43,8 @@ public class PlayerBase : MonoBehaviour
 
     private InputAction restart;
     private InputAction quit;
+
+    private AttatchmentBase currentTile;
 
     /// <summary>
     /// Sets up action map
@@ -188,7 +191,12 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
-        foreach(Item item in Stats.HeldItems)
+        if(currentTile != null)
+        {
+            currentTile.OnEndTurnActive(gameObject);
+        }
+
+        foreach (Item item in Stats.HeldItems)
         {
             item.OnEndTurn();
         }

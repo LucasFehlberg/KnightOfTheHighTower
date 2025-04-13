@@ -2,7 +2,7 @@
 // File Name : ItemButton.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 4, 2025
-// Last Updated : April 10, 2025
+// Last Updated : April 11, 2025
 //
 // Brief Description : Assigns a button an item/tile, closing out the UI
 *****************************************************************************/
@@ -35,13 +35,11 @@ public class ItemButton : MonoBehaviour
         if (isTile)
         {
             Stats.CurrentlyHeldTile = tile;
-            print(Stats.CurrentlyHeldTile);
             return;
         }
 
         if (isInventory)
         {
-            print(Stats.CurrentlyHeldTile);
             if(Stats.CurrentlyHeldTile == null)
             {
                 return;

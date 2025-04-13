@@ -40,6 +40,8 @@ public class EnemyBase : MonoBehaviour
 
     private bool dying = false;
 
+    private AttatchmentBase currentTile;
+
     public int HealthRemaining { get => healthRemaining; set => healthRemaining = value; }
     public int MovementRemaining { get => movementRemaining; set => movementRemaining = value; }
     public int AttackRemaining { get => attackRemaining; set => attackRemaining = value; }
@@ -55,6 +57,7 @@ public class EnemyBase : MonoBehaviour
             possibleInfiniteAttacks; set => possibleInfiniteAttacks = value; }
     public Node Target { get => target; set => target = value; }
     public bool Dying { get => dying; set => dying = value; }
+    public AttatchmentBase CurrentTile { get => currentTile; set => currentTile = value; }
 
     /// <summary>
     /// When the enemy comes into existance, do some initialization
@@ -149,6 +152,11 @@ public class EnemyBase : MonoBehaviour
         yield return null;
 
         CheckForAttack();
+
+        if (currentTile != null)
+        {
+            currentTile.OnEndTurnActive(gameObject);
+        }
 
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
     }
@@ -264,6 +272,9 @@ public class EnemyBase : MonoBehaviour
         GetComponent<Rigidbody>().angularVelocity = Vector3.forward;
 
         StartCoroutine(nameof(Death));
+        StopCoroutine(nameof(EnemyTurn));
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+
     }
 
     private IEnumerator Death()

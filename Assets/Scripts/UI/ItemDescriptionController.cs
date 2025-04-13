@@ -36,6 +36,13 @@ public class ItemDescriptionController : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, 
             canvas.worldCamera, out Vector2 newTransform);
         rectTransform.anchoredPosition = newTransform;
+        if(rectTransform.anchoredPosition.x > 350)
+        {
+            box.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190, -10);
+        } else
+        {
+            box.GetComponent<RectTransform>().anchoredPosition = new Vector3(10, -10);
+        }
     }
 
     /// <summary>

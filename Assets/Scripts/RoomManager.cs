@@ -25,6 +25,8 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private string reward;
 
+    private List<List<char>> exploredRooms = new();
+
     public static int Floor { get => floor; set => floor = value; }
     public List<char> FloorLayout { get => floorLayout; set => floorLayout = value; }
     public Dictionary<int, List<List<char>>> PossibleFloors { get => possibleFloors; set => possibleFloors = value; }
@@ -177,6 +179,40 @@ public class RoomManager : MonoBehaviour
 
         possibleFloors.Add(2, floors);
 
+        //Floor 3. Adds bishops
+
+        floors = new();
+
+        floor = new()
+        {
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', '.', 'b', 'b', '.', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', 'X', '.', '.', 'X', '.', ' ',
+            ' ', '.', 'X', '.', '.', 'X', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' '
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', 'b', '.', '.', '.', '.', 'b', '.',
+            '.', '.', ' ', '.', '.', ' ', '.', '.',
+            '.', ' ', '.', '.', '.', '.', ' ', '.',
+            '.', ' ', '.', '.', '.', '.', ' ', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', ' ', '.', '.', '.', '.', ' ', '.'
+        };
+
+        floors.Add(floor);
+
+        possibleFloors.Add(3, floors);
+
         //Rewards
         rewardTypes.Add("Starter");
         //rewardTypes.Add("Shop");
@@ -195,6 +231,8 @@ public class RoomManager : MonoBehaviour
             FloorLayout = possibleFloors[0][0];
             reward = rewardTypes[0];
         }
+
+        exploredRooms.Add(FloorLayout);
 
         foreach (GameObject tile in GameObject.FindGameObjectsWithTag("Tile"))
         {
@@ -222,7 +260,15 @@ public class RoomManager : MonoBehaviour
                 continue;
             }
 
-            possibilities.AddRange(possibleFloors[floor - i]);
+            foreach (List<char> room in possibleFloors[floor - i]) 
+            {
+                if (exploredRooms.Contains(room))
+                {
+                    continue;
+                }
+
+                possibilities.Add(room);
+            }
         }
 
         return possibilities[Random.Range(0, possibilities.Count)];

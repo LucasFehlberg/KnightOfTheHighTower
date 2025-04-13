@@ -2,7 +2,7 @@
 // File Name : VectorPlate.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 8, 2025
-// Last Updated : April 10, 2025
+// Last Updated : April 11, 2025
 //
 // Brief Description : Vector Plate script
 *****************************************************************************/
@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VectorPlate : MonoBehaviour
+public class VectorPlate : AttatchmentBase
 {
     [SerializeField] private LayerMask obstacleLayers;
 
@@ -52,7 +52,7 @@ public class VectorPlate : MonoBehaviour
             yield break;
         }
 
-        if (entity.TryGetComponent<PlayerMovement>(out PlayerMovement player))
+        if (entity.TryGetComponent(out PlayerMovement player))
         {
             if (player.TriggeredTiles.Contains(gameObject))
             {
@@ -75,7 +75,7 @@ public class VectorPlate : MonoBehaviour
             player.TileTrigger = false;
         }
 
-        if (entity.TryGetComponent<EnemyMovement>(out EnemyMovement enemy))
+        if (entity.TryGetComponent(out EnemyMovement enemy))
         {
             if (enemy.TriggeredTiles.Contains(gameObject))
             {
@@ -104,7 +104,7 @@ public class VectorPlate : MonoBehaviour
     /// When the plate is entered, move the entity if possible
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    public override void OnLandedOn(Collider other)
     {
         StartCoroutine(nameof(MoveEntity), other.gameObject);
     }
