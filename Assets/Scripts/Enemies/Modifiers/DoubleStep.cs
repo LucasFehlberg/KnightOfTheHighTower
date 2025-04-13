@@ -2,23 +2,19 @@
 // File Name : DoubleStep.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : March 30, 2025
+// Last Updated : March 13, 2025
 //
 // Brief Description : Allows any piece with this modifier to do a double-step on their first move
 *****************************************************************************/
 
 public class DoubleStep : Modifier
 {
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public DoubleStep() { }
-
     private bool firstTurn = true;
 
     public override void SetDefaults()
     {
         modifierName = "DoubleStep";
+        modifierDescription = "Allows the enemy to move twice on the first turn";
         modifierDifficulty = 0;
     }
 

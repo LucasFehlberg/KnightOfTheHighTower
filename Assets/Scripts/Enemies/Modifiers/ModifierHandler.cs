@@ -12,12 +12,7 @@ using UnityEngine;
 
 public class ModifierHandler : MonoBehaviour
 {
-    public enum Modifiers
-    {
-        DOUBLE_STEP = 1
-    }
-
-    [SerializeField] private List<Modifiers> modifiers = new();
+    [SerializeField] private List<string> modifiers = new();
     [SerializeField] private EnemyBase enemy;
     
     /// <summary>
@@ -25,13 +20,11 @@ public class ModifierHandler : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        foreach (Modifiers modifier in modifiers)
+        foreach (Modifier modifier in Modifier.AllModifiers)
         {
-            switch (modifier)
+            if (modifiers.Contains(modifier.ModifierName))
             {
-                case Modifiers.DOUBLE_STEP:
-                    enemy.Modifiers.Add(new DoubleStep());
-                    break;
+                enemy.Modifiers.Add(modifier.Clone());
             }
         }
 

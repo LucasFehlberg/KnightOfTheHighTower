@@ -87,7 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0815de78b5219e4eb5ca079549bdce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers: 01000000
+  modifiers:
+  - DoubleStep
   enemy: {fileID: 7349361253746977127}
 --- !u!114 &6822737037432012310
 MonoBehaviour:

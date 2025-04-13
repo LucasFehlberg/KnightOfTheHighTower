@@ -2,7 +2,7 @@
 // File Name : Modifier.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 2, 2025
+// Last Updated : April 13, 2025
 //
 // Brief Description : Base class for all enemy modifiers
 *****************************************************************************/
@@ -10,7 +10,6 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnityEngine;
 
 public class Modifier
 {
@@ -23,15 +22,23 @@ public class Modifier
     /// </summary>
     protected string modifierName;
 
+    protected string modifierDescription;
+
     private static Dictionary<int, List<Modifier>> modifiersByDifficulty = new();
 
     protected EnemyBase enemy;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public Modifier()
     {
         SetDefaults();
     }
 
+    /// <summary>
+    /// Sets name and description and stuff
+    /// </summary>
     public virtual void SetDefaults()
     {
 
@@ -41,6 +48,7 @@ public class Modifier
     public static List<Modifier> AllModifiers { get => allModifiers; set => allModifiers = value; }
     public int ModifierDifficulty { get => modifierDifficulty; set => modifierDifficulty = value; }
     public string ModifierName { get => modifierName; set => modifierName = value; }
+    public string ModifierDescription { get => modifierDescription; set => modifierDescription = value; }
 
     /// <summary>
     /// When the enemy starts their turn
