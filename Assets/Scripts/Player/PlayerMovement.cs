@@ -143,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (percentage < 1f)
         {
+            player.CanDoAction = false;
             percentage += 0.05f;
             if(percentage > 1f)
             {
@@ -163,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(percentage == 1f && !tileTrigger)
             {
+                player.CanDoAction = true;
                 if (player.MovementRemaining > 0)
                 {
                     ResetIndicators();

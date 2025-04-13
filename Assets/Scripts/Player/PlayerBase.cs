@@ -27,6 +27,8 @@ public class PlayerBase : MonoBehaviour
     private int nextTurnManipulateModifier = 0;
     private int nextTurnAttackModifier = 0;
 
+    private bool canDoAction = true;
+
     public int MovementRemaining { get => movementRemaining; set => movementRemaining = value; }
     public int ManipulationRemaining { get => manipulationRemaining; set => manipulationRemaining = value; }
     public int AttackRemaining { get => attackRemaining; set => attackRemaining = value; }
@@ -35,6 +37,7 @@ public class PlayerBase : MonoBehaviour
     public int NextTurnAttackModifier { get => nextTurnAttackModifier; set => nextTurnAttackModifier = value; }
     public int HealthRemaining { get => healthRemaining; set => healthRemaining = value; }
     public AttatchmentBase CurrentTile { get => currentTile; set => currentTile = value; }
+    public bool CanDoAction { get => canDoAction; set => canDoAction = value; }
 
     [SerializeField] private TMP_Text movementText;
     [SerializeField] private TMP_Text attackText;
@@ -160,6 +163,27 @@ public class PlayerBase : MonoBehaviour
     /// <param name="action">Type of action</param>
     public void SetAction(int action) //Because apparently Unity events don't LIKE ENUMS
     {
+        StartCoroutine(nameof(BufferAction), action);
+    }
+
+    /// <summary>
+    /// Buffers to prevent bugs, but still feel smooth
+    /// </summary>
+    /// <param name="action">ActionID</param>
+    /// <returns></returns>
+    private IEnumerator BufferAction(int action)
+    {
+        while (!canDoAction)
+        {
+            yield return null;
+        }
+
+        if(action == -1) //-1 is end turn
+        {
+            EndTurn();
+            yield break;
+        }
+
         //Kill all indicators first
         GetComponent<PlayerMovement>().KillIndicators();
         GetComponent<PlayerAttack>().KillIndicators();
@@ -189,8 +213,13 @@ public class PlayerBase : MonoBehaviour
     /// <summary>
     /// Ends the turn
     /// </summary>
-    public void EndTurn()
+    private void EndTurn()
     {
+        if (!canDoAction)
+        {
+            return;
+        }
+
         if(currentTile != null)
         {
             currentTile.OnEndTurnActive(gameObject);
