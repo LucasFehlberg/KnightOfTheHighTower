@@ -42,6 +42,9 @@ public class EnemyBase : MonoBehaviour
 
     private AttatchmentBase currentTile;
 
+    private List<Vector2> additionalAttackOptions = new();
+    private List<Vector2> additionalMovementOptions = new();
+
     public int HealthRemaining { get => healthRemaining; set => healthRemaining = value; }
     public int MovementRemaining { get => movementRemaining; set => movementRemaining = value; }
     public int AttackRemaining { get => attackRemaining; set => attackRemaining = value; }
@@ -58,6 +61,10 @@ public class EnemyBase : MonoBehaviour
     public Node Target { get => target; set => target = value; }
     public bool Dying { get => dying; set => dying = value; }
     public AttatchmentBase CurrentTile { get => currentTile; set => currentTile = value; }
+    public List<Vector2> AdditionalAttackOptions 
+    { get => additionalAttackOptions; set => additionalAttackOptions = value; }
+    public List<Vector2> AdditionalMovementOptions 
+    { get => additionalMovementOptions; set => additionalMovementOptions = value; }
 
     /// <summary>
     /// When the enemy comes into existance, do some initialization
@@ -69,6 +76,28 @@ public class EnemyBase : MonoBehaviour
         foreach(Modifier modifiers in modifiers)
         {
             modifiers.Enemy = this;
+        }
+    }
+
+    /// <summary>
+    /// Updates movement and attack options
+    /// </summary>
+    public void UpdateMovementOptions()
+    {
+        foreach (Vector2 movement in additionalMovementOptions)
+        {
+            if (!PossibleNormalMovements.Contains(movement))
+            {
+                possibleNormalMovements.Add(movement);
+            }
+        }
+
+        foreach (Vector2 attack in additionalAttackOptions)
+        {
+            if (!PossibleNormalAttacks.Contains(attack))
+            {
+                possibleNormalAttacks.Add(attack);
+            }
         }
     }
 
@@ -158,7 +187,31 @@ public class EnemyBase : MonoBehaviour
             currentTile.OnEndTurnActive(gameObject);
         }
 
+        ClearAdditionals();
+
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+    }
+
+    private void ClearAdditionals()
+    {
+        foreach (Vector2 movement in additionalMovementOptions)
+        {
+            if (possibleNormalMovements.Contains(movement))
+            {
+                possibleNormalMovements.Remove(movement);
+            }
+        }
+
+        foreach (Vector2 attack in additionalAttackOptions)
+        {
+            if (possibleNormalAttacks.Contains(attack))
+            {
+                possibleNormalAttacks.Remove(attack);
+            }
+        }
+
+        additionalMovementOptions.Clear();
+        additionalAttackOptions.Clear();
     }
 
     /// <summary>
