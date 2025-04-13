@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0815de78b5219e4eb5ca079549bdce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers: 
+  modifiers: []
   enemy: {fileID: 7349361253746977127}
 --- !u!114 &6822737037432012310
 MonoBehaviour:
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0815de78b5219e4eb5ca079549bdce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers: 
+  modifiers: []
   enemy: {fileID: 0}
 --- !u!54 &4693941176837864864
 Rigidbody:
@@ -193,13 +193,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7491036309809195915}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6376749991818261610}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8853363478391848876
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7491036309809195915}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2432090755550338912, guid: fa373239f8c04bc4bb472391c3e5d5ef, type: 3}
 --- !u!23 &8116887404104717766
 MeshRenderer:
   m_ObjectHideFlags: 0
