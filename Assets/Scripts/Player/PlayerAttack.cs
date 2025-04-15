@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
 
     [SerializeField] private GameObject indicator;
+    [SerializeField] private Material indicatorActiveMaterial;
+    [SerializeField] private Material indicatorInactiveMaterial;
 
     private InputAction click;
 
@@ -143,14 +145,18 @@ public class PlayerAttack : MonoBehaviour
         {
             Vector3 testPos = transform.position + new Vector3(movement.x, 0, movement.y);
 
-            //If there is no enemy, ignore
-            if (!Physics.CheckBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers))
-            {
-                continue;
-            }
-            
             GameObject newIndicator = Instantiate(indicator);
             newIndicator.transform.position = testPos;
+
+            //If there is no enemy, set up a different material
+            if (!Physics.CheckBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers))
+            {
+                newIndicator.transform.GetChild(0)
+                    .GetComponent<MeshRenderer>().material = indicatorInactiveMaterial;
+                continue;
+            }
+
+            newIndicator.transform.GetChild(0).GetComponent<MeshRenderer>().material = indicatorActiveMaterial;
         }
     }
 

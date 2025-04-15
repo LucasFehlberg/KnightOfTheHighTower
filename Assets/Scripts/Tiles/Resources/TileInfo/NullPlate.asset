@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd903724be7557241aadbdfc5219746b, type: 3}
+  m_Name: NullPlate
+  m_EditorClassIdentifier: 
+  attatchmentDescription: Entities that land on this plate lose all movement, attack
+    and terrain capabilities for the rest of the turn
+  attatchmentValue: 48
+  attatchmentName: NullPlate
+  attatchmentSprite: {fileID: 21300000, guid: add7ecc50be804a4c9e10dca47bc9ab5, type: 3}

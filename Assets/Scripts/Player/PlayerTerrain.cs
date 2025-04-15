@@ -2,7 +2,7 @@
 // File Name : PlayerTerrain.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 10, 2025
+// Last Updated : April 13, 2025
 //
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
@@ -24,6 +24,7 @@ public class PlayerTerrain : MonoBehaviour
     [SerializeField] private LayerMask groundLayers;
 
     [SerializeField] private GameObject indicator;
+    [SerializeField] private Material indicatorMaterial;
 
     private InputAction click;
 
@@ -234,6 +235,7 @@ public class PlayerTerrain : MonoBehaviour
                 }
 
                 GameObject newUI = Instantiate(indicator);
+                newUI.transform.GetChild(0).GetComponent<MeshRenderer>().material = indicatorMaterial;
                 newUI.transform.position = tile.transform.position + (Vector3.up * 0.75f);
             }
 
@@ -246,6 +248,7 @@ public class PlayerTerrain : MonoBehaviour
                 }
 
                 GameObject newUI = Instantiate(indicator);
+                newUI.transform.GetChild(0).GetComponent<MeshRenderer>().material = indicatorMaterial;
                 newUI.transform.position = tile.transform.position + (Vector3.up * 0.75f);
 
                 if (Physics.CheckBox(tile.transform.position + Vector3.up, Vector3.one * 0.45f, Quaternion.identity,

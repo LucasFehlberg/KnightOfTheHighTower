@@ -2,7 +2,7 @@
 // File Name : RoomManager.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 3, 2025
-// Last Updated : April 4, 2025
+// Last Updated : April 13, 2025
 //
 // Brief Description : Handles rooms
 *****************************************************************************/
@@ -58,7 +58,10 @@ public class RoomManager : MonoBehaviour
         // Tiles
         // . - Normal Tile
         //   - Empty Tile
-        // X - Walled tile
+        // X - Walled Tile
+        // V - Vector Plate
+        // H - Hot Plate
+        // S - Sentry Tower
 
         // Enemies
         // E - Generic Enemy Tile
@@ -212,6 +215,54 @@ public class RoomManager : MonoBehaviour
         floors.Add(floor);
 
         possibleFloors.Add(3, floors);
+
+        //Floor 4. Mix all previous enemies
+
+        floors = new();
+
+        floor = new()
+        {
+            ' ', 'b', 'n', '.', '.', 'n', 'b', ' ',
+            '.', 'p', 'p', '.', '.', 'p', 'p', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', 'X', 'X', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            ' ', '.', '.', '.', '.', '.', '.', ' '
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            '.', 'n', '.', 'p', 'p', '.', 'n', '.',
+            '.', '.', 'b', '.', '.', 'b', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            ' ', ' ', '.', '.', '.', '.', ' ', ' ',
+            'X', 'X', '.', '.', '.', '.', 'X', 'X',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', 'p', '.', '.', '.', '.', 'p', '.'
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            'b', '.', '.', '.', '.', '.', '.', 'b',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            '.', 'p', 'p', ' ', ' ', 'p', 'p', '.',
+            '.', '.', '.', ' ', ' ', '.', '.', '.',
+            'n', '.', '.', '.', '.', '.', '.', 'n',
+            '.', 'X', '.', '.', '.', '.', 'X', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.'
+        };
+
+        floors.Add(floor);
+
+        possibleFloors.Add(4, floors);
 
         //Rewards
         rewardTypes.Add("Starter");

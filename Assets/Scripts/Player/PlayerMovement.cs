@@ -2,7 +2,7 @@
 // File Name : PlayerMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 9, 2025
+// Last Updated : April 13, 2025
 //
 // Brief Description : Moves the player around based on num movements left
 *****************************************************************************/
@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayers;
 
     [SerializeField] private GameObject indicator;
+    [SerializeField] private Material indicatorMaterial;
 
     private InputAction click;
 
@@ -210,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
             }
             
             GameObject newIndicator = Instantiate(indicator);
+            newIndicator.transform.GetChild(0).GetComponent<MeshRenderer>().material = indicatorMaterial;
             newIndicator.transform.position = testPos;
         }
     }

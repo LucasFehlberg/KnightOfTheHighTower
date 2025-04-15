@@ -141,6 +141,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   indicator: {fileID: 5638618798102373769, guid: 5907c4fcc878e9a4a9812061dd51071e, type: 3}
+  indicatorMaterial: {fileID: 2100000, guid: 8e5ae08aad16e6248a27197ab640901a, type: 2}
 --- !u!114 &1653875033523730355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +226,9 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  indicator: {fileID: 5638618798102373769, guid: dd21183616a499f4c84b88b60f2f9570, type: 3}
+  indicator: {fileID: 5638618798102373769, guid: 5907c4fcc878e9a4a9812061dd51071e, type: 3}
+  indicatorActiveMaterial: {fileID: 2100000, guid: 5a838f331cbe6f947803e6b4c7b27b8e, type: 2}
+  indicatorInactiveMaterial: {fileID: 2100000, guid: 0d31ab355c4ef4346a6ca609221baa62, type: 2}
 --- !u!114 &1889972375515230832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +256,8 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 8
-  indicator: {fileID: 5638618798102373769, guid: b870fb129fb56ee40a6b371714ee701d, type: 3}
+  indicator: {fileID: 5638618798102373769, guid: 5907c4fcc878e9a4a9812061dd51071e, type: 3}
+  indicatorMaterial: {fileID: 2100000, guid: 706c86bb6496cf54aa60737c52fd221f, type: 2}
   UI: {fileID: 0}
   slots:
   - {fileID: 0}
