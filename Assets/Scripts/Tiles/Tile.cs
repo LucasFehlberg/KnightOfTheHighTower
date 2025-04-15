@@ -184,6 +184,18 @@ public class Tile : MonoBehaviour
                 builtUpon = false;
                 SpawnEnemy();
                 break;
+            case ('K'):
+                enemyPrefab = enemyPrefabs[5];
+                hasTile = true;
+                builtUpon = false;
+                SpawnEnemy();
+                break;
+            case ('Q'):
+                enemyPrefab = enemyPrefabs[6];
+                hasTile = true;
+                builtUpon = false;
+                SpawnEnemy();
+                break;
         }
 
         CheckPathfinding();
