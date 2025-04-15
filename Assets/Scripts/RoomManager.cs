@@ -2,7 +2,7 @@
 // File Name : RoomManager.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 3, 2025
-// Last Updated : April 13, 2025
+// Last Updated : April 15, 2025
 //
 // Brief Description : Handles rooms
 *****************************************************************************/
@@ -17,10 +17,8 @@ public class RoomManager : MonoBehaviour
     private static int floor = 0;
     private List<char> floorLayout;
     private Dictionary<int, List<List<char>>> possibleFloors = new();
+    private Dictionary<string, List<char>> specialFloors = new();
 
-    private Dictionary<string, List<char>> bossRooms = new();
-
-    [SerializeField] private List<string> roomTypes = new();
     [SerializeField] private List<string> rewardTypes = new();
 
     [SerializeField] private string reward;
@@ -29,8 +27,8 @@ public class RoomManager : MonoBehaviour
 
     public static int Floor { get => floor; set => floor = value; }
     public List<char> FloorLayout { get => floorLayout; set => floorLayout = value; }
-    public Dictionary<int, List<List<char>>> PossibleFloors { get => possibleFloors; set => possibleFloors = value; }
     public string Reward { get => reward; set => reward = value; }
+    public List<List<char>> ExploredRooms { get => exploredRooms; set => exploredRooms = value; }
 
     /// <summary>
     /// Set up the singleton
@@ -62,6 +60,7 @@ public class RoomManager : MonoBehaviour
         // V - Vector Plate
         // H - Hot Plate
         // S - Sentry Tower
+        // 0 - Null Plate
 
         // Enemies
         // E - Generic Enemy Tile
@@ -97,7 +96,7 @@ public class RoomManager : MonoBehaviour
         possibleFloors.Add(0, new List<List<char>> { floor });
 
         //Floors are semi-random per level. Game gets harder ideally with more complex pieces being added. Floor 1 adds
-        //Panws and Knights
+        //Pawns and Knights
 
         List<List<char>> floors = new();
 
@@ -264,12 +263,124 @@ public class RoomManager : MonoBehaviour
 
         possibleFloors.Add(4, floors);
 
+        //Floor 5, add rooks
+
+        floors = new();
+
+        floor = new()
+        {
+            'r', 'X', '.', '.', '.', '.', 'X', 'r',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', 'X', '.', '.', 'X', '.', '.',
+            '.', '.', 'X', '.', '.', 'X', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            'X', '.', '.', '.', '.', '.', '.', 'X'
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            '.', 'r', '.', '.', '.', '.', 'r', '.',
+            '.', 'X', '.', '.', '.', '.', 'X', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', 'X', 'X', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', 'X', '.', '.', '.', '.', 'X', '.'
+        };
+
+        floors.Add(floor);
+
+        possibleFloors.Add(5, floors);
+
+        //Floor 6, put it all together
+
+        floors = new();
+
+        floor = new()
+        {
+            '.', '.', '.', 'r', 'b', 'b', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', 'X', 'p', 'p', 'X', '.', '.',
+            'X', '.', 'p', '.', '.', 'p', '.', 'X',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            ' ', '.', '.', '.', '.', '.', '.', ' ',
+            ' ', '.', '.', '.', '.', '.', '.', ' '
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            '.', '.', 'b', 'X', 'X', 'r', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', 'n', '.', '.', 'n', '.', '.',
+            '.', 'X', 'X', '.', '.', 'X', 'X', '.',
+            '.', 'p', '.', '.', '.', '.', 'p', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.'
+        };
+
+        floors.Add(floor);
+
+        floor = new()
+        {
+            '.', 'r', '.', 'X', 'X', '.', 'r', '.',
+            'X', 'n', '.', '.', '.', '.', 'n', 'X',
+            'X', 'n', '.', '.', '.', '.', 'n', 'X',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            'X', '.', '.', '.', '.', '.', '.', 'X',
+            'X', '.', '.', '.', '.', '.', '.', 'X',
+            '.', '.', 'X', '.', '.', 'X', '.', '.'
+        };
+
+        floors.Add(floor);
+
+        possibleFloors.Add(6, floors);
+
         //Rewards
         rewardTypes.Add("Starter");
         //rewardTypes.Add("Shop");
         rewardTypes.Add("Normal Selection");
         rewardTypes.Add("Terrain Selection");
-        
+
+
+        //Special Floors
+        //King's Court
+        floor = new()
+        {
+            'r', 'n', 'b', ' ', ' ', 'b', 'n', 'r',
+            'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.'
+        };
+
+        specialFloors.Add("KingsCourt", floor);
+
+        floor = new()
+        {
+            '.', '.', '.', 'K', 'Q', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.',
+            '.', '.', '.', '.', '.', '.', '.', '.'
+        };
+
+        specialFloors.Add("ThroneRoom", floor);
     }
 
     /// <summary>
@@ -281,6 +392,12 @@ public class RoomManager : MonoBehaviour
         {
             FloorLayout = possibleFloors[0][0];
             reward = rewardTypes[0];
+        }
+
+        if (Floor == 9)
+        {
+            FloorLayout = specialFloors["ThroneRoom"];
+            reward = "Win";
         }
 
         exploredRooms.Add(FloorLayout);
@@ -296,6 +413,16 @@ public class RoomManager : MonoBehaviour
     public List<char> SelectFloor(out string reward)
     {
         reward = rewardTypes[Random.Range(1, rewardTypes.Count)];
+
+        if(floor == 8)
+        {
+            return specialFloors["KingsCourt"];
+        }
+
+        if (floor == 9)
+        {
+            return specialFloors["ThroneRoom"];
+        }
 
         List<List<char>> possibilities = new();
 

@@ -2,7 +2,7 @@
 // File Name : Stats.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 8, 2025
+// Last Updated : April 15, 2025
 //
 // Brief Description : Statistic data
 *****************************************************************************/
@@ -119,5 +119,6 @@ public static class Stats
         };
 
         heldItems.Clear();
+        RoomManager.Instance.ExploredRooms.Clear();
     }
 }

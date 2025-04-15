@@ -10,6 +10,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -144,6 +145,16 @@ public class PlayerAttack : MonoBehaviour
         foreach (Vector2 movement in Stats.PossibleAttacks)
         {
             Vector3 testPos = transform.position + new Vector3(movement.x, 0, movement.y);
+
+            if(testPos.x < -3.5f || testPos.x > 3.5f)
+            {
+                continue;
+            }
+
+            if(testPos.z < 0 || testPos.z > 7.5f)
+            {
+                continue;
+            }
 
             GameObject newIndicator = Instantiate(indicator);
             newIndicator.transform.position = testPos;
