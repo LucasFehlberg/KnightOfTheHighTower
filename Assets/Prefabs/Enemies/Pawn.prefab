@@ -75,6 +75,7 @@ MonoBehaviour:
   - {x: -1, y: -1}
   - {x: 1, y: -1}
   possibleInfiniteAttacks: []
+  info: {fileID: 11400000, guid: faa2ad8e92792c4498093661edeff84d, type: 2}
 --- !u!114 &4098653735594331215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifiers:
-  - DoubleStep
+  - Double Step
   enemy: {fileID: 7349361253746977127}
 --- !u!114 &6822737037432012310
 MonoBehaviour:

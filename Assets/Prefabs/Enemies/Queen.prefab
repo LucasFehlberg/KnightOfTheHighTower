@@ -58,9 +58,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 8
-  health: 5
-  movement: 2
-  attack: 1
+  health: 7
+  movement: 1
+  attack: 2
   canJumpHoles: 0
   canJumpWalls: 0
   possibleNormalMovements: []
@@ -72,7 +72,7 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: -1, y: -1}
   - {x: 0, y: -1}
-  - {x: -1, y: -1}
+  - {x: 1, y: -1}
   possibleNormalAttacks:
   - {x: 1, y: 0}
   - {x: 1, y: 1}
@@ -81,8 +81,9 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: -1, y: -1}
   - {x: 0, y: -1}
-  - {x: -1, y: -1}
+  - {x: 1, y: -1}
   possibleInfiniteAttacks: []
+  info: {fileID: 11400000, guid: c9c06dffefc3b654c8f0ebff55008eb2, type: 2}
 --- !u!136 &8315122675504643934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7288101171544775593}
-  m_Mesh: {fileID: -2432090755550338912, guid: ae7193bfd4cc02944bdf860e4d8725fd, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: 1faabc50bb94dfe4a81ed67c89daff65, type: 3}
 --- !u!23 &6487897980327499028
 MeshRenderer:
   m_ObjectHideFlags: 0

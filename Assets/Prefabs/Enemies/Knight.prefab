@@ -144,8 +144,8 @@ MonoBehaviour:
   health: 1
   movement: 2
   attack: 1
-  canJumpHoles: 0
-  canJumpWalls: 0
+  canJumpHoles: 1
+  canJumpWalls: 1
   possibleNormalMovements:
   - {x: 1, y: 2}
   - {x: 1, y: -2}
@@ -166,6 +166,7 @@ MonoBehaviour:
   - {x: 2, y: -1}
   - {x: -2, y: -1}
   possibleInfiniteAttacks: []
+  info: {fileID: 11400000, guid: d90fb957f30a2164688c553c0301a651, type: 2}
 --- !u!136 &8315122675504643934
 CapsuleCollider:
   m_ObjectHideFlags: 0

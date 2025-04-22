@@ -2,7 +2,7 @@
 // File Name : Modifier.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 13, 2025
+// Last Updated : April 17, 2025
 //
 // Brief Description : Base class for all enemy modifiers
 *****************************************************************************/
@@ -66,6 +66,14 @@ public class Modifier
 
     }
 
+    /// <summary>
+    /// Runs when it is the player's turn
+    /// </summary>
+    public virtual void OnPlayerStartTurn(PlayerBase player)
+    {
+
+    }
+
 
     /// <summary>
     /// Runs when the turn is over
@@ -76,7 +84,7 @@ public class Modifier
     }
 
     /// <summary>
-    /// 
+    /// Runs when the enemy dies
     /// </summary>
 
     public virtual void OnKill()

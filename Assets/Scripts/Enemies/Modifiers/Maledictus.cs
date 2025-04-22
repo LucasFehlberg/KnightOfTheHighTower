@@ -30,7 +30,7 @@ public class Maledictus : Modifier
         {
             if(enemy == this.enemy.gameObject)
             {
-                return;
+                continue;
             }
             enemy.GetComponent<EnemyBase>().TakeDamage(1);
         }

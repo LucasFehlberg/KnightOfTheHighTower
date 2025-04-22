@@ -2,7 +2,7 @@
 // File Name : DoubleStep.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : March 13, 2025
+// Last Updated : March 17 2025
 //
 // Brief Description : Allows any piece with this modifier to do a double-step on their first move
 *****************************************************************************/
@@ -13,7 +13,7 @@ public class DoubleStep : Modifier
 
     public override void SetDefaults()
     {
-        modifierName = "DoubleStep";
+        modifierName = "Double Step";
         modifierDescription = "Allows the enemy to move twice on the first turn";
         modifierDifficulty = 0;
     }

@@ -75,6 +75,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: -1, y: 0}
   - {x: 0, y: -1}
+  info: {fileID: 11400000, guid: 1103a6cdc20778246be27f250191927b, type: 2}
 --- !u!136 &8315122675504643934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -158,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0815de78b5219e4eb5ca079549bdce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers: 
+  modifiers: []
   enemy: {fileID: 7349361253746977127}
 --- !u!1 &5516404086241646730
 GameObject:

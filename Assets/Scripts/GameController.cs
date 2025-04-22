@@ -2,7 +2,7 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 6, 2025
+// Last Updated : April 21, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
@@ -215,6 +215,9 @@ public class GameController : MonoBehaviour
                     index++;
                 }
 
+                break;
+            case "Win":
+                SceneManager.LoadScene(2); //Send them to the credits screen after beating the king and queen
                 break;
         }
     }

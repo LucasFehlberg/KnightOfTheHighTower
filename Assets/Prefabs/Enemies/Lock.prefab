@@ -68,6 +68,7 @@ MonoBehaviour:
   possibleInfiniteMovements: []
   possibleNormalAttacks: []
   possibleInfiniteAttacks: []
+  info: {fileID: 11400000, guid: b11aba3e2dc3c98458876cc1296e4be4, type: 2}
 --- !u!114 &4098653735594331215
 MonoBehaviour:
   m_ObjectHideFlags: 0

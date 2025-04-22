@@ -2,7 +2,7 @@
 // File Name : TitleUI.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 10, 2025
+// Last Updated : April 21, 2025
 //
 // Brief Description : UI Stuff for the title
 *****************************************************************************/
@@ -68,5 +68,13 @@ public class TitleUI : MonoBehaviour
         //Stats.HeldItems.Add(new SidestepCharm());
         SceneManager.LoadScene(1);
         RoomManager.Floor = 0;
+    }
+
+    /// <summary>
+    /// Quit button
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -121,7 +121,8 @@ public class PlayerMovement : MonoBehaviour
     private bool ObjectInMovementPath(GameObject go)
     {
         //If there is an obstacle, ignore
-        if(Physics.CheckBox(go.transform.position + Vector3.up, Vector3.one * 0.45f, Quaternion.identity, obstacleLayers))
+        if(Physics.CheckBox(go.transform.position + Vector3.up, Vector3.one * 0.45f, Quaternion.identity, 
+            obstacleLayers))
         {
             return false;
         }

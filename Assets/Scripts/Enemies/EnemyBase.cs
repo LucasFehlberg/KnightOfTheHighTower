@@ -36,6 +36,8 @@ public class EnemyBase : MonoBehaviour
 
     [SerializeField] private List<Modifier> modifiers = new();
 
+    [SerializeField] private EnemyInformation info;
+
     private Node target;
 
     private bool dying = false;
@@ -65,6 +67,9 @@ public class EnemyBase : MonoBehaviour
     { get => additionalAttackOptions; set => additionalAttackOptions = value; }
     public List<Vector2> AdditionalMovementOptions 
     { get => additionalMovementOptions; set => additionalMovementOptions = value; }
+    public EnemyInformation Info { get => info; set => info = value; }
+    public int Attack { get => attack; set => attack = value; }
+    public int Movement { get => movement; set => movement = value; }
 
     /// <summary>
     /// When the enemy comes into existance, do some initialization

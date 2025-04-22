@@ -266,14 +266,23 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public void OnStartTurn()
     {
+        movementRemaining = Stats.Movement;
+        manipulationRemaining = Stats.Manipulation;
+        attackRemaining = Stats.Attack;
+
         foreach (Item item in Stats.HeldItems)
         {
             item.OnStartTurn();
         }
 
-        movementRemaining = Stats.Movement;
-        manipulationRemaining = Stats.Manipulation;
-        attackRemaining = Stats.Attack;
+        //Run modifier stuff
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            foreach (Modifier modifier in enemy.GetComponent<EnemyBase>().Modifiers)
+            {
+                modifier.OnPlayerStartTurn(this);
+            }
+        }
 
         SetAction(0);
 
