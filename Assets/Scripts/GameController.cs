@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour
                 do
                 {
                     items[1] = Item.SpawnItem(1, false);
-                } while (items[1] == items[0]);
+                } while (items[1].ItemName == items[0].ItemName);
 
                 foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {

@@ -2,9 +2,9 @@
 // File Name : BloodthirstyBottle.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 5, 2025
+// Last Updated : April 22, 2025
 //
-// Brief Description : An item that, onKill, grants a 50% chance (affected by luck stats) to regain health
+// Brief Description : An item that, onKill, grants a 10% chance (affected by luck stats) to regain health
 *****************************************************************************/
 
 using UnityEngine;
@@ -18,7 +18,7 @@ public class BloodthirstyBottle: Item
     {
         itemName = "BloodthirstyBottle";
         itemNameDisplay = "Bloodthirsty Bottle";
-        itemDescription = "Grants a 50% chance (affected by luck stats) to regain +1 health (cannot go over max)";
+        itemDescription = "Grants a 10% chance (affected by luck stats) to regain +1 health (cannot go over max)";
 
         itemRarity = 2;
     }
@@ -34,7 +34,8 @@ public class BloodthirstyBottle: Item
             return;
         }
 
-        if (RandomEffect(1, 2))
+        //Nerfed to 1 out of 10 because 1 out of 2 was OP especially when collecting luck items
+        if (RandomEffect(1, 10))
         {
             player.HealthRemaining += 1;
             player.UpdateStats();
