@@ -7,10 +7,12 @@
 // Brief Description : When this enemy is killed, all other enemies take 1 damage
 *****************************************************************************/
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Maledictus : Modifier
 {
+    private List<EnemyBase> stopTheLoops = new List<EnemyBase>();
     /// <summary>
     /// Sets the name of a modifier
     /// </summary>
@@ -32,7 +34,12 @@ public class Maledictus : Modifier
             {
                 continue;
             }
+            if (stopTheLoops.Contains(enemy.GetComponent<EnemyBase>()))
+            {
+                continue;
+            }
             enemy.GetComponent<EnemyBase>().TakeDamage(1);
+            stopTheLoops.Add(enemy.GetComponent<EnemyBase>());
         }
     }
 }
