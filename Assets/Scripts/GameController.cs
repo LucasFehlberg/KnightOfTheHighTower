@@ -176,7 +176,16 @@ public class GameController : MonoBehaviour
             case ("Normal Selection"):
                 itemSelectionUI.SetActive(true);
 
-                foreach(GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
+                Item[] items = new Item[2];
+                items[0] = Item.SpawnItem(1, false);
+
+                //No dupes
+                while (items[1] != items[0])
+                {
+                    items[1] = Item.SpawnItem(1, false);
+                }
+
+                foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {
                     button.GetComponent<ItemButton>().SetItem(Item.SpawnItem(1, false));
                 }
@@ -192,7 +201,7 @@ public class GameController : MonoBehaviour
                 while (tiles.Count < 2)
                 {
                     string tile = allTiles[Random.Range(0, allTiles.Count)];
-                    //allTiles.Remove(tile);
+                    allTiles.Remove(tile);
 
                     //if (Stats.HeldTiles.Contains(tile))
                     //{

@@ -2,7 +2,7 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 10, 2025
+// Last Updated : April 22, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
