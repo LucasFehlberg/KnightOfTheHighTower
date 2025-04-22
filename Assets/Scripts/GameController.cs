@@ -180,10 +180,10 @@ public class GameController : MonoBehaviour
                 items[0] = Item.SpawnItem(1, false);
 
                 //No dupes
-                while (items[1] != items[0])
+                do
                 {
                     items[1] = Item.SpawnItem(1, false);
-                }
+                } while (items[1] == items[0]);
 
                 foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {
