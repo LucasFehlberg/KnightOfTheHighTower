@@ -1049,7 +1049,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'WASD - Move Camera
 
-    Click - Perform Action'
+    Click - Perform Action
+
+    Q - Quit
+
+    R -
+    Restart'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 779d8827857b55d478f1a901acc3eb81, type: 2}
   m_sharedMaterial: {fileID: 8280097455538776888, guid: 779d8827857b55d478f1a901acc3eb81, type: 2}
@@ -1360,9 +1365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'R - Restart
-
-    Q - Quit'
+  m_text: Defeat all enemies on a floor to win
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 779d8827857b55d478f1a901acc3eb81, type: 2}
   m_sharedMaterial: {fileID: 8280097455538776888, guid: 779d8827857b55d478f1a901acc3eb81, type: 2}
