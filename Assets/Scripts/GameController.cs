@@ -18,8 +18,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject UI;
     [SerializeField] private GameObject Loss;
 
-    [SerializeField] private GameObject WinScreen;
-
     [SerializeField] private GameObject CameraPoint; 
     [SerializeField] private GameObject EndCameraPoint;
 
@@ -50,7 +48,6 @@ public class GameController : MonoBehaviour
         RoomManager.Instance.GenerateFloor();
 
         Loss.SetActive(false);
-        WinScreen.SetActive(false);
         MainUI.SetActive(true);
 
         turnOrder.Add(GameObject.FindGameObjectWithTag("Player"));
@@ -154,6 +151,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     private void NextAction()
     {
+        if (!Stats.DoneTutorial)
+        {
+            Stats.DoneTutorial = true;
+        }
        switch(RoomManager.Instance.Reward)
        {
             case ("Starter"):

@@ -194,9 +194,21 @@ public class EnemyBase : MonoBehaviour
 
         ClearAdditionals();
 
+        //Use up the rest of attack
+        while (AttackRemaining > 0)
+        {
+            if (!CheckForAttack())
+            {
+                AttackRemaining = 0;
+            }
+        }
+
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
     }
 
+    /// <summary>
+    /// Clears any additional movement
+    /// </summary>
     private void ClearAdditionals()
     {
         foreach (Vector2 movement in additionalMovementOptions)
@@ -222,11 +234,11 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// Enemy Attack
     /// </summary>
-    private void CheckForAttack()
+    private bool CheckForAttack()
     {
         if (attackRemaining <= 0)
         {
-            return;
+            return false;
         }
 
         //Infinites first
@@ -237,7 +249,7 @@ public class EnemyBase : MonoBehaviour
             {
                 attackRemaining -= 1;
                 player.TakeDamage(1);
-                return;
+                return true;
             }
         }
 
@@ -250,8 +262,11 @@ public class EnemyBase : MonoBehaviour
                 attackRemaining -= 1;
                 Physics.OverlapBox(testPos, Vector3.one * 0.45f, Quaternion.identity, playerLayer)
                     [0].GetComponent<PlayerBase>().TakeDamage(1);
+                return true;
             }
         }
+
+        return false;
     }
 
     /// <summary>
