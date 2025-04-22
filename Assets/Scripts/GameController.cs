@@ -2,7 +2,7 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 21, 2025
+// Last Updated : April 22, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
@@ -187,7 +187,8 @@ public class GameController : MonoBehaviour
 
                 foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {
-                    button.GetComponent<ItemButton>().SetItem(Item.SpawnItem(1, false));
+                    button.GetComponent<ItemButton>().SetItem(items[items[0] == null ? 1 : 0]);
+                    items[0] = null;
                 }
                 break;
 
