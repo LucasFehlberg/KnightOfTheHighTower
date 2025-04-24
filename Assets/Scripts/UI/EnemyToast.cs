@@ -2,7 +2,7 @@
 // File Name : EnemyToast.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 16, 2025
-// Last Updated : April 16, 2025
+// Last Updated : April 23, 2025
 //
 // Brief Description : Pop-Up for enemy information
 *****************************************************************************/
