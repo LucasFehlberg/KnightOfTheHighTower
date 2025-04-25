@@ -43,6 +43,7 @@ public class Attatchment : ScriptableObject
     /// </summary>
     private static void LoadAllTiles()
     {
+        /*
         string path = "Assets/Scripts/Tiles/Resources/TileInfo";
         //Search folder
         string[] files = Directory.GetFiles(path, "*.asset", SearchOption.TopDirectoryOnly);
@@ -52,6 +53,16 @@ public class Attatchment : ScriptableObject
             string fileName = Path.GetFileNameWithoutExtension(file);
 
             Attatchment attatchment = Resources.Load<Attatchment>("TileInfo/" + fileName);
+            attatchmentValues.Add(attatchment.attatchmentValue, attatchment.attatchmentName);
+            attatchmentDescriptions.Add(attatchment.attatchmentName, attatchment.attatchmentDescription);
+            attatchmentSprites.Add(attatchment.attatchmentName, attatchment.attatchmentSprite);
+        }
+        */
+
+        //Should work in build?
+
+        foreach (Attatchment attatchment in Resources.LoadAll("TileInfo", typeof(Attatchment)))
+        {
             attatchmentValues.Add(attatchment.attatchmentValue, attatchment.attatchmentName);
             attatchmentDescriptions.Add(attatchment.attatchmentName, attatchment.attatchmentDescription);
             attatchmentSprites.Add(attatchment.attatchmentName, attatchment.attatchmentSprite);

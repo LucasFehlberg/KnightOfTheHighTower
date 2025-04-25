@@ -2,7 +2,7 @@
 // File Name : PlayerMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 13, 2025
+// Last Updated : April 24, 2025
 //
 // Brief Description : Moves the player around based on num movements left
 *****************************************************************************/
@@ -170,6 +170,10 @@ public class PlayerMovement : MonoBehaviour
                 if (player.MovementRemaining > 0)
                 {
                     ResetIndicators();
+                } 
+                else
+                {
+                    enabled = false;
                 }
 
                 triggeredTiles.Clear();

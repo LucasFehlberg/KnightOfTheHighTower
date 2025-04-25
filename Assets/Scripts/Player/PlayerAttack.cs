@@ -2,7 +2,7 @@
 // File Name : PlayerAttack.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 2, 2025
+// Last Updated : April 24, 2025
 //
 // Brief Description : Allows the player to deal damage
 *****************************************************************************/
@@ -10,7 +10,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -97,6 +96,10 @@ public class PlayerAttack : MonoBehaviour
             if(player.AttackRemaining > 0)
             {
                 StartCoroutine(nameof(WaitUpdate));
+            } 
+            else
+            {
+                enabled = false;
             }
         }
     }

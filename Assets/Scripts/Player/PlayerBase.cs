@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 13, 2025
+// Last Updated : April 24, 2025
 //
 // Brief Description : Controls player action map and other misc things for the player
 *****************************************************************************/
@@ -43,6 +43,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] private TMP_Text attackText;
     [SerializeField] private TMP_Text manipulationText;
     [SerializeField] private TMP_Text lifeText;
+
+    [SerializeField] private Texture NoMoreAbility;
 
     private InputAction restart;
     private InputAction quit;
@@ -189,25 +191,16 @@ public class PlayerBase : MonoBehaviour
         GetComponent<PlayerAttack>().KillIndicators();
         GetComponent<PlayerTerrain>().KillIndicators();
 
-        GetComponent<PlayerMovement>().enabled = action == 0; //0 is movement
-        GetComponent<PlayerAttack>().enabled = action == 1; //1 is attack
-        GetComponent<PlayerTerrain>().enabled = action == 2; //2 is terrain
+        GetComponent<PlayerMovement>().enabled = action == 0 && movementRemaining > 0; //0 is movement
+        GetComponent<PlayerAttack>().enabled = action == 1 && attackRemaining > 0; //1 is attack
+        GetComponent<PlayerTerrain>().enabled = action == 2 && manipulationRemaining > 0; //2 is terrain
 
         //Setup new indicators
-        if (movementRemaining > 0)
-        {
-            GetComponent<PlayerMovement>().ResetIndicators();
-        }
+        GetComponent<PlayerMovement>().ResetIndicators();
 
-        if (attackRemaining > 0)
-        {
-            GetComponent<PlayerAttack>().ResetIndicators();
-        }
+        GetComponent<PlayerAttack>().ResetIndicators();
 
-        if (manipulationRemaining > 0)
-        {
-            GetComponent<PlayerTerrain>().ResetIndicators();
-        }
+        GetComponent<PlayerTerrain>().ResetIndicators();
     }
 
     /// <summary>
@@ -317,10 +310,10 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     public void UpdateStats()
     {
-        movementText.text = "Move: " + MovementRemaining.ToString();
-        attackText.text = "Attack: " + AttackRemaining.ToString();
-        manipulationText.text = "Manipulation: " + ManipulationRemaining.ToString();
-        lifeText.text = "Life: " + healthRemaining.ToString();
+        movementText.text = ": " + MovementRemaining.ToString();
+        attackText.text = ": " + AttackRemaining.ToString();
+        manipulationText.text = ": " + ManipulationRemaining.ToString();
+        lifeText.text = healthRemaining.ToString() + "/" + Stats.Health.ToString();
     }
 
     /// <summary>

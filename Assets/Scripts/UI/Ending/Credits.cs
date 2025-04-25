@@ -23,7 +23,7 @@ public class Credits : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -1080);
+        GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -1280);
         InvokeRepeating(nameof(DropPiece), 5f, 4f);
         StartCoroutine(ScrollCredits());
     }
@@ -73,7 +73,7 @@ public class Credits : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ScrollCredits()
     {
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(2.5f);
 
         while(GetComponent<RectTransform>().anchoredPosition.y < -1080 + GetComponent<RectTransform>().sizeDelta.y)
         {
