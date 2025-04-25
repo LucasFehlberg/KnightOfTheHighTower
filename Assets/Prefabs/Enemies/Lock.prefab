@@ -69,6 +69,7 @@ MonoBehaviour:
   possibleNormalAttacks: []
   possibleInfiniteAttacks: []
   info: {fileID: 11400000, guid: b11aba3e2dc3c98458876cc1296e4be4, type: 2}
+  deathParticles: {fileID: 6020417773622162577, guid: 36cd53559cd7aca46aac1f25cd6f5ef3, type: 3}
 --- !u!114 &4098653735594331215
 MonoBehaviour:
   m_ObjectHideFlags: 0

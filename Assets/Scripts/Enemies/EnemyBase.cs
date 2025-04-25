@@ -2,7 +2,7 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 22, 2025
+// Last Updated : April 25, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
@@ -37,6 +37,9 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private List<Modifier> modifiers = new();
 
     [SerializeField] private EnemyInformation info;
+    [SerializeField] private GameObject deathParticles;
+
+    [SerializeField] private Animator animator;
 
     private Node target;
 
@@ -154,9 +157,26 @@ public class EnemyBase : MonoBehaviour
 
             if (!fall)
             {
-                Destroy(gameObject);
+                if(animator != null)
+                {
+                    animator.SetBool("Dead", true);
+
+                    dying = true;
+                } else
+                {
+                    Instantiate(deathParticles, transform.position + Vector3.up * 0.5f, Quaternion.Euler(-90, 0, 0));
+                    Destroy(gameObject);
+                }
+
             }
         }
+    }
+    
+    public void KillPiece()
+    {
+        Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
+
+        Destroy(gameObject);
     }
 
     //On their turn, enemies move and do special things in that order, attacking only when they have an opportunity to
@@ -350,6 +370,10 @@ public class EnemyBase : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Kill the enemy from falling
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Death()
     {
         yield return new WaitForSeconds(10);

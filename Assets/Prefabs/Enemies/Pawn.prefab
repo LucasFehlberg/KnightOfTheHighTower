@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6822737037432012310}
   - component: {fileID: 8315122675504643934}
   - component: {fileID: 9059741672777545128}
+  - component: {fileID: 4691303663557652243}
   m_Layer: 7
   m_Name: Pawn
   m_TagString: Enemy
@@ -76,6 +77,8 @@ MonoBehaviour:
   - {x: 1, y: -1}
   possibleInfiniteAttacks: []
   info: {fileID: 11400000, guid: faa2ad8e92792c4498093661edeff84d, type: 2}
+  deathParticles: {fileID: 6020417773622162577, guid: 36cd53559cd7aca46aac1f25cd6f5ef3, type: 3}
+  animator: {fileID: 4691303663557652243}
 --- !u!114 &4098653735594331215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +165,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &4691303663557652243
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529539236150298927}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 538eefed636d54e42a6b23c8474b59f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7491036309809195915
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +247,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 75ba0cb4d9f519f459ff9ae70b0cdf9c, type: 2}
+  - {fileID: 2100000, guid: d61d90a770988cd4aac819b113e8c84c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

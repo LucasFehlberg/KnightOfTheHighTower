@@ -76,6 +76,7 @@ MonoBehaviour:
   - {x: -1, y: -1}
   - {x: 1, y: -1}
   info: {fileID: 11400000, guid: df185445d7cf238448a02434a4e1a686, type: 2}
+  deathParticles: {fileID: 6020417773622162577, guid: 36cd53559cd7aca46aac1f25cd6f5ef3, type: 3}
 --- !u!136 &8315122675504643934
 CapsuleCollider:
   m_ObjectHideFlags: 0

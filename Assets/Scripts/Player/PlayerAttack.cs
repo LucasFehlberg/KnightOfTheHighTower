@@ -83,6 +83,11 @@ public class PlayerAttack : MonoBehaviour
                 return;
             }
 
+            if (hit.collider.GetComponent<EnemyBase>().Dying)
+            {
+                return;
+            }
+
             player.AttackRemaining--;
             player.UpdateStats();
             
@@ -164,6 +169,14 @@ public class PlayerAttack : MonoBehaviour
 
             //If there is no enemy, set up a different material
             if (!Physics.CheckBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers))
+            {
+                newIndicator.transform.GetChild(0)
+                    .GetComponent<MeshRenderer>().material = indicatorInactiveMaterial;
+                continue;
+            }
+
+            if(Physics.OverlapBox(testPos, Vector3.one * 0.45f, 
+                Quaternion.identity, enemyLayers)[0].GetComponent<EnemyBase>().Dying)
             {
                 newIndicator.transform.GetChild(0)
                     .GetComponent<MeshRenderer>().material = indicatorInactiveMaterial;
