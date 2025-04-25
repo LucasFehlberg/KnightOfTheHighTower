@@ -170,6 +170,10 @@ public class EnemyBase : MonoBehaviour
                 }
 
             }
+        } 
+        else
+        {
+            animator.SetBool("Hit", true);
         }
     }
     
@@ -189,6 +193,14 @@ public class EnemyBase : MonoBehaviour
     public void SpawnParticles()
     {
         Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
+    }
+
+    /// <summary>
+    /// Runs when animation is done
+    /// </summary>
+    public void DoneHit()
+    {
+        animator.SetBool("Hit", false);
     }
 
     //On their turn, enemies move and do special things in that order, attacking only when they have an opportunity to

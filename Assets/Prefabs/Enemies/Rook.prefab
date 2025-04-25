@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8079610600985435072}
   - component: {fileID: -4004733104853447113}
   - component: {fileID: -6192438665580203816}
+  - component: {fileID: 1640068944781259785}
   m_Layer: 7
   m_Name: Rook
   m_TagString: Enemy
@@ -77,6 +78,7 @@ MonoBehaviour:
   - {x: 0, y: -1}
   info: {fileID: 11400000, guid: 1103a6cdc20778246be27f250191927b, type: 2}
   deathParticles: {fileID: 6020417773622162577, guid: 36cd53559cd7aca46aac1f25cd6f5ef3, type: 3}
+  animator: {fileID: 1640068944781259785}
 --- !u!136 &8315122675504643934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -162,6 +164,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifiers: []
   enemy: {fileID: 7349361253746977127}
+--- !u!95 &1640068944781259785
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529539236150298927}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 538eefed636d54e42a6b23c8474b59f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5516404086241646730
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +197,7 @@ GameObject:
   - component: {fileID: 4732854338150164914}
   - component: {fileID: 3400542881720687490}
   m_Layer: 7
-  m_Name: Model
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +246,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 75ba0cb4d9f519f459ff9ae70b0cdf9c, type: 2}
+  - {fileID: -876546973899608171, guid: 6c219cf40be9eb048b9b68c4f05ebd75, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
