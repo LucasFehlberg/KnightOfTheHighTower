@@ -160,6 +160,7 @@ public class EnemyBase : MonoBehaviour
                 if(animator != null)
                 {
                     animator.SetBool("Dead", true);
+                    GetComponent<CapsuleCollider>().enabled = false;
 
                     dying = true;
                 } else
@@ -172,11 +173,22 @@ public class EnemyBase : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Using animation, destroy the piece
+    /// </summary>
     public void KillPiece()
     {
-        Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
+        //Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
 
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Spawns the death particles
+    /// </summary>
+    public void SpawnParticles()
+    {
+        Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
     }
 
     //On their turn, enemies move and do special things in that order, attacking only when they have an opportunity to
