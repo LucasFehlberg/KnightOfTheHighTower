@@ -84,6 +84,7 @@ public class EnemyBase : MonoBehaviour
         foreach(Modifier modifiers in modifiers)
         {
             modifiers.Enemy = this;
+            modifiers.OnLoad();
         }
     }
 

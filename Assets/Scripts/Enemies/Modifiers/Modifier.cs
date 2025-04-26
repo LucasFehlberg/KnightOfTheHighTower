@@ -2,7 +2,7 @@
 // File Name : Modifier.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 17, 2025
+// Last Updated : April 26, 2025
 //
 // Brief Description : Base class for all enemy modifiers
 *****************************************************************************/
@@ -88,6 +88,14 @@ public class Modifier
     /// </summary>
 
     public virtual void OnKill()
+    {
+
+    }
+
+    /// <summary>
+    /// Runs when the enemy is loaded in with all of it's modifiers
+    /// </summary>
+    public virtual void OnLoad()
     {
 
     }

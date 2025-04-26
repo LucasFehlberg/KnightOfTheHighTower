@@ -2,7 +2,7 @@
 // File Name : Maledictus.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 13, 2025
+// Last Updated : April 26, 2025
 //
 // Brief Description : When this enemy is killed, all other enemies take 1 damage
 *****************************************************************************/
@@ -41,5 +41,13 @@ public class Maledictus : Modifier
             enemy.GetComponent<EnemyBase>().TakeDamage(1);
             stopTheLoops.Add(enemy.GetComponent<EnemyBase>());
         }
+    }
+
+    /// <summary>
+    /// Loads in the particle effect
+    /// </summary>
+    public override void OnLoad()
+    {
+        Object.Instantiate(Resources.Load("ParticleFX/MaledictusParticles"), enemy.transform);
     }
 }
