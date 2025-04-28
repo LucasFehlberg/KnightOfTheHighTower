@@ -2,7 +2,7 @@
 // File Name : Item.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 4, 2025
+// Last Updated : April 28, 2025
 //
 // Brief Description : Base class for items
 *****************************************************************************/
@@ -164,6 +164,31 @@ public class Item
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// Gets the percentage of an effect happening, as a string. Applies luck stats
+    /// </summary>
+    /// <param name="chanceNumerator">X in "X our of Y times"</param>
+    /// <param name="chanceDenominator">Y in "X out of Y times"</param>
+    /// <returns>The percentage</returns>
+    public string GetEffectChance(int chanceNumerator, int chanceDenominator)
+    {
+        chanceNumerator += Stats.RandMinAlter;
+        chanceDenominator += Stats.RandMaxAlter;
+
+        if(chanceNumerator >= chanceDenominator)
+        {
+            return "100";
+        }
+
+        float chance = (float)chanceNumerator / (float)chanceDenominator;
+
+        chance = 1 - Mathf.Pow(1 - chance, Stats.Rerolls + 1);
+
+        chance *= 100;
+        chance = Mathf.Round(chance);
+        return chance.ToString();
     }
 
     /// <summary>

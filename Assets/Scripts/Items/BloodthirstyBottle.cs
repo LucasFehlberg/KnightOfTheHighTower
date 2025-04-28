@@ -2,7 +2,7 @@
 // File Name : BloodthirstyBottle.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 22, 2025
+// Last Updated : April 28, 2025
 //
 // Brief Description : An item that, onKill, grants a 10% chance (affected by luck stats) to regain health
 *****************************************************************************/
@@ -18,9 +18,24 @@ public class BloodthirstyBottle: Item
     {
         itemName = "BloodthirstyBottle";
         itemNameDisplay = "Bloodthirsty Bottle";
-        itemDescription = "Grants a 10% chance (affected by luck stats) to regain +1 health (cannot go over max)";
+
+        string chance = GetEffectChance(1, 10);
+
+        itemDescription = "Grants a " + chance + 
+            "% chance (base 10%) to regain +1 health (cannot go over max)";
 
         itemRarity = 2;
+    }
+
+    /// <summary>
+    /// Changes the description when a new room is entered
+    /// </summary>
+    public override void OnStartTurn()
+    {
+        string chance = GetEffectChance(1, 10);
+
+        itemDescription = "Grants a " + chance +
+            "% chance (base 10%) to regain +1 health (cannot go over max)";
     }
 
     /// <summary>
