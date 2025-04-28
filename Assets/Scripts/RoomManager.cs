@@ -2,7 +2,7 @@
 // File Name : RoomManager.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 3, 2025
-// Last Updated : April 15, 2025
+// Last Updated : April 27, 2025
 //
 // Brief Description : Handles rooms
 *****************************************************************************/
@@ -81,14 +81,14 @@ public class RoomManager : MonoBehaviour
         //We'll initialize floor 1 first. This one is always the same. See below
         List<char> floor = new()
         {
-            '.', '.', '.', '.', '.', '.', '.', '.',
-            ' ', ' ', '.', 'L', '.', ' ', ' ', ' ',
-            ' ', ' ', ' ', '.', ' ', ' ', ' ', ' ',
+            ' ', ' ', '.', '.', '.', '.', '.', '.',
+            ' ', ' ', '.', '.', '.', '.', '.', '.',
+            ' ', ' ', '.', '.', '.', 'L', '.', '.',
             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-            'X', ' ', ' ', ' ', ' ', ' ', 'X', ' ',
-            ' ', ' ', '.', ' ', '.', ' ', ' ', ' ',
-            ' ', ' ', 'X', 'X', 'X', ' ', ' ', ' ',
-            ' ', ' ', 'X', '.', 'X', ' ', ' ', ' '
+            ' ', ' ', '.', '.', ' ', ' ', ' ', ' ',
+            ' ', 'X', 'X', 'X', 'X', ' ', ' ', ' ',
+            ' ', 'X', '.', '.', 'X', ' ', ' ', ' ',
+            ' ', 'X', '.', '.', 'X', ' ', ' ', ' '
             //              ^ Player Spawn
         };
 

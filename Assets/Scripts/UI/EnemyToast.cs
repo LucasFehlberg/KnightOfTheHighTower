@@ -2,7 +2,7 @@
 // File Name : EnemyToast.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 16, 2025
-// Last Updated : April 23, 2025
+// Last Updated : April 28, 2025
 //
 // Brief Description : Pop-Up for enemy information
 *****************************************************************************/
@@ -51,6 +51,7 @@ public class EnemyToast : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //I'm lazy and don't want to do this in inspector
         rectTransform = GetComponent<RectTransform>();
 
         enemyLayers = 1 << LayerMask.NameToLayer("Enemy");
@@ -102,6 +103,10 @@ public class EnemyToast : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayers))
             {
+                //We call this beforehand because we want to constantly update this
+                enemyHealth.text = enemy.HealthRemaining.ToString();
+
+
                 //Optimization, don't run if we're already touching an enemy and it's the same enemy
                 if (toastBox.activeSelf && hit.collider.GetComponent<EnemyBase>() == enemy)
                 {
@@ -117,7 +122,6 @@ public class EnemyToast : MonoBehaviour
                 enemyName.text = enemy.Info.EnemyName;
                 enemyDescription.text = enemy.Info.EnemyDescription;
 
-                enemyHealth.text = enemy.HealthRemaining.ToString();
                 enemyAttack.text = enemy.Attack.ToString();
                 enemyMove.text = enemy.Movement.ToString();
 

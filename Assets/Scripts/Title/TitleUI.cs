@@ -7,7 +7,6 @@
 // Brief Description : UI Stuff for the title
 *****************************************************************************/
 
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +21,6 @@ public class TitleUI : MonoBehaviour
         //Stats.HeldItems.Add(new SidestepCharm());
         SceneManager.LoadScene(1);
         RoomManager.Floor = 0;
-        Stats.HeldItems.Add(new UrsaMaledictus());
     }
 
     /// <summary>

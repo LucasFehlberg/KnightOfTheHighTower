@@ -2,7 +2,7 @@
 // File Name : PlayerTerrain.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 24, 2025
+// Last Updated : April 27, 2025
 //
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
@@ -301,6 +301,10 @@ public class PlayerTerrain : MonoBehaviour
         if(player.ManipulationRemaining > 0)
         {
             ResetIndicators();
+        } 
+        else
+        {
+            enabled = false;
         }
     }
 
