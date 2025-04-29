@@ -25,7 +25,7 @@ public class TileBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         GameObject.FindGameObjectWithTag("ItemTextbox").GetComponent<ItemDescriptionController>()
-            .Show(tileName, tileDescription);
+            .ShowTile(tileName, tileDescription);
     }
 
     /// <summary>

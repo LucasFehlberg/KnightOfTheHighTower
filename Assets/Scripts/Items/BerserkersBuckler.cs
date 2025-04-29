@@ -38,6 +38,7 @@ public class BerserkersBuckler : Item
     public override void OnTakeDamage(int damageTaken)
     {
         attackIncrease += damageTaken;
+        itemDescription = "Increases Attack when hit. \nCurrently +" + attackIncrease.ToString();
     }
 
     /// <summary>

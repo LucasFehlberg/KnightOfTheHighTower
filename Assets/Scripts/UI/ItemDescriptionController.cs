@@ -2,13 +2,14 @@
 // File Name : ItemDescriptionController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 31, 2025
-// Last Updated : March 31, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Controls item descriptions
 *****************************************************************************/
 
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemDescriptionController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class ItemDescriptionController : MonoBehaviour
 
     private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
+
+    private Item visibleItem = null;
 
     /// <summary>
     /// Gets the rectTransform
@@ -43,6 +46,11 @@ public class ItemDescriptionController : MonoBehaviour
         {
             box.GetComponent<RectTransform>().anchoredPosition = new Vector3(10, -10);
         }
+
+        if (visibleItem != null)
+        {
+            itemDescription.text = visibleItem.ItemDescription;
+        }
     }
 
     /// <summary>
@@ -51,12 +59,30 @@ public class ItemDescriptionController : MonoBehaviour
     public void Hide()
     {
         box.SetActive(false);
+        visibleItem = null;
     }
 
-    public void Show(string name, string description)
+    /// <summary>
+    /// Shows the UI
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="item"></param>
+    public void Show(Item item)
+    {
+        itemName.text = item.ItemNameDisplay;
+        visibleItem = item;
+        box.SetActive(true);
+    }
+
+    /// <summary>
+    /// Shows the tile UI
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="tileBio"></param>
+    public void ShowTile(string name, string tileBio)
     {
         itemName.text = name;
-        itemDescription.text = description;
+        itemDescription.text = tileBio;
         box.SetActive(true);
     }
 }

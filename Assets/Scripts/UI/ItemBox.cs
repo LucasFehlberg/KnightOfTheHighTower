@@ -2,7 +2,7 @@
 // File Name : ItemBox.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 31, 2025
-// Last Updated : April 4, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : The individual item UI box
 *****************************************************************************/
@@ -28,7 +28,8 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void ResetUI()
     {
-        string path = "Items/" + Stats.HeldItems[id].ItemName;
+        displayedItem = Stats.HeldItems[id];
+        string path = "Items/" + displayedItem.ItemName;
 
         Sprite sprite = Resources.Load<Sprite>(path);
 
@@ -37,6 +38,7 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             sprite = Resources.Load<Sprite>("Items/ItemPlaceholder");
         }
         texture.sprite = sprite;
+        displayedItem.Holder = this;
     }
 
     /// <summary>
@@ -48,12 +50,12 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if(id != -1)
         {
             GameObject.FindGameObjectWithTag("ItemTextbox").GetComponent<ItemDescriptionController>()
-                .Show(Stats.HeldItems[id].ItemNameDisplay, Stats.HeldItems[id].ItemDescription);
+                .Show(displayedItem);
             return;
         }
 
         GameObject.FindGameObjectWithTag("ItemTextbox").GetComponent<ItemDescriptionController>()
-                .Show(displayedItem.ItemNameDisplay, displayedItem.ItemDescription);
+                .Show(displayedItem);
     }
 
     /// <summary>

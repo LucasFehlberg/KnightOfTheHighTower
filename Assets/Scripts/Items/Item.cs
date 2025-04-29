@@ -32,10 +32,13 @@ public class Item
 
     protected PlayerBase player;
 
+    protected ItemBox holder;
+
     public string ItemName { get => itemName; }
     public string ItemDescription { get => itemDescription; }
     public string ItemNameDisplay { get => itemNameDisplay; set => itemNameDisplay = value; }
     public PlayerBase Player { get => player; set => player = value; }
+    public ItemBox Holder { get => holder; set => holder = value; }
 
     public Item Clone()
     {
