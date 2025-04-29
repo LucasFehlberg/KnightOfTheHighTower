@@ -24,7 +24,7 @@ public class ProfessorsDice : Item
     {
         itemName = "ProfessorsDice";
         itemNameDisplay = "Professor's Dice";
-        itemDescription = "+1 Reroll";
+        itemDescription = "Rerolls random events for a positive outcome";
 
         itemRarity = 2;
     }

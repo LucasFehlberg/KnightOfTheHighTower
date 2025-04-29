@@ -2,7 +2,7 @@
 // File Name : Item.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 28, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Base class for items
 *****************************************************************************/
@@ -39,7 +39,9 @@ public class Item
 
     public Item Clone()
     {
-        return (Item)MemberwiseClone();
+        Item clone = (Item)MemberwiseClone();
+        clone.SetDefaults();
+        return clone;
     }
 
     /// <summary>

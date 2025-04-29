@@ -160,6 +160,11 @@ public class PlayerTerrain : MonoBehaviour
                 {
                     return;
                 }
+
+                foreach (Item item in Stats.HeldItems)
+                {
+                    item.OnTerrainManipulation(hit.collider.transform.position, type);
+                }
             }
             else
             {
@@ -175,15 +180,15 @@ public class PlayerTerrain : MonoBehaviour
                 {
                     player.KillPlayerFunny();
                 }
+
+                foreach (Item item in Stats.HeldItems)
+                {
+                    item.OnTerrainManipulation(hit.collider.transform.position, "Remove");
+                }
             }
 
             player.ManipulationRemaining--;
             player.UpdateStats();
-
-            foreach(Item item in Stats.HeldItems)
-            {
-                item.OnTerrainManipulation(hit.collider.transform.position, type);
-            }
 
             KillIndicators();
             if (player.ManipulationRemaining > 0)

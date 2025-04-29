@@ -103,13 +103,12 @@ public class EnemyToast : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayers))
             {
-                //We call this beforehand because we want to constantly update this
-                enemyHealth.text = enemy.HealthRemaining.ToString();
-
-
                 //Optimization, don't run if we're already touching an enemy and it's the same enemy
                 if (toastBox.activeSelf && hit.collider.GetComponent<EnemyBase>() == enemy)
                 {
+                    //We call this beforehand because we want to constantly update this
+                    enemyHealth.text = enemy.HealthRemaining.ToString();
+
                     yield return new WaitForFixedUpdate();
                     continue;
                 }

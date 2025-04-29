@@ -24,7 +24,7 @@ public class SealedClover : Item
     {
         itemName = "SealedClover";
         itemNameDisplay = "Sealed Clover";
-        itemDescription = "+1 Luck";
+        itemDescription = "+1 Luck. Luck effects the numerator of random events happening.";
 
         itemRarity = 1;
     }

@@ -2,7 +2,7 @@
 // File Name : AdrenalineShot.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 2, 2025
-// Last Updated : April 4, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : A basic item that increases Attack and Movement
 *****************************************************************************/
@@ -16,6 +16,7 @@ public class AdrenalineShot: Item
     {
         Stats.Attack += 1;
         Stats.Movement += 1;
+        Stats.Manipulation -= 1;
     }
 
 
@@ -26,8 +27,8 @@ public class AdrenalineShot: Item
     {
         itemName = "AdrenalineShot";
         itemNameDisplay = "Adrenaline Shot";
-        itemDescription = "+1 Attack\n+1 Move";
+        itemDescription = "+1 Attack\n+1 Move\n-1 Manipulation";
 
-        itemRarity = 1;
+        itemRarity = 2;
     }
 }

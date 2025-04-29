@@ -18,7 +18,7 @@ public class TitleUI : MonoBehaviour
     public void StartGame()
     {
         Stats.ResetStats();
-        //Stats.HeldItems.Add(new SidestepCharm());
+        //Stats.HeldItems.Add(new TrustyTrowel());
         SceneManager.LoadScene(1);
         RoomManager.Floor = 0;
     }
