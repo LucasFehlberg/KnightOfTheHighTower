@@ -1,0 +1,302 @@
+/*****************************************************************************
+// File Name : TutorialScript.cs
+// Author : Lucas Fehlberg
+// Creation Date : April 29, 2025
+// Last Updated : April 29, 2025
+//
+// Brief Description : Tutorial Script
+*****************************************************************************/
+
+using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
+public class TutorialScript : MonoBehaviour
+{
+    public static TutorialScript instance;
+    
+    const int FADE_TIMER = 60;
+    //Buttons
+    [SerializeField] private GameObject terrainButton;
+    [SerializeField] private GameObject attackButton;
+    [SerializeField] private GameObject movementButton;
+    [SerializeField] private GameObject endTurnButton;
+    [SerializeField] private GameObject inspectButton;
+
+    //Player stuff
+    [SerializeField] private PlayerInput pInput;
+    [SerializeField] private PlayerTerrain pTerrain;
+    [SerializeField] private PlayerMovement pMovement;
+    [SerializeField] private PlayerAttack pAttack;
+    [SerializeField] private PlayerBase pBase;
+
+    //Tutorial Glyphs
+    [SerializeField] private GameObject cameraControl;
+
+    [SerializeField] private GameObject tile1;
+    [SerializeField] private GameObject tile2;
+
+    private bool[] doneCamera = new bool[4] {false, false, false, false};
+
+    private InputAction cameraControlsLR;
+    private InputAction cameraControlsUD;
+
+    private int tutorialState = 0;
+
+    public int TutorialState { get => tutorialState; set => tutorialState = value; }
+    public GameObject Tile1 { get => tile1; set => tile1 = value; }
+    public GameObject Tile2 { get => tile2; set => tile2 = value; }
+
+    /// <summary>
+    /// Destroys this script if the tutorial is done
+    /// </summary>
+    private void Start()
+    {
+        if (Stats.DoneTutorial)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+
+        terrainButton.SetActive(false);
+        attackButton.SetActive(false);
+        movementButton.SetActive(false);
+        endTurnButton.SetActive(false);
+        inspectButton.SetActive(false);
+        cameraControl.SetActive(false);
+
+        StartCoroutine(nameof(Tutorial));
+
+        cameraControlsUD = pInput.currentActionMap.FindAction("CameraUpDown");
+        cameraControlsLR = pInput.currentActionMap.FindAction("CameraLeftRight");
+
+        cameraControlsLR.started += CameraControlsLR_started;
+        cameraControlsUD.started += CameraControlsUD_started;
+    }
+
+    private void CameraControlsUD_started(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() > 0 && !doneCamera[0])
+        {
+            doneCamera[0] = true;
+            cameraControl.transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
+        }
+
+        if (obj.ReadValue<float>() < 0 && !doneCamera[1])
+        {
+            doneCamera[1] = true;
+            cameraControl.transform.GetChild(2).GetComponent<TMP_Text>().color = Color.green;
+        }
+    }
+
+    /// <summary>
+    /// Does tutorial stuff
+    /// </summary>
+    /// <param name="obj"></param>
+    private void CameraControlsLR_started(InputAction.CallbackContext obj)
+    {
+        if(obj.ReadValue<float>() < 0 && !doneCamera[2])
+        {
+            doneCamera[2] = true;
+            cameraControl.transform.GetChild(3).GetComponent<TMP_Text>().color = Color.green;
+        }
+
+        if (obj.ReadValue<float>() > 0 && !doneCamera[3])
+        {
+            doneCamera[3] = true;
+            cameraControl.transform.GetChild(1).GetComponent<TMP_Text>().color = Color.green;
+        }
+    }
+
+    /// <summary>
+    /// No Unity Lag
+    /// </summary>
+    private void OnDisable()
+    {
+        if (!Stats.DoneTutorial)
+        {
+            cameraControlsLR.started -= CameraControlsLR_started;
+            cameraControlsUD.started -= CameraControlsUD_started;
+        }
+    }
+
+    /// <summary>
+    /// Runs the entire tutorial
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator Tutorial()
+    {
+        yield return new WaitForSeconds(1f);
+
+        cameraControl.SetActive(true);
+        //Enter camera
+        for (int i = 0; i < FADE_TIMER; i++)
+        {
+            cameraControl.GetComponent<Image>().color = new Color(1, 1, 1, (float)(i + 1f)/(float)FADE_TIMER);
+            foreach(Transform text in cameraControl.transform.GetComponentInChildren<Transform>())
+            {
+                Color textColor = text.GetComponent<TMP_Text>().color;
+                text.GetComponent<TMP_Text>().color = new Color(textColor.r, textColor.g, textColor.b, 
+                    cameraControl.GetComponent<Image>().color.a);
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        bool cameraDone = false;
+        while (!cameraDone)
+        {
+            cameraDone = true;
+            foreach (bool cameraDirection in doneCamera)
+            {
+                if (!cameraDirection)
+                {
+                    cameraDone = false;
+                    break;
+                }
+            }
+
+            yield return null;
+        }
+
+        //Exit camera
+        for (int i = FADE_TIMER; i > 0; i--)
+        {
+            cameraControl.GetComponent<Image>().color = new Color(1, 1, 1, (float)(i + 1f) / (float)FADE_TIMER);
+            foreach (Transform text in cameraControl.transform.GetComponentInChildren<Transform>())
+            {
+                Color textColor = text.GetComponent<TMP_Text>().color;
+                text.GetComponent<TMP_Text>().color = new Color(textColor.r, textColor.g, textColor.b,
+                    cameraControl.GetComponent<Image>().color.a);
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        cameraControl.SetActive(false);
+
+        yield return new WaitForSeconds(1);
+        tutorialState++;
+        //Terrain
+        terrainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -100);
+        terrainButton.SetActive(true);
+
+        while (terrainButton.GetComponent<RectTransform>().anchoredPosition.y < -15)
+        {
+            terrainButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
+                (terrainButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(150, -15), 1f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        terrainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -15);
+
+        while (!pTerrain.isActiveAndEnabled)
+        {
+            yield return null;
+        }
+
+        tutorialState++;
+
+        while(tutorialState != 3)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        //Movement
+        movementButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -100);
+        movementButton.SetActive(true);
+
+        while (movementButton.GetComponent<RectTransform>().anchoredPosition.y < -15)
+        {
+            movementButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
+                (movementButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(-150, -15), 1f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        movementButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -15);
+
+        while (!pMovement.isActiveAndEnabled)
+        {
+            yield return null;
+        }
+
+        tutorialState++;
+
+        while (tutorialState != 5)
+        {
+            yield return null;
+        }
+
+        //End turn
+        yield return new WaitForSeconds(1);
+
+        endTurnButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(480, -100);
+        endTurnButton.SetActive(true);
+
+        while (endTurnButton.GetComponent<RectTransform>().anchoredPosition.y < 0)
+        {
+            endTurnButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
+                (endTurnButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(480, 0), 1f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        endTurnButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(480, 0);
+
+        //Will change when adding indicators
+        while(tutorialState != 9)
+        {
+            yield return null;
+        }
+
+        //Inspection
+        yield return new WaitForSeconds(1);
+
+        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, -125);
+        inspectButton.SetActive(true);
+
+        while (inspectButton.GetComponent<RectTransform>().anchoredPosition.y < 25)
+        {
+            inspectButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
+                (inspectButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(25, 25), 1f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, 25);
+
+        yield return new WaitForSeconds(1);
+
+        while (tutorialState != 11)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        //Attack
+        attackButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+        attackButton.SetActive(true);
+
+        while (attackButton.GetComponent<RectTransform>().anchoredPosition.y < -15)
+        {
+            attackButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
+                (attackButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(0, -15), 1f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        attackButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -15);
+
+        while (!pAttack.isActiveAndEnabled)
+        {
+            yield return null;
+        }
+
+        while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+        {
+            yield return null;
+        }
+    }
+}

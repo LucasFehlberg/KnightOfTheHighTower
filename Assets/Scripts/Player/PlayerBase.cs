@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 24, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Controls player action map and other misc things for the player
 *****************************************************************************/
@@ -168,6 +168,37 @@ public class PlayerBase : MonoBehaviour
         StartCoroutine(nameof(BufferAction), action);
     }
 
+    private bool TutorialCheck(int action)
+    {
+        if (Stats.DoneTutorial)
+        {
+            return true;
+        }
+
+        if((TutorialScript.instance.TutorialState == 1 || TutorialScript.instance.TutorialState == 6) && action == 2)
+        {
+            return true;
+        }
+
+        if((TutorialScript.instance.TutorialState == 3 || TutorialScript.instance.TutorialState == 8) && action == 0)
+        {
+            return true;
+        }
+
+        if (TutorialScript.instance.TutorialState == 11 && action == 1)
+        {
+            return true;
+        }
+
+        if ((TutorialScript.instance.TutorialState == 5 || TutorialScript.instance.TutorialState == 12) 
+            && action == -1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     /// <summary>
     /// Buffers to prevent bugs, but still feel smooth
     /// </summary>
@@ -175,6 +206,11 @@ public class PlayerBase : MonoBehaviour
     /// <returns></returns>
     private IEnumerator BufferAction(int action)
     {
+        if (!TutorialCheck(action))
+        {
+            yield break;
+        }
+
         while (!canDoAction)
         {
             yield return null;
@@ -183,6 +219,10 @@ public class PlayerBase : MonoBehaviour
         if(action == -1) //-1 is end turn
         {
             EndTurn();
+            if (!Stats.DoneTutorial)
+            {
+                TutorialScript.instance.TutorialState++;
+            }
             yield break;
         }
 

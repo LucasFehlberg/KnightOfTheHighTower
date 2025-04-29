@@ -2,7 +2,7 @@
 // File Name : PlayerTerrain.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 27, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
@@ -108,6 +108,14 @@ public class PlayerTerrain : MonoBehaviour
     /// <param name="obj"></param>
     private void Click_started(InputAction.CallbackContext obj)
     {
+        if(!Stats.DoneTutorial)
+        {
+            if(TutorialScript.instance.TutorialState != 2 && TutorialScript.instance.TutorialState != 7)
+            {
+                return;
+            }
+        }
+
         if (!isActiveAndEnabled)
         {
             return;
@@ -143,6 +151,17 @@ public class PlayerTerrain : MonoBehaviour
 
             if (add)
             {
+                if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 7)
+                {
+                    if (tile.gameObject != TutorialScript.instance.Tile2)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        TutorialScript.instance.TutorialState++;
+                    }
+                }
                 //We don't want to make a box on the player here
                 if (Physics.CheckBox(hit.collider.transform.position, Vector3.one * 0.45f, Quaternion.identity,
                     playerLayer))
@@ -151,12 +170,12 @@ public class PlayerTerrain : MonoBehaviour
                 }
 
                 //If it's a wall, check to see if the tile exists
-                if(type != "Wall" && !tile.GetComponent<Tile>().HasTile)
+                if(type != "Wall" && !tile.HasTile)
                 {
                     return;
                 }
 
-                if (!tile.GetComponent<Tile>().Build(type))
+                if (!tile.Build(type))
                 {
                     return;
                 }
@@ -168,8 +187,20 @@ public class PlayerTerrain : MonoBehaviour
             }
             else
             {
+                if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 2)
+                {
+                    if(tile.gameObject != TutorialScript.instance.Tile1)
+                    {
+                        return;
+                    } 
+                    else
+                    {
+                        TutorialScript.instance.TutorialState++;
+                    }
+                }
+
                 //We won't check for player here because it would be funny if the player fell to their death
-                if (!tile.GetComponent<Tile>().Destroy())
+                if (!tile.Destroy())
                 {
                     return;
                 }
@@ -194,6 +225,10 @@ public class PlayerTerrain : MonoBehaviour
             if (player.ManipulationRemaining > 0)
             {
                 ResetIndicators();
+            } 
+            else
+            {
+                enabled = false;
             }
         }
     }
@@ -281,6 +316,11 @@ public class PlayerTerrain : MonoBehaviour
     /// </summary>
     public void RemoveTerrain()
     {
+        if (!Stats.DoneTutorial)
+        {
+            return;
+        }
+
         add = false;
         KillIndicators();
 
@@ -288,10 +328,6 @@ public class PlayerTerrain : MonoBehaviour
         {
             ResetIndicators();
         } 
-        else 
-        {
-            enabled = false;
-        }
     }
 
     /// <summary>
@@ -300,6 +336,15 @@ public class PlayerTerrain : MonoBehaviour
     /// <param name="type">Type of terrain</param>
     public void AddTerrain(string type)
     {
+        if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState != 6)
+        {
+            return;
+        } 
+        else
+        {
+            TutorialScript.instance.TutorialState++;
+        }
+
         add = true;
         this.type = type;
         KillIndicators();
@@ -307,10 +352,6 @@ public class PlayerTerrain : MonoBehaviour
         {
             ResetIndicators();
         } 
-        else
-        {
-            enabled = false;
-        }
     }
 
     /// <summary>

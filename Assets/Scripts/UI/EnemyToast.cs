@@ -2,7 +2,7 @@
 // File Name : EnemyToast.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 16, 2025
-// Last Updated : April 28, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Pop-Up for enemy information
 *****************************************************************************/
@@ -111,6 +111,11 @@ public class EnemyToast : MonoBehaviour
 
                     yield return new WaitForFixedUpdate();
                     continue;
+                }
+
+                if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 10)
+                {
+                    TutorialScript.instance.TutorialState++;
                 }
 
                 //Incase this is a new enemy
@@ -333,8 +338,21 @@ public class EnemyToast : MonoBehaviour
         return list;
     }
 
+    /// <summary>
+    /// Switches the button sprite from black to white and vice versa
+    /// </summary>
     public void SwitchButtonSprite()
     {
+        if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState != 9 && 
+            TutorialScript.instance.TutorialState < 11)
+        {
+            return;
+        } 
+        else if(TutorialScript.instance.TutorialState == 9)
+        {
+            TutorialScript.instance.TutorialState++;
+        }
+
         active = !active;
 
         if (active)

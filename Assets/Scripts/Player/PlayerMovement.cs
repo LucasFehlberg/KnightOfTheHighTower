@@ -2,7 +2,7 @@
 // File Name : PlayerMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 24, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Moves the player around based on num movements left
 *****************************************************************************/
@@ -68,6 +68,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Click_started(InputAction.CallbackContext obj)
     {
+        if (!Stats.DoneTutorial)
+        {
+            if (TutorialScript.instance.TutorialState != 4 && TutorialScript.instance.TutorialState != 8)
+            {
+                return;
+            }
+        }
         //I really shouldn't have to check this but apparently I do?
         //I'm not even kidding this actually prevents a stupid bug
         if (!isActiveAndEnabled)
@@ -89,6 +96,30 @@ public class PlayerMovement : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayers))
         {
+            if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 4)
+            {
+                if (hit.collider.transform.parent.gameObject != TutorialScript.instance.Tile1)
+                {
+                    return;
+                }
+                else
+                {
+                    TutorialScript.instance.TutorialState++;
+                }
+            }
+
+            if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 8)
+            {
+                if (hit.collider.transform.parent.gameObject != TutorialScript.instance.Tile2)
+                {
+                    return;
+                }
+                else
+                {
+                    TutorialScript.instance.TutorialState++;
+                }
+            }
+
             //Check if gameobject is in movement
             if (!ObjectInMovementPath(hit.collider.gameObject))
             {
