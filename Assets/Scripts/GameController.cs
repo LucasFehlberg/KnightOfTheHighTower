@@ -2,7 +2,7 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 22, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
@@ -72,6 +72,27 @@ public class GameController : MonoBehaviour
         CameraPoint.SetActive(true);
 
         EndTurn();
+        StartCoroutine(nameof(RoomBeat));
+    }
+
+    /// <summary>
+    /// Actually checks if all enemies are defeated
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator RoomBeat()
+    {
+        while(GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+        {
+            yield return null;
+        }
+
+        MainUI.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+        EndCameraPoint.SetActive(true);
+        CameraPoint.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        NextAction();
     }
 
     /// <summary>
@@ -97,7 +118,7 @@ public class GameController : MonoBehaviour
         }
 
         //Remove dead enemies from turn order
-        while (turnOrder[currentIndex].gameObject == null || (!turnOrder[currentIndex].gameObject.CompareTag("Player")
+        while (turnOrder[currentIndex].gameObject == null || (!turnOrder[currentIndex].CompareTag("Player")
             && turnOrder[currentIndex].GetComponent<EnemyBase>().Dying))
         {
             turnOrder.RemoveAt(currentIndex);
@@ -108,16 +129,16 @@ public class GameController : MonoBehaviour
         }
 
         //Win the game if the player kills all enemies
-        if(turnOrder.Count == 1)
-        {
-            //WinScreen.SetActive(true);
-            //UI.SetActive(false);
-            MainUI.SetActive(false);
-            EndCameraPoint.SetActive(true);
-            CameraPoint.SetActive(false);
-            NextAction();
-            return;
-        }
+        //if(turnOrder.Count == 1)
+        //{
+        //    //WinScreen.SetActive(true);
+        //    //UI.SetActive(false);
+        //    MainUI.SetActive(false);
+        //    EndCameraPoint.SetActive(true);
+        //    CameraPoint.SetActive(false);
+        //    NextAction();
+        //    return;
+        //}
 
         //Player turn
         if (turnOrder[currentIndex].CompareTag("Player"))

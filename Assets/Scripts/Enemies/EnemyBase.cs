@@ -2,7 +2,7 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 25, 2025
+// Last Updated : April 29, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
@@ -162,6 +162,7 @@ public class EnemyBase : MonoBehaviour
                 {
                     animator.SetBool("Dead", true);
                     GetComponent<CapsuleCollider>().enabled = false;
+                    tag = "Untagged"; //Used for checking if the enemy is dead
 
                     dying = true;
                 } else
