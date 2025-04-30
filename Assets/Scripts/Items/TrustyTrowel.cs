@@ -76,4 +76,13 @@ public class TrustyTrowel : Item
         lastCheckedList.Clear();
         allTrowels.Clear();
     }
+
+    /// <summary>
+    /// Fixes a bug(?) when not using trowel at the end of a round, carrying them over to the new round
+    /// </summary>
+    public override void UpdateStats()
+    {
+        lastCheckedList.Clear();
+        allTrowels.Clear();
+    }
 }
