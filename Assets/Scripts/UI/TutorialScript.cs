@@ -205,8 +205,7 @@ public class TutorialScript : MonoBehaviour
 
         terrainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -15);
 
-        arrowCoroutine = StartCoroutine(MoveArrow(terrainButton.GetComponent<RectTransform>().position +
-            Vector3.up * 50f, Quaternion.identity, 2));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, terrainButton, 2));
 
         //Move the arrow seperately
 
@@ -244,8 +243,7 @@ public class TutorialScript : MonoBehaviour
         movementButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -15);
 
         arrowRectTransform.gameObject.SetActive(true);
-        arrowCoroutine = StartCoroutine(MoveArrow(movementButton.GetComponent<RectTransform>().position +
-            Vector3.up * 50f, Quaternion.identity, 4));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, movementButton, 4));
 
         while (!pMovement.isActiveAndEnabled)
         {
@@ -280,8 +278,7 @@ public class TutorialScript : MonoBehaviour
         endTurnButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(480, 0);
 
         arrowRectTransform.gameObject.SetActive(true);
-        arrowCoroutine = StartCoroutine(MoveArrow(endTurnButton.GetComponent<RectTransform>().position +
-            Vector3.up * 75f, Quaternion.identity, 6));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, endTurnButton, 6));
 
         while (tutorialState != 6)
         {
@@ -289,8 +286,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         //Terrain Again
-        arrowCoroutine = StartCoroutine(MoveArrow(terrainButton.GetComponent<RectTransform>().position +
-            Vector3.up * 50f, Quaternion.identity, 7));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, terrainButton, 7));
 
         while (!pTerrain.isActiveAndEnabled)
         {
@@ -298,8 +294,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         StopCoroutine(arrowCoroutine);
-        arrowCoroutine = StartCoroutine(MoveArrow(addTerrainButton.GetComponent<RectTransform>().position +
-            Vector3.left * 75f, Quaternion.Euler(0, 0, 90), 7));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.left, Quaternion.Euler(0, 0, 90), addTerrainButton, 7));
 
         while (tutorialState != 7)
         {
@@ -313,8 +308,7 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
-        arrowCoroutine = StartCoroutine(MoveArrow(movementButton.GetComponent<RectTransform>().position +
-            Vector3.up * 50f, Quaternion.identity, 9));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, movementButton, 9));
 
         while (!pMovement.isActiveAndEnabled)
         {
@@ -348,8 +342,7 @@ public class TutorialScript : MonoBehaviour
 
         arrowRectTransform.gameObject.SetActive(true);
 
-        arrowCoroutine = StartCoroutine(MoveArrow(inspectButton.GetComponent<RectTransform>().position +
-            Vector3.up * 75f, Quaternion.identity, 10));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, inspectButton, 10));
 
         while (tutorialState != 10)
         {
@@ -382,8 +375,7 @@ public class TutorialScript : MonoBehaviour
 
         arrowRectTransform.gameObject.SetActive(true);
 
-        arrowCoroutine = StartCoroutine(MoveArrow(attackButton.GetComponent<RectTransform>().position +
-            Vector3.up * 75f, Quaternion.identity, 12));
+        arrowCoroutine = StartCoroutine(MoveArrow(Vector3.up, Quaternion.identity, attackButton, 12));
 
         while (!pAttack.isActiveAndEnabled)
         {
@@ -404,17 +396,24 @@ public class TutorialScript : MonoBehaviour
     /// <summary>
     /// Moves the tutorial arrow
     /// </summary>
-    /// <param name="endPosition"></param>
     /// <param name="endRotation"></param>
     /// <returns></returns>
-    private IEnumerator MoveArrow(Vector2 endPosition, Quaternion endRotation, int condition)
+    private IEnumerator MoveArrow(Vector2 directionFromObject, Quaternion endRotation, GameObject pointAt, 
+        int condition)
     {
         float time = 0f;
         Vector2 originalPos = arrowRectTransform.position;
         Quaternion originalRot = arrowRectTransform.rotation;
+
+        RectTransform uiPiece = pointAt.GetComponent<RectTransform>();
+
         while (tutorialState < condition)
         {
-            arrowRectTransform.position = Vector2.Lerp(originalPos, endPosition / scaler.scaleFactor, time);
+            Vector2 endPosition = ((Vector2)uiPiece.position + Vector2.Scale(directionFromObject, uiPiece.rect.size) + 
+                Vector2.Scale(directionFromObject, arrowRectTransform.rect.size)) 
+                / scaler.scaleFactor;
+
+            arrowRectTransform.position = Vector2.Lerp(originalPos, endPosition, time);
             arrowRectTransform.rotation = Quaternion.Lerp(originalRot, endRotation, time);
             time += 0.1f;
             if(time > 1f)

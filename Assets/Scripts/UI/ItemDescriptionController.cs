@@ -2,15 +2,13 @@
 // File Name : ItemDescriptionController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 31, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 1, 2025
 //
 // Brief Description : Controls item descriptions
 *****************************************************************************/
 
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
-
 public class ItemDescriptionController : MonoBehaviour
 {
     [SerializeField] private GameObject box;
