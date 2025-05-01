@@ -2,7 +2,7 @@
 // File Name : TutorialScript.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 1, 2025
 //
 // Brief Description : Tutorial Script
 *****************************************************************************/
@@ -334,17 +334,17 @@ public class TutorialScript : MonoBehaviour
         //Inspection
         yield return new WaitForSeconds(1);
 
-        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, -125);
+        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(50, -100);
         inspectButton.SetActive(true);
 
-        while (inspectButton.GetComponent<RectTransform>().anchoredPosition.y < 25)
+        while (inspectButton.GetComponent<RectTransform>().anchoredPosition.y < 50)
         {
             inspectButton.GetComponent<RectTransform>().anchoredPosition = Vector2.MoveTowards
-                (inspectButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(25, 25), 1f);
+                (inspectButton.GetComponent<RectTransform>().anchoredPosition, new Vector2(50, 50), 1f);
             yield return new WaitForEndOfFrame();
         }
 
-        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, 25);
+        inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(50, 50);
 
         arrowRectTransform.gameObject.SetActive(true);
 
