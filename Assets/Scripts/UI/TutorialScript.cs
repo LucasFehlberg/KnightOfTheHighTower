@@ -9,6 +9,7 @@
 
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class TutorialScript : MonoBehaviour
     [SerializeField] private GameObject movementButton;
     [SerializeField] private GameObject endTurnButton;
     [SerializeField] private GameObject inspectButton;
+    [SerializeField] private GameObject addTerrainButton;
 
     //Player stuff
     [SerializeField] private PlayerInput pInput;
@@ -34,9 +36,13 @@ public class TutorialScript : MonoBehaviour
 
     //Tutorial Glyphs
     [SerializeField] private GameObject cameraControl;
+    [SerializeField] private RectTransform arrowRectTransform;
 
     [SerializeField] private GameObject tile1;
     [SerializeField] private GameObject tile2;
+    [SerializeField] private GameObject tile3;
+
+    [SerializeField] private CanvasScaler scaler;
 
     private bool[] doneCamera = new bool[4] {false, false, false, false};
 
@@ -44,6 +50,8 @@ public class TutorialScript : MonoBehaviour
     private InputAction cameraControlsUD;
 
     private int tutorialState = 0;
+
+    private Vector2 originalArrowPosition;
 
     public int TutorialState { get => tutorialState; set => tutorialState = value; }
     public GameObject Tile1 { get => tile1; set => tile1 = value; }
@@ -68,6 +76,8 @@ public class TutorialScript : MonoBehaviour
         endTurnButton.SetActive(false);
         inspectButton.SetActive(false);
         cameraControl.SetActive(false);
+        arrowRectTransform.anchoredPosition = Vector2.zero;
+        arrowRectTransform.gameObject.SetActive(false);
 
         StartCoroutine(nameof(Tutorial));
 
@@ -130,6 +140,7 @@ public class TutorialScript : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Tutorial()
     {
+        Coroutine arrowCoroutine = null;
         yield return new WaitForSeconds(1f);
 
         cameraControl.SetActive(true);
@@ -190,19 +201,32 @@ public class TutorialScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        arrowRectTransform.gameObject.SetActive(true);
+
         terrainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -15);
+
+        arrowCoroutine = StartCoroutine(MoveArrow(terrainButton.GetComponent<RectTransform>().position +
+            Vector3.up * 50f, Quaternion.identity, 2));
+
+        //Move the arrow seperately
 
         while (!pTerrain.isActiveAndEnabled)
         {
             yield return null;
         }
+        StopCoroutine(arrowCoroutine);
 
         tutorialState++;
+
+        arrowCoroutine = StartCoroutine(FollowPoint(tile1.transform.position + (Vector3.up * 2f), 3));
 
         while(tutorialState != 3)
         {
             yield return null;
         }
+
+        arrowRectTransform.gameObject.SetActive(false);
+        StopCoroutine(arrowCoroutine);
 
         yield return new WaitForSeconds(1);
 
@@ -219,17 +243,26 @@ public class TutorialScript : MonoBehaviour
 
         movementButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -15);
 
+        arrowRectTransform.gameObject.SetActive(true);
+        arrowCoroutine = StartCoroutine(MoveArrow(movementButton.GetComponent<RectTransform>().position +
+            Vector3.up * 50f, Quaternion.identity, 4));
+
         while (!pMovement.isActiveAndEnabled)
         {
             yield return null;
         }
+        StopCoroutine(arrowCoroutine);
 
         tutorialState++;
+        arrowCoroutine = StartCoroutine(FollowPoint(tile1.transform.position + (Vector3.up * 2f), 5));
 
         while (tutorialState != 5)
         {
             yield return null;
         }
+
+        StopCoroutine(arrowCoroutine);
+        arrowRectTransform.gameObject.SetActive(false);
 
         //End turn
         yield return new WaitForSeconds(1);
@@ -246,11 +279,57 @@ public class TutorialScript : MonoBehaviour
 
         endTurnButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(480, 0);
 
-        //Will change when adding indicators
-        while(tutorialState != 9)
+        arrowRectTransform.gameObject.SetActive(true);
+        arrowCoroutine = StartCoroutine(MoveArrow(endTurnButton.GetComponent<RectTransform>().position +
+            Vector3.up * 75f, Quaternion.identity, 6));
+
+        while (tutorialState != 6)
         {
             yield return null;
         }
+
+        //Terrain Again
+        arrowCoroutine = StartCoroutine(MoveArrow(terrainButton.GetComponent<RectTransform>().position +
+            Vector3.up * 50f, Quaternion.identity, 7));
+
+        while (!pTerrain.isActiveAndEnabled)
+        {
+            yield return null;
+        }
+
+        StopCoroutine(arrowCoroutine);
+        arrowCoroutine = StartCoroutine(MoveArrow(addTerrainButton.GetComponent<RectTransform>().position +
+            Vector3.left * 75f, Quaternion.Euler(0, 0, 90), 7));
+
+        while (tutorialState != 7)
+        {
+            yield return null;
+        }
+
+        arrowCoroutine = StartCoroutine(FollowPoint(tile2.transform.position + (Vector3.up * 2f), 8));
+
+        while (tutorialState != 8)
+        {
+            yield return null;
+        }
+
+        arrowCoroutine = StartCoroutine(MoveArrow(movementButton.GetComponent<RectTransform>().position +
+            Vector3.up * 50f, Quaternion.identity, 9));
+
+        while (!pMovement.isActiveAndEnabled)
+        {
+            yield return null;
+        }
+
+        StopCoroutine(arrowCoroutine);
+        arrowCoroutine = StartCoroutine(FollowPoint(tile2.transform.position + (Vector3.up * 2f), 9));
+
+        while (tutorialState != 9)
+        {
+            yield return null;
+        }
+
+        arrowRectTransform.gameObject.SetActive(false);
 
         //Inspection
         yield return new WaitForSeconds(1);
@@ -267,12 +346,24 @@ public class TutorialScript : MonoBehaviour
 
         inspectButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, 25);
 
-        yield return new WaitForSeconds(1);
+        arrowRectTransform.gameObject.SetActive(true);
+
+        arrowCoroutine = StartCoroutine(MoveArrow(inspectButton.GetComponent<RectTransform>().position +
+            Vector3.up * 75f, Quaternion.identity, 10));
+
+        while (tutorialState != 10)
+        {
+            yield return null;
+        }
+
+        arrowCoroutine = StartCoroutine(FollowPoint(tile3.transform.position + (Vector3.up * 2f), 11));
 
         while (tutorialState != 11)
         {
             yield return null;
         }
+
+        arrowRectTransform.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(1);
 
@@ -289,14 +380,77 @@ public class TutorialScript : MonoBehaviour
 
         attackButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -15);
 
+        arrowRectTransform.gameObject.SetActive(true);
+
+        arrowCoroutine = StartCoroutine(MoveArrow(attackButton.GetComponent<RectTransform>().position +
+            Vector3.up * 75f, Quaternion.identity, 12));
+
         while (!pAttack.isActiveAndEnabled)
         {
             yield return null;
         }
 
+        StopCoroutine(arrowCoroutine);
+        arrowCoroutine = StartCoroutine(FollowPoint(tile3.transform.position + (Vector3.up * 2f), 12));
+
         while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
         {
             yield return null;
+        }
+
+        arrowRectTransform.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Moves the tutorial arrow
+    /// </summary>
+    /// <param name="endPosition"></param>
+    /// <param name="endRotation"></param>
+    /// <returns></returns>
+    private IEnumerator MoveArrow(Vector2 endPosition, Quaternion endRotation, int condition)
+    {
+        float time = 0f;
+        Vector2 originalPos = arrowRectTransform.position;
+        Quaternion originalRot = arrowRectTransform.rotation;
+        while (tutorialState < condition)
+        {
+            arrowRectTransform.position = Vector2.Lerp(originalPos, endPosition / scaler.scaleFactor, time);
+            arrowRectTransform.rotation = Quaternion.Lerp(originalRot, endRotation, time);
+            time += 0.1f;
+            if(time > 1f)
+            {
+                time = 1f;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    /// <summary>
+    /// Makes the arrow follow a world point
+    /// </summary>
+    /// <param name="worldPosition"></param>
+    /// <param name="condition"></param>
+    /// <returns></returns>
+    private IEnumerator FollowPoint(Vector3 worldPosition, int condition)
+    {
+        float time = 0f;
+        Vector2 originalPos = arrowRectTransform.position;
+        Quaternion originalRot = arrowRectTransform.rotation;
+        while(tutorialState < condition)
+        {
+            Vector3 point = Camera.main.WorldToScreenPoint(worldPosition) / scaler.scaleFactor;
+            
+            arrowRectTransform.position = Vector2.Lerp(originalPos, point, time);
+            arrowRectTransform.rotation = Quaternion.Lerp(originalRot, Quaternion.identity, time);
+
+
+            time += 0.1f;
+            if(time > 1f)
+            {
+                time = 1f;
+            }
+
+            yield return new WaitForFixedUpdate();
         }
     }
 }
