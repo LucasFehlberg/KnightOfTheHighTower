@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Click_started(InputAction.CallbackContext obj)
     {
-        if (!Stats.DoneTutorial)
+        if (!SaveSystem.Data.DoneTutorial)
         {
             if (TutorialScript.instance.TutorialState != 4 && TutorialScript.instance.TutorialState != 8)
             {
@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayers))
         {
-            if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 4)
+            if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 4)
             {
                 if (hit.collider.transform.parent.gameObject != TutorialScript.instance.Tile1)
                 {
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 8)
+            if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 8)
             {
                 if (hit.collider.transform.parent.gameObject != TutorialScript.instance.Tile2)
                 {

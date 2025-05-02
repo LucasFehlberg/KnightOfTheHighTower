@@ -62,7 +62,7 @@ public class TutorialScript : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (Stats.DoneTutorial)
+        if (SaveSystem.Data.DoneTutorial)
         {
             Destroy(gameObject);
             return;
@@ -127,7 +127,7 @@ public class TutorialScript : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        if (!Stats.DoneTutorial)
+        if (!SaveSystem.Data.DoneTutorial)
         {
             cameraControlsLR.started -= CameraControlsLR_started;
             cameraControlsUD.started -= CameraControlsUD_started;

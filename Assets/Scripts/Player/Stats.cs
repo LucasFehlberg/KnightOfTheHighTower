@@ -41,9 +41,6 @@ public static class Stats
 
     private static string currentlyHeldTile = null;
 
-    //Other persistant stuff
-    private static bool doneTutorial = false;
-
     /// <summary>
     /// The amount of movement the player can do on a given turn
     /// </summary>
@@ -108,11 +105,6 @@ public static class Stats
     public static List<Vector2> AdditionalAttacks { get => additionalAttacks; set => additionalAttacks = value; }
     public static List<string> HeldTiles { get => heldTiles; set => heldTiles = value; }
     public static string CurrentlyHeldTile { get => currentlyHeldTile; set => currentlyHeldTile = value; }
-
-    /// <summary>
-    /// Flag for finishing the tutorial
-    /// </summary>
-    public static bool DoneTutorial { get => doneTutorial; set => doneTutorial = value; }
 
     /// <summary>
     /// Properly resets all stats that need to be reset

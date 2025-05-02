@@ -108,7 +108,7 @@ public class PlayerTerrain : MonoBehaviour
     /// <param name="obj"></param>
     private void Click_started(InputAction.CallbackContext obj)
     {
-        if(!Stats.DoneTutorial)
+        if(!SaveSystem.Data.DoneTutorial)
         {
             if(TutorialScript.instance.TutorialState != 2 && TutorialScript.instance.TutorialState != 7)
             {
@@ -151,7 +151,7 @@ public class PlayerTerrain : MonoBehaviour
 
             if (add)
             {
-                if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 7)
+                if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 7)
                 {
                     if (tile.gameObject != TutorialScript.instance.Tile2)
                     {
@@ -187,7 +187,7 @@ public class PlayerTerrain : MonoBehaviour
             }
             else
             {
-                if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 2)
+                if(!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 2)
                 {
                     if(tile.gameObject != TutorialScript.instance.Tile1)
                     {
@@ -316,7 +316,7 @@ public class PlayerTerrain : MonoBehaviour
     /// </summary>
     public void RemoveTerrain()
     {
-        if (!Stats.DoneTutorial)
+        if (!SaveSystem.Data.DoneTutorial)
         {
             return;
         }
@@ -336,11 +336,12 @@ public class PlayerTerrain : MonoBehaviour
     /// <param name="type">Type of terrain</param>
     public void AddTerrain(string type)
     {
-        if (!Stats.DoneTutorial && TutorialScript.instance.TutorialState != 6)
+        if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState != 6)
         {
+            print("Problem.");
             return;
         } 
-        else
+        else if(!SaveSystem.Data.DoneTutorial)
         {
             TutorialScript.instance.TutorialState++;
         }

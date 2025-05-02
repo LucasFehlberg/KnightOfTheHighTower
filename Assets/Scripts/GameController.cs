@@ -172,9 +172,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     private void NextAction()
     {
-        if (!Stats.DoneTutorial)
+        if (!SaveSystem.Data.DoneTutorial)
         {
-            Stats.DoneTutorial = true;
+            SaveSystem.Data.DoneTutorial = true;
+            SaveSystem.SaveGame();
         }
        switch(RoomManager.Instance.Reward)
        {

@@ -113,7 +113,7 @@ public class EnemyToast : MonoBehaviour
                     continue;
                 }
 
-                if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState == 10)
+                if(!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 10)
                 {
                     TutorialScript.instance.TutorialState++;
                 }
@@ -343,7 +343,7 @@ public class EnemyToast : MonoBehaviour
     /// </summary>
     public void SwitchButtonSprite()
     {
-        if(!Stats.DoneTutorial && TutorialScript.instance.TutorialState != 9 && 
+        if(!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState != 9 && 
             TutorialScript.instance.TutorialState < 11)
         {
             return;

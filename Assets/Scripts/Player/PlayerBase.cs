@@ -170,7 +170,7 @@ public class PlayerBase : MonoBehaviour
 
     private bool TutorialCheck(int action)
     {
-        if (Stats.DoneTutorial)
+        if (SaveSystem.Data.DoneTutorial)
         {
             return true;
         }
@@ -219,7 +219,7 @@ public class PlayerBase : MonoBehaviour
         if(action == -1) //-1 is end turn
         {
             EndTurn();
-            if (!Stats.DoneTutorial)
+            if (!SaveSystem.Data.DoneTutorial)
             {
                 TutorialScript.instance.TutorialState++;
             }
