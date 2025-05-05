@@ -2,7 +2,7 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 2, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
@@ -384,6 +384,7 @@ public class EnemyBase : MonoBehaviour
     {
         dying = true;
         TakeDamage(10000000, true);
+        tag = "Untagged";
 
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().useGravity = true;

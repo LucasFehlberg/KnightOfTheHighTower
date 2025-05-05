@@ -2,7 +2,7 @@
 // File Name : SettingsController.cs
 // Author : Lucas Fehlberg
 // Creation Date : May 2, 2025
-// Last Updated : May 2, 2025
+// Last Updated : May 4, 2025
 //
 // Brief Description : Settings Controller Script
 *****************************************************************************/
@@ -62,5 +62,13 @@ public class SettingsController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         fileDeletedText.SetActive(false);
+    }
+
+    /// <summary>
+    /// Saves the settings
+    /// </summary>
+    public void SaveSettings()
+    {
+        Settings.SaveSettings();
     }
 }
