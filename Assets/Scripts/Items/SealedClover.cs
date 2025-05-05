@@ -2,7 +2,7 @@
 // File Name : SealedClover.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 5, 2025
+// Last Updated : May 4, 2025
 //
 // Brief Description : Increases Luck (MinRandAlter)
 *****************************************************************************/
@@ -26,6 +26,6 @@ public class SealedClover : Item
         itemNameDisplay = "Sealed Clover";
         itemDescription = "+1 Luck. Luck effects the numerator of random events happening.";
 
-        itemRarity = 1;
+        itemRarity = -10;
     }
 }

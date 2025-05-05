@@ -2,7 +2,7 @@
 // File Name : ProfessorsDice.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 5, 2025
+// Last Updated : May 4, 2025
 //
 // Brief Description : Reroll +1
 *****************************************************************************/
@@ -26,6 +26,6 @@ public class ProfessorsDice : Item
         itemNameDisplay = "Professor's Dice";
         itemDescription = "Rerolls random events for a positive outcome";
 
-        itemRarity = 2;
+        itemRarity = -10;
     }
 }
