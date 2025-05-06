@@ -63,7 +63,7 @@ public class RoomManager : MonoBehaviour
         // 0 - Null Plate
 
         // Enemies
-        // E - Generic Enemy Tile
+        // E - Generic Enemy Tile //Not Implemented
         // n - Knight
         // r - Rook
         // p - Pawn
@@ -72,8 +72,8 @@ public class RoomManager : MonoBehaviour
         // Bosses
         // K - King Tile
         // Q - Queen Tile
-        // N - Nightrider Tile
-        // A - Amazon Tile
+        // N - Nightrider Tile //Not Implemented
+        // A - Amazon Tile //Not implemented
         // L - Lock
 
         //Something to note. Player always spawns on the bottom row, right 4

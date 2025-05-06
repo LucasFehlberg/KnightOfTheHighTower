@@ -2,13 +2,14 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 6, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,12 +17,14 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> turnOrder;
     [SerializeField] private GameObject UI;
-    [SerializeField] private GameObject Loss;
+    [SerializeField] private GameObject loss;
 
-    [SerializeField] private GameObject CameraPoint; 
-    [SerializeField] private GameObject EndCameraPoint;
+    [SerializeField] private GameObject cameraPoint; 
+    [SerializeField] private GameObject endCameraPoint;
 
-    [SerializeField] private GameObject MainUI;
+    [SerializeField] private TMP_Text floorUI;
+
+    [SerializeField] private GameObject mainUI;
 
     [SerializeField] private GameObject starterSelectionUI;
     [SerializeField] private GameObject itemSelectionUI;
@@ -47,8 +50,10 @@ public class GameController : MonoBehaviour
         HideMostUI();
         RoomManager.Instance.GenerateFloor();
 
-        Loss.SetActive(false);
-        MainUI.SetActive(true);
+        floorUI.text = "Floor: " + (RoomManager.Floor + 1).ToString();
+
+        loss.SetActive(false);
+        mainUI.SetActive(true);
 
         turnOrder.Add(GameObject.FindGameObjectWithTag("Player"));
 
@@ -69,7 +74,7 @@ public class GameController : MonoBehaviour
     private IEnumerator StartRoom()
     {
         yield return new WaitForEndOfFrame();
-        CameraPoint.SetActive(true);
+        cameraPoint.SetActive(true);
 
         EndTurn();
         StartCoroutine(nameof(RoomBeat));
@@ -86,11 +91,11 @@ public class GameController : MonoBehaviour
             yield return null;
         }
 
-        MainUI.SetActive(false);
+        mainUI.SetActive(false);
 
         yield return new WaitForSeconds(1f);
-        EndCameraPoint.SetActive(true);
-        CameraPoint.SetActive(false);
+        endCameraPoint.SetActive(true);
+        cameraPoint.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         NextAction();
     }
@@ -288,7 +293,7 @@ public class GameController : MonoBehaviour
     {
         RoomManager.Floor = 0;
         UI.SetActive(false);
-        Loss.SetActive(true);
+        loss.SetActive(true);
         lost = true;
     }
 }
