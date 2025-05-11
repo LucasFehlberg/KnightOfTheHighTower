@@ -186,7 +186,7 @@ public class EnemyBase : MonoBehaviour
     {
         //Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
 
-        StartCoroutine(Death(2.5f));
+        StartCoroutine(Death(0.1f));
     }
 
     /// <summary>

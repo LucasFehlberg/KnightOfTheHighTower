@@ -47,6 +47,11 @@ public class Tile : MonoBehaviour
         wall.GetComponent<Renderer>().material = tileMaterial;
     }
 
+    /// <summary>
+    /// Build on top of the tile
+    /// </summary>
+    /// <param name="building"></param>
+    /// <returns></returns>
     public bool Build(string building)
     {
         if(building == "Wall")
@@ -216,6 +221,7 @@ public class Tile : MonoBehaviour
     private void AddAttatchment(string attatchment)
     {
         Instantiate(Resources.Load("TileAttatchments/" + attatchment), attatchmentHolder.transform);
+        builtUpon = true;
         CheckPathfinding();
     }
 }

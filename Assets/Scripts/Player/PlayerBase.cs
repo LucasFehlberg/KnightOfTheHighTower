@@ -16,6 +16,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBase : MonoBehaviour
 {
+    private bool firstTimeThrough = true;
+
     private PlayerInput pInput;
 
     private int movementRemaining = 0;
@@ -178,7 +180,12 @@ public class PlayerBase : MonoBehaviour
     /// <returns></returns>
     private IEnumerator BufferAction(int action)
     {
-        yield return new WaitForEndOfFrame();
+        if (firstTimeThrough)
+        {
+            firstTimeThrough = false;
+            yield return new WaitForSeconds(0.25f);
+        }
+
         if(healthRemaining <= 0)
         {
             yield break;
