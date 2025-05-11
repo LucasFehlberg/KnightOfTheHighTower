@@ -348,7 +348,7 @@ public class EnemyToast : MonoBehaviour
         {
             return;
         } 
-        else if(TutorialScript.instance.TutorialState == 9)
+        else if(!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 9)
         {
             TutorialScript.instance.TutorialState++;
         }

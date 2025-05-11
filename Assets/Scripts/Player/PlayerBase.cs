@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 11, 2025
 //
 // Brief Description : Controls player action map and other misc things for the player
 *****************************************************************************/
@@ -44,7 +44,11 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] private TMP_Text manipulationText;
     [SerializeField] private TMP_Text lifeText;
 
-    [SerializeField] private Texture NoMoreAbility;
+    [SerializeField] private Texture noMoreAbility;
+
+    [SerializeField] private Animator animator;
+
+    [SerializeField] private GameObject particlePrefab;
 
     private InputAction restart;
     private InputAction quit;
@@ -168,6 +172,11 @@ public class PlayerBase : MonoBehaviour
         StartCoroutine(nameof(BufferAction), action);
     }
 
+    /// <summary>
+    /// Checks if the tutorial is running
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
     private bool TutorialCheck(int action)
     {
         if (SaveSystem.Data.DoneTutorial)
@@ -302,6 +311,7 @@ public class PlayerBase : MonoBehaviour
         movementRemaining = Stats.Movement;
         manipulationRemaining = Stats.Manipulation;
         attackRemaining = Stats.Attack;
+        Stats.TerrainRange = 2;
 
         foreach (Item item in Stats.HeldItems)
         {
@@ -397,12 +407,16 @@ public class PlayerBase : MonoBehaviour
             //We'll check health again before killing the player
             if (healthRemaining <= 0)
             {
+                animator.SetBool("Dead", true);
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndGame();
 
                 GetComponent<PlayerMovement>().enabled = false;
                 GetComponent<PlayerAttack>().enabled = false;
                 GetComponent<PlayerTerrain>().enabled = false;
             }
+        } else
+        {
+            animator.SetTrigger("Hit");
         }
     }
 
@@ -423,5 +437,34 @@ public class PlayerBase : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
 
         GetComponent<Rigidbody>().angularVelocity = Vector3.forward;
+
+        StartCoroutine(DeathSceneWait(3.5f));
+    }
+
+    /// <summary>
+    /// Kills the player after a set amount of time
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DeathSceneWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        SceneManager.LoadScene(3);
+    }
+
+    /// <summary>
+    /// Spawns the death particles
+    /// </summary>
+    public void SpawnParticles()
+    {
+        Instantiate(particlePrefab, transform.position, Quaternion.Euler(-90, 0, 0));
+    }
+
+    /// <summary>
+    /// Goes to the death scene
+    /// </summary>
+    public void Dead()
+    {
+        StartCoroutine(DeathSceneWait(3f));
     }
 }

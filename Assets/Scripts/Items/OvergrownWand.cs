@@ -2,7 +2,7 @@
 // File Name : OvergrownWand.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 4, 2025
-// Last Updated : April 4, 2025
+// Last Updated : May 11, 2025
 //
 // Brief Description : A basic item that increases manipulation and terrain manipulation range
 *****************************************************************************/
@@ -15,6 +15,13 @@ public class OvergrownWand : Item
     public override void UpdateStats()
     {
         Stats.Manipulation += 1;
+    }
+
+    /// <summary>
+    /// TerrainRange is put in onstartturn due to a bug
+    /// </summary>
+    public override void OnStartTurn()
+    {
         Stats.TerrainRange += 1;
     }
 
@@ -25,7 +32,7 @@ public class OvergrownWand : Item
     {
         itemName = "OvergrownWand";
         itemNameDisplay = "Overgrown Wand";
-        itemDescription = "+1 Manipulation\nIncreases range of terrain manipulation";
+        itemDescription = "+1 Manipulation\n+1 Terrain Manipulation Range";
 
         itemRarity = 0;
     }

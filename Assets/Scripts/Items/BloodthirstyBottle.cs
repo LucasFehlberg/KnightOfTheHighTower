@@ -4,7 +4,7 @@
 // Creation Date : April 5, 2025
 // Last Updated : April 28, 2025
 //
-// Brief Description : An item that, onKill, grants a 10% chance (affected by luck stats) to regain health
+// Brief Description : An item that, onKill, grants a 25% chance (affected by luck stats) to regain health
 *****************************************************************************/
 
 using UnityEngine;
@@ -19,7 +19,7 @@ public class BloodthirstyBottle: Item
         itemName = "BloodthirstyBottle";
         itemNameDisplay = "Bloodthirsty Bottle";
 
-        string chance = GetEffectChance(1, 10);
+        string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance + 
             "% chance (base 10%) to regain +1 health (cannot go over max)";
@@ -32,7 +32,7 @@ public class BloodthirstyBottle: Item
     /// </summary>
     public override void OnStartTurn()
     {
-        string chance = GetEffectChance(1, 10);
+        string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance +
             "% chance (base 10%) to regain +1 health (cannot go over max)";
@@ -50,7 +50,7 @@ public class BloodthirstyBottle: Item
         }
 
         //Nerfed to 1 out of 10 because 1 out of 2 was OP especially when collecting luck items
-        if (RandomEffect(1, 10))
+        if (RandomEffect(1, 4))
         {
             player.HealthRemaining += 1;
             player.UpdateStats();

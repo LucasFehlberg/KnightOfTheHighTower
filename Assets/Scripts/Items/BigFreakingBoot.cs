@@ -2,7 +2,7 @@
 // File Name : BigFreakingBoot.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 2, 2025
-// Last Updated : April 4, 2025
+// Last Updated : May 11, 2025
 //
 // Brief Description : An item that stuns enemies on movement
 *****************************************************************************/
@@ -48,7 +48,8 @@ public class BigFreakingBoot : Item
     {
         itemName = "BigFreakingBoot";
         itemNameDisplay = "Big Freaking Boot";
-        itemDescription = "Enemies within 1 tile (both diagonally and orthagonally) will be stunned after move";
+        itemDescription = "Completing a movement stuns adjacent enemies.\nStunned enemies cannot move or attack on" +
+            "their turn.";
         itemRarity = 1;
 
         enemyLayers =  1 << LayerMask.NameToLayer("Enemy");

@@ -3784,7 +3784,7 @@ GameObject:
   - component: {fileID: 1456587269}
   - component: {fileID: 1456587270}
   m_Layer: 5
-  m_Name: MusicController
+  m_Name: SFXController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3865,7 +3865,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1816165410}
         m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
-        m_MethodName: UpdateMusicVolume
+        m_MethodName: UpdateSFXVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5011,6 +5011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterMixer: {fileID: 24100000, guid: 724488d553f580547ba22d6a45f3d2f5, type: 2}
   musicController: {fileID: 1248582152}
+  sfxController: {fileID: 1456587270}
 --- !u!1 &1854166128
 GameObject:
   m_ObjectHideFlags: 0

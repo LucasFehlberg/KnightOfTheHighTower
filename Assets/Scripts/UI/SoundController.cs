@@ -15,6 +15,7 @@ public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioMixer masterMixer;
     [SerializeField] private Slider musicController;
+    [SerializeField] private Slider sfxController;
 
     /// <summary>
     /// When this is enabled, it will set the music volume to the proper value
@@ -22,6 +23,7 @@ public class SoundController : MonoBehaviour
     private void OnEnable()
     {
         musicController.value = Settings.Data.MusicVolume;
+        sfxController.value = Settings.Data.SFXVolume;
     }
 
     /// <summary>
@@ -31,5 +33,14 @@ public class SoundController : MonoBehaviour
     {
         Settings.Data.MusicVolume = musicController.value;
         masterMixer.SetFloat("MusicVolume", Mathf.Log10(Settings.Data.MusicVolume) * 20);
+    }
+
+    /// <summary>
+    /// Updates the SFX value
+    /// </summary>
+    public void UpdateSFXVolume()
+    {
+        Settings.Data.SFXVolume = sfxController.value;
+        masterMixer.SetFloat("SFXVolume", Mathf.Log10(Settings.Data.SFXVolume) * 20);
     }
 }

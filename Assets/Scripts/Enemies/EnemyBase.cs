@@ -175,18 +175,18 @@ public class EnemyBase : MonoBehaviour
         } 
         else
         {
-            animator.SetBool("Hit", true);
+            animator.SetTrigger("Hit");
         }
     }
     
     /// <summary>
     /// Using animation, destroy the piece
     /// </summary>
-    public void KillPiece()
+    public void Dead()
     {
         //Instantiate(deathParticles, transform.position, Quaternion.Euler(-90, 0, 0));
 
-        Destroy(gameObject);
+        StartCoroutine(Death(2.5f));
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ public class EnemyBase : MonoBehaviour
 
         GetComponent<Rigidbody>().angularVelocity = Vector3.forward;
 
-        StartCoroutine(nameof(Death));
+        StartCoroutine(Death(10f));
         StopCoroutine(nameof(EnemyTurn));
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
 
@@ -401,9 +401,14 @@ public class EnemyBase : MonoBehaviour
     /// Kill the enemy from falling
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Death()
+    private IEnumerator Death(float time)
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(time);
+        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+        {
+            yield return null;
+        }
+        animator.enabled = false;
         Destroy(gameObject);
     }
 }

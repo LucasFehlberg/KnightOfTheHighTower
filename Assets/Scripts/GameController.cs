@@ -2,7 +2,7 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 6, 2025
+// Last Updated : May 9, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> turnOrder;
     [SerializeField] private GameObject UI;
-    [SerializeField] private GameObject loss;
 
     [SerializeField] private GameObject cameraPoint; 
     [SerializeField] private GameObject endCameraPoint;
@@ -52,7 +51,6 @@ public class GameController : MonoBehaviour
 
         floorUI.text = "Floor: " + (RoomManager.Floor + 1).ToString();
 
-        loss.SetActive(false);
         mainUI.SetActive(true);
 
         turnOrder.Add(GameObject.FindGameObjectWithTag("Player"));
@@ -293,7 +291,6 @@ public class GameController : MonoBehaviour
     {
         RoomManager.Floor = 0;
         UI.SetActive(false);
-        loss.SetActive(true);
         lost = true;
     }
 }
