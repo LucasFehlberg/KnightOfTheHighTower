@@ -50,9 +50,6 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField] private GameObject particlePrefab;
 
-    private InputAction restart;
-    private InputAction quit;
-
     private AttatchmentBase currentTile;
 
     /// <summary>
@@ -62,40 +59,6 @@ public class PlayerBase : MonoBehaviour
     {
         pInput = GetComponent<PlayerInput>();
         pInput.currentActionMap.Enable();
-
-        restart = pInput.currentActionMap.FindAction("Restart");
-        quit = pInput.currentActionMap.FindAction("Quit");
-
-        restart.started += Restart_started;
-        quit.started += Quit_started;
-    }
-
-    /// <summary>
-    /// Here for alpha, will be replaced with a pause menu later
-    /// </summary>
-    /// <param name="obj"></param>
-    private void Quit_started(InputAction.CallbackContext obj)
-    {
-        Application.Quit();
-    }
-
-    /// <summary>
-    /// Here for alpha, will be replaced with a pause menu
-    /// </summary>
-    /// <param name="obj"></param>
-    private void Restart_started(InputAction.CallbackContext obj)
-    {
-        //Loads title since this is a roguelike
-        SceneManager.LoadScene(0);
-    }
-
-    /// <summary>
-    /// Avoid errors
-    /// </summary>
-    private void OnDestroy()
-    {
-        restart.started -= Restart_started;
-        quit.started -= Quit_started;
     }
 
     /// <summary>
@@ -215,6 +178,18 @@ public class PlayerBase : MonoBehaviour
     /// <returns></returns>
     private IEnumerator BufferAction(int action)
     {
+        yield return new WaitForEndOfFrame();
+        if(healthRemaining <= 0)
+        {
+            yield break;
+        }
+
+        //Check if game is paused
+        if(Time.timeScale == 0)
+        {
+            yield break;
+        }
+
         if (!TutorialCheck(action))
         {
             yield break;

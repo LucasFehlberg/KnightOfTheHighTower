@@ -67,6 +67,10 @@ public class ItemDescriptionController : MonoBehaviour
     /// <param name="item"></param>
     public void Show(Item item)
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         itemName.text = item.ItemNameDisplay;
         visibleItem = item;
         box.SetActive(true);

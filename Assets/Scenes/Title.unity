@@ -4997,6 +4997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileDeletedText: {fileID: 307732399}
   confirmation: {fileID: 1162827404}
+  ingameMenu: 0
 --- !u!114 &1816165410
 MonoBehaviour:
   m_ObjectHideFlags: 0

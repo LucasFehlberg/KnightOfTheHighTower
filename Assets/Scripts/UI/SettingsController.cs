@@ -2,26 +2,36 @@
 // File Name : SettingsController.cs
 // Author : Lucas Fehlberg
 // Creation Date : May 2, 2025
-// Last Updated : May 4, 2025
+// Last Updated : May 11, 2025
 //
 // Brief Description : Settings Controller Script
 *****************************************************************************/
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingsController : MonoBehaviour
 {
     [SerializeField] private GameObject fileDeletedText;
     [SerializeField] private GameObject confirmation;
 
+    [SerializeField] private bool ingameMenu = false;
+
     /// <summary>
     /// Sets stuff to false on boot
     /// </summary>
     private void Start()
     {
-        fileDeletedText.SetActive(false);
-        confirmation.SetActive(false);
+        if (!ingameMenu)
+        {
+            fileDeletedText.SetActive(false);
+            confirmation.SetActive(false);
+            return;
+        }
+
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     /// <summary>
@@ -70,5 +80,48 @@ public class SettingsController : MonoBehaviour
     public void SaveSettings()
     {
         Settings.SaveSettings();
+    }
+
+    /// <summary>
+    /// Returns the game to the main menu
+    /// </summary>
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    /// <summary>
+    /// Resets the game
+    /// </summary>
+    public void ResetGame()
+    {
+        Stats.ResetStats();
+        SceneManager.LoadScene(1);
+    }
+
+    /// <summary>
+    /// Quits the game
+    /// </summary>
+    public void QuitToDesktop()
+    {
+        Application.Quit();
+    }
+
+    /// <summary>
+    /// Resumes the game
+    /// </summary>
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        gameObject.SetActive(true);
     }
 }

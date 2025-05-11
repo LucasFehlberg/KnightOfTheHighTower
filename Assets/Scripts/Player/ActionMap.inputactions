@@ -15,24 +15,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Restart",
-                    "type": "Button",
-                    "id": "195b7b7e-fe1a-429a-b40a-e7c1a832ff1b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quit",
-                    "type": "Button",
-                    "id": "fbf7ac06-34e0-444f-a1c4-7e961ec663fb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CameraUpDown",
                     "type": "Value",
                     "id": "a4d9e837-5e0b-43f8-942f-bbd8b2a51a76",
@@ -60,28 +42,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "MainAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee911aab-fe6b-4ea3-99a4-51301600c7d3",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Restart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5f9d636c-7aa5-4d0e-b34d-4bc7e799565a",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -35,10 +35,10 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        RoomManager.Floor = 0;
         Stats.ResetStats();
         //Stats.HeldItems.Add(new TrustyTrowel());
         SceneManager.LoadScene(1);
-        RoomManager.Floor = 0;
     }
 
     /// <summary>

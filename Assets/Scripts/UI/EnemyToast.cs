@@ -343,7 +343,12 @@ public class EnemyToast : MonoBehaviour
     /// </summary>
     public void SwitchButtonSprite()
     {
-        if(!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState != 9 && 
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
+        if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState != 9 && 
             TutorialScript.instance.TutorialState < 11)
         {
             return;
