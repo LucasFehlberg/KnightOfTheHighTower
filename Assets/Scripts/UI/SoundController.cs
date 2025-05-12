@@ -2,7 +2,7 @@
 // File Name : SoundController
 // Author : Lucas Fehlberg
 // Creation Date : May 4, 2025
-// Last Updated : May 4, 2025
+// Last Updated : May 11, 2025
 //
 // Brief Description : Attatched to a settings gameObject, contains functions for music sliders
 *****************************************************************************/
@@ -20,10 +20,12 @@ public class SoundController : MonoBehaviour
     /// <summary>
     /// When this is enabled, it will set the music volume to the proper value
     /// </summary>
-    private void OnEnable()
+    private void Start()
     {
         musicController.value = Settings.Data.MusicVolume;
         sfxController.value = Settings.Data.SFXVolume;
+        masterMixer.SetFloat("SFXVolume", Mathf.Log10(Settings.Data.SFXVolume) * 20);
+        masterMixer.SetFloat("MusicVolume", Mathf.Log10(Settings.Data.MusicVolume) * 20);
     }
 
     /// <summary>

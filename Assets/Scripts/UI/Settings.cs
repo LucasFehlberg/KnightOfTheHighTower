@@ -39,7 +39,7 @@ public static class Settings
     /// <summary>
     /// Loads the game
     /// </summary>
-    public static void LoadGame()
+    public static void LoadSettings()
     {
         string saveFilePath = Application.persistentDataPath + "/PlayerSettings.json";
 

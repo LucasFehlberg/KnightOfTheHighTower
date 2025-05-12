@@ -21,10 +21,11 @@ public class SettingsController : MonoBehaviour
     /// <summary>
     /// Sets stuff to false on boot
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         if (!ingameMenu)
         {
+            Settings.LoadSettings();
             fileDeletedText.SetActive(false);
             confirmation.SetActive(false);
             return;
