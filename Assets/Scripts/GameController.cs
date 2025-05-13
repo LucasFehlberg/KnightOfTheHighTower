@@ -229,10 +229,10 @@ public class GameController : MonoBehaviour
                     string tile = allTiles[Random.Range(0, allTiles.Count)];
                     allTiles.Remove(tile);
 
-                    //if (Stats.HeldTiles.Contains(tile))
-                    //{
-                    //    continue;
-                    //}
+                    if (Stats.HeldTiles.Contains(tile))
+                    {
+                        continue;
+                    }
 
                     tiles.Add(tile);
                 }
