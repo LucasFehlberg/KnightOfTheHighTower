@@ -2,7 +2,7 @@
 // File Name : BerserkersBuckler.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 13, 2025
 //
 // Brief Description : When hit, increase damage
 *****************************************************************************/
@@ -26,7 +26,8 @@ public class BerserkersBuckler : Item
     {
         itemName = "BerserkersBuckler";
         itemNameDisplay = "Berserkers Buckler";
-        itemDescription = "Increases Attack when hit. \nCurrently +" + attackIncrease.ToString();
+        itemDescription = "Increases Attack when hit. \nCurrently +" + attackIncrease.ToString() + ".\nResets at " +
+            "the end of your turn.";
 
         itemRarity = 1;
     }
@@ -47,5 +48,13 @@ public class BerserkersBuckler : Item
     public override void OnStartTurn()
     {
         player.AttackRemaining += attackIncrease;
+    }
+
+    /// <summary>
+    /// When the player's turn is ended, reset the bonus
+    /// </summary>
+    public override void OnEndTurn()
+    {
+        attackIncrease = 0;
     }
 }
