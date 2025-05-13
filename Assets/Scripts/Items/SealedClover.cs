@@ -2,9 +2,9 @@
 // File Name : SealedClover.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : May 11, 2025
+// Last Updated : May 13, 2025
 //
-// Brief Description : Increases Luck (MinRandAlter)
+// Brief Description : Increases terrain range
 *****************************************************************************/
 
 using UnityEngine;
@@ -46,10 +46,10 @@ public class SealedClover : Item
     }
 
     /// <summary>
-    /// When moving, disable the bonus
+    /// When attacking, disable the bonus
     /// </summary>
     /// <param name="position"></param>
-    public override void OnMove(Vector3 position)
+    public override void OnAttack(EnemyBase enemy, int damage, Vector2 direction)
     {
         Stats.TerrainRange -= tileBonus;
 
