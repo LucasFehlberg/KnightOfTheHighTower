@@ -50,7 +50,7 @@ public class BigFreakingBoot : Item
 
                 if (!enemy.Modifiers.OfType<Stunned>().Any())
                 {
-                    enemy.Modifiers.Add(new Stunned(numStun));
+                    enemy.AddModifier(new Stunned(numStun));
                 }
             }
         }

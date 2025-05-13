@@ -433,4 +433,15 @@ public class EnemyBase : MonoBehaviour
         animator.enabled = false;
         Destroy(gameObject);
     }
+
+    /// <summary>
+    /// Adds modifiers to enemies
+    /// </summary>
+    /// <param name="modifier"></param>
+    public void AddModifier(Modifier modifier)
+    {
+        modifier.Enemy = this;
+        modifiers.Add(modifier);
+        modifier.OnLoad();
+    }
 }

@@ -2,7 +2,7 @@
 // File Name : Maledictus.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 26, 2025
+// Last Updated : May 13, 2025
 //
 // Brief Description : When this enemy is killed, all other enemies take 1 damage
 *****************************************************************************/

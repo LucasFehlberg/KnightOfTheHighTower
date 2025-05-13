@@ -8,11 +8,14 @@
 *****************************************************************************/
 
 using System.Collections;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Stunned : Modifier
 {
     private int timer = 0;
+
+    private GameObject particles;
 
     /// <summary>
     /// Constructor
@@ -29,6 +32,7 @@ public class Stunned : Modifier
     public Stunned(int time)
     {
         timer = time;
+        Debug.Log(timer);
     }
 
     /// <summary>
@@ -52,6 +56,10 @@ public class Stunned : Modifier
             enemy.AttackRemaining = 0;
             enemy.MovementRemaining = 0;
         }
+        else if (!particles.GetComponent<ParticleSystem>().isStopped)
+        {
+            particles.GetComponent<ParticleSystem>().Stop();
+        }
         //if (timer <= 0)
         //{
         //    enemy.StartCoroutine(RemoveMe());
@@ -66,5 +74,14 @@ public class Stunned : Modifier
     {
         yield return new WaitForEndOfFrame();
         enemy.Modifiers.Remove(this);
+    }
+
+    /// <summary>
+    /// Loads in the particle effect
+    /// </summary>
+    public override void OnLoad()
+    {
+        Debug.Log("loaded");
+        particles = (GameObject)Object.Instantiate(Resources.Load("ParticleFX/StunnedParticles"), enemy.transform);
     }
 }
