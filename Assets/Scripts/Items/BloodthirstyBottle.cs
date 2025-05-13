@@ -2,7 +2,7 @@
 // File Name : BloodthirstyBottle.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 28, 2025
+// Last Updated : May 13, 2025
 //
 // Brief Description : An item that, onKill, grants a 25% chance (affected by luck stats) to regain health
 *****************************************************************************/
@@ -22,7 +22,7 @@ public class BloodthirstyBottle: Item
         string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance + 
-            "% chance (base 10%) to regain +1 health (cannot go over max)";
+            "% chance to regain +1 health (cannot go over max)";
 
         itemRarity = 2;
     }
@@ -35,7 +35,7 @@ public class BloodthirstyBottle: Item
         string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance +
-            "% chance (base 10%) to regain +1 health (cannot go over max)";
+            "% chance to regain +1 health (cannot go over max)";
     }
 
     /// <summary>
