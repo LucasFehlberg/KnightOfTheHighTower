@@ -8,7 +8,6 @@
 *****************************************************************************/
 
 using System.Collections;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Stunned : Modifier
@@ -47,13 +46,16 @@ public class Stunned : Modifier
     /// </summary>
     public override void OnStartTurn()
     {
-        timer--;
-        enemy.AttackRemaining = 0;
-        enemy.MovementRemaining = 0;
-        if (timer <= 0)
+        if(timer > 0)
         {
-            enemy.StartCoroutine(RemoveMe());
+            timer--;
+            enemy.AttackRemaining = 0;
+            enemy.MovementRemaining = 0;
         }
+        //if (timer <= 0)
+        //{
+        //    enemy.StartCoroutine(RemoveMe());
+        //}
     }
 
     /// <summary>
