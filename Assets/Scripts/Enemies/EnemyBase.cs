@@ -9,6 +9,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
@@ -418,11 +419,17 @@ public class EnemyBase : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Death(float time)
     {
-        yield return new WaitForSeconds(time);
-        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+        float particleStop = 0f;
+        foreach (ParticleSystem particles in transform.GetComponentsInChildren<ParticleSystem>())
         {
-            yield return null;
+            particles.Stop();
+
+            if(particles.main.startLifetime.constantMax > particleStop)
+            {
+                particleStop = particles.main.startLifetime.constantMax;
+            }
         }
+        yield return new WaitForSeconds(time + particleStop);
         animator.enabled = false;
         Destroy(gameObject);
     }

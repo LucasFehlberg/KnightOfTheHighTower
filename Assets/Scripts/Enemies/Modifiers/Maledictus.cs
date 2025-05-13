@@ -8,6 +8,8 @@
 *****************************************************************************/
 
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Maledictus : Modifier
@@ -30,12 +32,13 @@ public class Maledictus : Modifier
     {
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if(enemy == this.enemy.gameObject)
+            if(enemy.GetComponent<EnemyBase>() == this.enemy)
             {
                 continue;
             }
-            if (stopTheLoops.Contains(enemy.GetComponent<EnemyBase>()))
+            if (enemy.GetComponent<EnemyBase>().HealthRemaining <= 0)
             {
+                Debug.Log("Maledictus Spotted");
                 continue;
             }
             enemy.GetComponent<EnemyBase>().TakeDamage(1);
