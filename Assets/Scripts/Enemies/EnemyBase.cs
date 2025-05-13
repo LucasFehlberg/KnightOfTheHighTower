@@ -2,7 +2,7 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 2, 2025
+// Last Updated : May 13, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
@@ -218,6 +218,14 @@ public class EnemyBase : MonoBehaviour
             //We check for attack before we move
             if (!GetComponent<EnemyMovement>().Moving && !GetComponent<EnemyMovement>().TileTrigger)
             {
+                //Check if got hit during it's turn
+                if (dying)
+                {
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+                    movementRemaining = 0;
+                    yield break;
+                }
+
                 CheckForAttack();
                 GetComponent<EnemyMovement>().MoveEnemy();
 
@@ -230,6 +238,13 @@ public class EnemyBase : MonoBehaviour
         }
 
         yield return null;
+
+        //Same check as above but we don't have to worry about movement anymore
+        if (dying)
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+            yield break;
+        }
 
         CheckForAttack();
 
