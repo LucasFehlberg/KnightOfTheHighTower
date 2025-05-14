@@ -377,12 +377,12 @@ public class PlayerBase : MonoBehaviour
 
         if (healthRemaining <= 0)
         {
-            foreach(Item item in Stats.HeldItems)
+            healthRemaining = 0;
+
+            foreach (Item item in Stats.HeldItems)
             {
                 item.OnDeath();
             }
-
-            healthRemaining = 0;
 
             yield return new WaitForEndOfFrame();
 
@@ -395,8 +395,13 @@ public class PlayerBase : MonoBehaviour
                 GetComponent<PlayerMovement>().enabled = false;
                 GetComponent<PlayerAttack>().enabled = false;
                 GetComponent<PlayerTerrain>().enabled = false;
+            } 
+            else
+            {
+                animator.SetTrigger("Hit");
             }
-        } else
+        } 
+        else
         {
             animator.SetTrigger("Hit");
         }
