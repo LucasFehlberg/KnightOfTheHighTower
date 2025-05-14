@@ -20,7 +20,7 @@ public class SealedClover : Item
     {
         itemName = "SealedClover";
         itemNameDisplay = "Sealed Clover";
-        itemDescription = "+" + tileBonus.ToString() + " Tile Manipulation Radius \nMoving removes this bonus" +
+        itemDescription = "+" + tileBonus.ToString() + " Tile Manipulation Radius \nAttacking removes this bonus" +
             "\nResets at the end of your turn";
 
         itemRarity = 1;
