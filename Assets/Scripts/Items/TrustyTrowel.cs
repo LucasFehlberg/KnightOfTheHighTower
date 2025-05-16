@@ -2,13 +2,12 @@
 // File Name : TrustyTrowel.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Allow for more walls to be placed per-turn
 *****************************************************************************/
 
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrustyTrowel : Item
@@ -43,7 +42,7 @@ public class TrustyTrowel : Item
             player.ManipulationRemaining += 1;
             lastCheckedList.Remove(this);
         } 
-        else if(allTrowels.Contains(this))
+        else if(type == "Wall" & allTrowels.Contains(this))
         {
             lastCheckedList.Clear();
             foreach (TrustyTrowel trowel in allTrowels)
