@@ -2,7 +2,7 @@
 // File Name : Item.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Base class for items
 *****************************************************************************/
@@ -128,6 +128,10 @@ public class Item
 
     }
 
+    /// <summary>
+    /// When a player kills an enemy
+    /// </summary>
+    /// <param name="position"></param>
     public virtual void OnKillEnemy(Vector3 position)
     {
 
