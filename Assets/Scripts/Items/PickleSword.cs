@@ -25,11 +25,12 @@ public class PickleSword: Item
     }
 
     /// <summary>
-    /// When killing an enemy, add one to attack
+    /// When killing an enemy, add one to attack 
     /// </summary>
     /// <param name="position">Unused here</param>
     public override void OnKillEnemy(Vector3 position)
     {
         player.AttackRemaining += 1;
+        player.UpdateStats();
     }
 }
