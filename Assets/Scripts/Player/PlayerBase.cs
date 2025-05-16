@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : May 11, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Controls player action map and other misc things for the player
 *****************************************************************************/
@@ -134,6 +134,12 @@ public class PlayerBase : MonoBehaviour
     /// <param name="action">Type of action</param>
     public void SetAction(int action) //Because apparently Unity events don't LIKE ENUMS
     {
+        //Do not run if all enemies are dead
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            return;
+        }
+
         StartCoroutine(nameof(BufferAction), action);
     }
 

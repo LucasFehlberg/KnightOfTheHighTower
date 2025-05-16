@@ -2,7 +2,7 @@
 // File Name : PlayerMovement.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 29, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Moves the player around based on num movements left
 *****************************************************************************/
@@ -224,6 +224,12 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void ResetIndicators()
     {
+        //Dont run if all enemies are dead
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            enabled = false;
+            return;
+        }
         //Putting this in here for more code efficiency
         if (!isActiveAndEnabled)
         {

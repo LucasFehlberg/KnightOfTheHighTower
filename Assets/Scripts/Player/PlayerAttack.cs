@@ -2,7 +2,7 @@
 // File Name : PlayerAttack.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : April 24, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Allows the player to deal damage
 *****************************************************************************/
@@ -144,6 +144,12 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     public void ResetIndicators()
     {
+        //Dont run if all enemies are dead
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            enabled = false;
+            return;
+        }
         //Putting this in here for more code efficiency
         if (!isActiveAndEnabled)
         {
