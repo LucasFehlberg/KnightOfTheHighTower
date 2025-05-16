@@ -123,9 +123,9 @@ public class Item
     /// <summary>
     /// Runs when the player dies
     /// </summary>
-    public virtual void OnDeath()
+    public virtual bool OnDeath()
     {
-
+        return false;
     }
 
     /// <summary>

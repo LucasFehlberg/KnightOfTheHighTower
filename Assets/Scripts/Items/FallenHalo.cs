@@ -18,7 +18,7 @@ public class FallenHalo : Item
     public override void SetDefaults()
     {
         itemName = "FallenHalo";
-        itemDescription = "Grants a singular revive to 1/3 health. Does not reset.";
+        itemDescription = "Grants a singular revive to 2/3 health, skipping all other enemy's turns.";
         itemNameDisplay = "Fallen Halo";
 
         itemRarity = 3;
@@ -27,15 +27,22 @@ public class FallenHalo : Item
     /// <summary>
     /// Revives the player
     /// </summary>
-    public override void OnDeath()
+    public override bool OnDeath()
     {
         if (!used)
         {
             used = true;
-            player.HealthRemaining = (int)Mathf.Ceil(Stats.Health / 3f);
             player.UpdateStats();
             itemDescription = "A trinket of former glory.";
             itemNameDisplay = "Tainted Halo";
+
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().CurrentIndex = -1;
+
+            player.StartCoroutine(player.Revive(Mathf.CeilToInt(Stats.Health * 2f / 3f)));
+
+            return true;
         }
+
+        return false;
     }
 }

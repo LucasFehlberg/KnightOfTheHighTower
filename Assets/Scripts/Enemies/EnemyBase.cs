@@ -219,6 +219,13 @@ public class EnemyBase : MonoBehaviour
             //We check for attack before we move
             if (!GetComponent<EnemyMovement>().Moving && !GetComponent<EnemyMovement>().TileTrigger)
             {
+                //Check if player is dead
+                if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>().HealthRemaining <= 0)
+                {
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+                    movementRemaining = 0;
+                    yield break;
+                }
                 //Check if got hit during it's turn
                 if (dying)
                 {

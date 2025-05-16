@@ -385,15 +385,20 @@ public class PlayerBase : MonoBehaviour
         {
             healthRemaining = 0;
 
+            var revive = false;
             foreach (Item item in Stats.HeldItems)
             {
-                item.OnDeath();
+                if (item.OnDeath())
+                {
+                    revive = true;
+                    break;
+                }
             }
 
             yield return new WaitForEndOfFrame();
 
             //We'll check health again before killing the player
-            if (healthRemaining <= 0)
+            if (!revive)
             {
                 animator.SetBool("Dead", true);
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndGame();
@@ -411,6 +416,18 @@ public class PlayerBase : MonoBehaviour
         {
             animator.SetTrigger("Hit");
         }
+    }
+
+    /// <summary>
+    /// Player revive function
+    /// </summary>
+    /// <param name="health">Amount of health revived with</param>
+    /// <returns></returns>
+    public IEnumerator Revive(int health)
+    {
+        yield return new WaitForEndOfFrame();
+
+        healthRemaining = health;
     }
 
     /// <summary>

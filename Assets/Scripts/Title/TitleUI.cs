@@ -38,6 +38,7 @@ public class TitleUI : MonoBehaviour
         RoomManager.Floor = 0;
         Stats.ResetStats();
         //Stats.HeldItems.Add(new TrustyTrowel());
+        Stats.HeldItems.Add(new FallenHalo());
         SceneManager.LoadScene(1);
     }
 

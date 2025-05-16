@@ -2,7 +2,7 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 11, 2025
+// Last Updated : May 16, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     /// The current turn
     /// </summary>
     public int TurnNumber { get => turnNumber; set => turnNumber = value; }
+    public int CurrentIndex { get => currentIndex; set => currentIndex = value; }
 
     /// <summary>
     /// Sets up turn order
@@ -103,19 +104,30 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
+        StartCoroutine(TakeNextTurn());
+    }
+
+    /// <summary>
+    /// Actually takes the next turn
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator TakeNextTurn()
+    {
+        yield return new WaitForEndOfFrame();
+
         if (lost)
         {
-            return;
+            yield break;
         }
         currentIndex++;
 
-        if(currentIndex >= turnOrder.Count)
+        if (currentIndex >= turnOrder.Count)
         {
             currentIndex = 0;
             turnNumber++;
         }
 
-        if(currentIndex < 0)
+        if (currentIndex < 0)
         {
             currentIndex = 0;
         }
@@ -125,7 +137,7 @@ public class GameController : MonoBehaviour
             && turnOrder[currentIndex].GetComponent<EnemyBase>().Dying))
         {
             turnOrder.RemoveAt(currentIndex);
-            if(currentIndex >= turnOrder.Count)
+            if (currentIndex >= turnOrder.Count)
             {
                 currentIndex = 0;
             }
@@ -148,14 +160,14 @@ public class GameController : MonoBehaviour
         {
             turnOrder[currentIndex].GetComponent<PlayerBase>().OnStartTurn();
             UI.SetActive(true);
-            return;
+            yield break;
         }
 
         if (turnOrder[currentIndex].CompareTag("Enemy"))
         {
             turnOrder[currentIndex].GetComponent<EnemyBase>().OnStartTurn();
             UI.SetActive(false);
-            return;
+            yield break;
         }
     }
 
