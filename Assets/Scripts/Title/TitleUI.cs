@@ -37,11 +37,8 @@ public class TitleUI : MonoBehaviour
     {
         RoomManager.Floor = 0;
         Stats.ResetStats();
-        Stats.HeldItems.Add(new TrustyTrowel());
-        Stats.HeldItems.Add(new TrustyTrowel());
-        Stats.HeldTiles[0] = "VectorPlate";
-        Stats.HeldItems.Add(new StabilizedSingularity());
-        Stats.HeldItems.Add(new StabilizedSingularity());
+        //Stats.HeldItems.Add(new TrustyTrowel());
+        Stats.HeldTiles[0] = "Glass";
         SceneManager.LoadScene(1);
     }
 
