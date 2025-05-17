@@ -2,19 +2,21 @@
 // File Name : TrustyTrowel.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 29, 2025
-// Last Updated : May 16, 2025
+// Last Updated : May 17, 2025
 //
 // Brief Description : Allow for more walls to be placed per-turn
 *****************************************************************************/
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrustyTrowel : Item
 {
+    private bool notUsed = true;
     //Man this is complicated for a common item
-    private static List<TrustyTrowel> allTrowels = new();
-    private List<TrustyTrowel> lastCheckedList = new();
+    //private static List<TrustyTrowel> allTrowels = new();
+    //private List<TrustyTrowel> lastCheckedList = new();
 
     /// <summary>
     /// Set itemName and itemDescription
@@ -28,28 +30,44 @@ public class TrustyTrowel : Item
         itemRarity = 1;
     }
 
+    ///// <summary>
+    ///// When a wall is added
+    ///// </summary>
+    ///// <param name="position"></param>
+    ///// <param name="type"></param>
+    //public override void OnTerrainManipulation(Vector3 position, string type)
+    //{
+    //    //Super complicated math here
+    //    if (type == "Wall" && allTrowels.Contains(this) && allTrowels.Count == lastCheckedList.Count)
+    //    {
+    //        allTrowels.Remove(this);
+    //        player.ManipulationRemaining += 1;
+    //        lastCheckedList.Remove(this);
+    //    }
+    //    else if (type == "Wall" & allTrowels.Contains(this))
+    //    {
+    //        lastCheckedList.Clear();
+    //        foreach (TrustyTrowel trowel in allTrowels)
+    //        {
+    //            lastCheckedList.Add(trowel);
+    //        }
+    //    }
+    //}
+
     /// <summary>
-    /// When a wall is added
+    /// Doesn't consume terrain if trowel is active
     /// </summary>
-    /// <param name="position"></param>
-    /// <param name="type"></param>
-    public override void OnTerrainManipulation(Vector3 position, string type)
+    /// <param name="resource"></param>
+    /// <returns></returns>
+    public override bool ConsumeTerrain(Vector3 position, string type)
     {
-        //Super complicated math here
-        if(type == "Wall" && allTrowels.Contains(this) && allTrowels.Count == lastCheckedList.Count)
+        if(type == "Wall" && notUsed)
         {
-            allTrowels.Remove(this);
-            player.ManipulationRemaining += 1;
-            lastCheckedList.Remove(this);
-        } 
-        else if(type == "Wall" & allTrowels.Contains(this))
-        {
-            lastCheckedList.Clear();
-            foreach (TrustyTrowel trowel in allTrowels)
-            {
-                lastCheckedList.Add(trowel);
-            }
+            notUsed = false;
+            return false;
         }
+
+        return true;
     }
 
     /// <summary>
@@ -57,14 +75,15 @@ public class TrustyTrowel : Item
     /// </summary>
     public override void OnStartTurn()
     {
-        allTrowels.Add(this);
-        foreach(Item item in Stats.HeldItems)
-        {
-            if(item.GetType() == typeof(TrustyTrowel))
-            {
-                lastCheckedList.Add(item as TrustyTrowel);
-            }
-        }
+        notUsed = true;
+        //allTrowels.Add(this);
+        //foreach(Item item in Stats.HeldItems)
+        //{
+        //    if(item.GetType() == typeof(TrustyTrowel))
+        //    {
+        //        lastCheckedList.Add(item as TrustyTrowel);
+        //    }
+        //}
     }
 
     /// <summary>
@@ -72,8 +91,8 @@ public class TrustyTrowel : Item
     /// </summary>
     public override void OnEndTurn()
     {
-        lastCheckedList.Clear();
-        allTrowels.Clear();
+        //lastCheckedList.Clear();
+        //allTrowels.Clear();
     }
 
     /// <summary>
@@ -81,7 +100,7 @@ public class TrustyTrowel : Item
     /// </summary>
     public override void UpdateStats()
     {
-        lastCheckedList.Clear();
-        allTrowels.Clear();
+        //lastCheckedList.Clear();
+        //allTrowels.Clear();
     }
 }

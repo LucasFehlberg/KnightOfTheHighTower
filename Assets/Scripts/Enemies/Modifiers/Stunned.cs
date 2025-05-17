@@ -81,7 +81,6 @@ public class Stunned : Modifier
     /// </summary>
     public override void OnLoad()
     {
-        Debug.Log("loaded");
         particles = (GameObject)Object.Instantiate(Resources.Load("ParticleFX/StunnedParticles"), enemy.transform);
     }
 }

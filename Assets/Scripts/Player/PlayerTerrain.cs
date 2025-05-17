@@ -149,6 +149,23 @@ public class PlayerTerrain : MonoBehaviour
                 tile = hit.transform.parent.parent.GetComponent<Tile>();
             }
 
+            bool consumption = true;
+            foreach (Item item in Stats.HeldItems)
+            {
+                string terrainType = type;
+                if (!add)
+                {
+                    terrainType = "Remove";
+                }
+
+                if (!item.ConsumeTerrain(hit.collider.transform.position, terrainType))
+                {
+                    consumption = false;
+                    break;
+                }
+            }
+            print(consumption);
+
             if (add)
             {
                 if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState == 7)
@@ -182,7 +199,7 @@ public class PlayerTerrain : MonoBehaviour
 
                 foreach (Item item in Stats.HeldItems)
                 {
-                    item.OnTerrainManipulation(hit.collider.transform.position, type);
+                    item.OnTerrainManipulation(hit.collider.transform.position, type, consumption);
                 }
             }
             else
@@ -214,11 +231,14 @@ public class PlayerTerrain : MonoBehaviour
 
                 foreach (Item item in Stats.HeldItems)
                 {
-                    item.OnTerrainManipulation(hit.collider.transform.position, "Remove");
+                    item.OnTerrainManipulation(hit.collider.transform.position, "Remove", consumption);
                 }
             }
 
-            player.ManipulationRemaining--;
+            if (consumption)
+            {
+                player.ManipulationRemaining--;
+            }
             player.UpdateStats();
 
             KillIndicators();

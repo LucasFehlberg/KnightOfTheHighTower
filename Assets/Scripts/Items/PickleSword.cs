@@ -1,8 +1,8 @@
 /*****************************************************************************
 // File Name : PickleSword.cs
 // Author : Lucas Fehlberg
-// Creation Date : April 16, 2025
-// Last Updated : May 16, 2025
+// Creation Date : May 16, 2025
+// Last Updated : May 17, 2025
 //
 // Brief Description : Upon killing an enemy, gain +1 attack
 *****************************************************************************/
@@ -28,8 +28,13 @@ public class PickleSword: Item
     /// When killing an enemy, add one to attack 
     /// </summary>
     /// <param name="position">Unused here</param>
-    public override void OnKillEnemy(Vector3 position)
+    public override void OnKillEnemy(Vector3 position, bool voidKill = false)
     {
+        if (voidKill)
+        {
+            return;
+        }
+
         player.AttackRemaining += 1;
         player.UpdateStats();
     }

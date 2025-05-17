@@ -42,7 +42,7 @@ public class BloodthirstyBottle: Item
     /// When the enemy is killed, regain health
     /// </summary>
     /// <param name="position">Unused here</param>
-    public override void OnKillEnemy(Vector3 position)
+    public override void OnKillEnemy(Vector3 position, bool voidKill = false)
     {
         if (player.HealthRemaining >= Stats.Health)
         {

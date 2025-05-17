@@ -99,7 +99,7 @@ public class Item
     /// <summary>
     /// Runs an effect when terrain is manipulated
     /// </summary>
-    public virtual void OnTerrainManipulation(Vector3 position, string type)
+    public virtual void OnTerrainManipulation(Vector3 position, string type, bool consumeTerrain)
     {
 
     }
@@ -132,9 +132,20 @@ public class Item
     /// When a player kills an enemy
     /// </summary>
     /// <param name="position"></param>
-    public virtual void OnKillEnemy(Vector3 position)
+    public virtual void OnKillEnemy(Vector3 position, bool voidKill = false)
     {
 
+    }
+
+    /// <summary>
+    /// Runs to check if terrain is consumed
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public virtual bool ConsumeTerrain(Vector3 position, string type)
+    {
+        return true;
     }
 
     /// <summary>

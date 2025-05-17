@@ -147,14 +147,19 @@ public class EnemyBase : MonoBehaviour
         HealthRemaining -= damage;
         if (healthRemaining <= 0)
         {
-            foreach(Item item in Stats.HeldItems)
+            if (!dying)
             {
-                item.OnKillEnemy(transform.position);
-            }
+                foreach (Item item in Stats.HeldItems)
+                {
+                    item.OnKillEnemy(transform.position, fall);
+                }
 
-            foreach(Modifier modifier in modifiers)
-            {
-                modifier.OnKill();
+                foreach (Modifier modifier in modifiers)
+                {
+                    modifier.OnKill();
+                }
+
+                dying = true;
             }
 
             if (!fall)
@@ -165,7 +170,6 @@ public class EnemyBase : MonoBehaviour
                     GetComponent<CapsuleCollider>().enabled = false;
                     tag = "Untagged"; //Used for checking if the enemy is dead
 
-                    dying = true;
                 } else
                 {
                     Instantiate(deathParticles, transform.position + Vector3.up * 0.5f, Quaternion.Euler(-90, 0, 0));
@@ -405,8 +409,8 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     public void KillEnemyFunny()
     {
-        dying = true;
         TakeDamage(10000000, true);
+        dying = true;
         tag = "Untagged";
 
         GetComponent<Rigidbody>().isKinematic = false;

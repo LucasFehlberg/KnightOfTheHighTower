@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartRoom()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.02f);
         cameraPoint.SetActive(true);
 
         EndTurn();
