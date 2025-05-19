@@ -96,6 +96,8 @@ public class SettingsController : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
+        RoomManager.Floor = 0;
+        Time.timeScale = 1;
         Stats.ResetStats();
         SceneManager.LoadScene(1);
     }

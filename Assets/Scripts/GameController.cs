@@ -9,7 +9,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -213,19 +215,39 @@ public class GameController : MonoBehaviour
             case ("Normal Selection"):
                 itemSelectionUI.SetActive(true);
 
-                Item[] items = new Item[2];
-                items[0] = Item.SpawnItem(1, false);
+                //We're making this a list in the new version
+                List<Item> items = new();
 
-                //No dupes
-                do
+                for(int i = 0; i < GameObject.FindGameObjectsWithTag("SelectionButton").Length; i++)
                 {
-                    items[1] = Item.SpawnItem(1, false);
-                } while (items[1].ItemName == items[0].ItemName);
+                    Item newItem;
+                    bool pass = true;
+
+                    //No dupes
+                    do
+                    {
+                        pass = true;
+                        newItem = Item.SpawnItem(1, false);
+                        foreach(Item item in items)
+                        {
+                            if(newItem.ItemName == item.ItemName)
+                            {
+                                pass = false;
+                                break;
+                            }
+                        }
+
+                    } while (!pass);
+
+                    items.Add(newItem);
+                }
+
+
 
                 foreach (GameObject button in GameObject.FindGameObjectsWithTag("SelectionButton"))
                 {
-                    button.GetComponent<ItemButton>().SetItem(items[items[0] == null ? 1 : 0]);
-                    items[0] = null;
+                    button.GetComponent<ItemButton>().SetItem(items[0]);
+                    items.RemoveAt(0);
                 }
                 break;
 
