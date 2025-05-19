@@ -164,7 +164,6 @@ public class PlayerTerrain : MonoBehaviour
                     break;
                 }
             }
-            print(consumption);
 
             if (add)
             {

@@ -2,21 +2,20 @@
 // File Name : EnemyBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 13, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Controls enemy stats and other general things
 *****************************************************************************/
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask obstacleLayers;
-    [SerializeField] private LayerMask groundLayers;
+    [SerializeField] protected LayerMask groundLayers;
 
     [SerializeField] private int health = 1;
     [SerializeField] private int movement = 1;
@@ -142,7 +141,7 @@ public class EnemyBase : MonoBehaviour
     /// When enemy takes damage
     /// </summary>
     /// <param name="damage">Recieving Damage</param>
-    public void TakeDamage(int damage, bool fall = false)
+    public virtual void TakeDamage(int damage, Vector3 cameFrom, bool fall = false)
     {
         HealthRemaining -= damage;
         if (healthRemaining <= 0)
@@ -409,7 +408,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     public void KillEnemyFunny()
     {
-        TakeDamage(10000000, true);
+        TakeDamage(10000000, Vector3.zero, true);
         dying = true;
         tag = "Untagged";
 

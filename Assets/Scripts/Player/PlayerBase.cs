@@ -215,6 +215,13 @@ public class PlayerBase : MonoBehaviour
 
         if(action == -1) //-1 is end turn
         {
+            foreach(GameObject ball in GameObject.FindGameObjectsWithTag("Ball"))
+            {
+                if (ball.GetComponent<Ball>().IsBallRolling)
+                {
+                    yield break;
+                }
+            }
             EndTurn();
             if (!SaveSystem.Data.DoneTutorial)
             {

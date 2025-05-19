@@ -2,7 +2,7 @@
 // File Name : Maledictus.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : May 13, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : When this enemy is killed, all other enemies take 1 damage
 *****************************************************************************/
@@ -41,7 +41,7 @@ public class Maledictus : Modifier
                 Debug.Log("Maledictus Spotted");
                 continue;
             }
-            enemy.GetComponent<EnemyBase>().TakeDamage(1);
+            enemy.GetComponent<EnemyBase>().TakeDamage(1, Vector3.zero);
             stopTheLoops.Add(enemy.GetComponent<EnemyBase>());
         }
     }

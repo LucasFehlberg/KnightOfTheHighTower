@@ -2,7 +2,7 @@
 // File Name : PlayerAttack.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 16, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Allows the player to deal damage
 *****************************************************************************/
@@ -91,7 +91,7 @@ public class PlayerAttack : MonoBehaviour
             player.AttackRemaining--;
             player.UpdateStats();
             
-            hit.collider.GetComponent<EnemyBase>().TakeDamage(Stats.Damage);
+            hit.collider.GetComponent<EnemyBase>().TakeDamage(Stats.Damage, transform.position);
             foreach (Item item in Stats.HeldItems)
             {
                 item.OnAttack(hit.collider.GetComponent<EnemyBase>(), Stats.Damage, direction);

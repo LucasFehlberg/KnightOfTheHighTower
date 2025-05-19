@@ -2,7 +2,7 @@
 // File Name : LandMines.cs
 // Author : Lucas Fehlberg
 // Creation Date : May 13, 2025
-// Last Updated : May 13, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : LandMines script
 *****************************************************************************/
@@ -34,7 +34,7 @@ public class LandMines : AttatchmentBase
         }
         else if (other.TryGetComponent(out EnemyBase enemy))
         {
-            enemy.TakeDamage(2);
+            enemy.TakeDamage(2, transform.position);
             enemy.CurrentTile = null;
         }
 

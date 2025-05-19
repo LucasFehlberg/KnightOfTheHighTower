@@ -38,7 +38,9 @@ public class TitleUI : MonoBehaviour
         RoomManager.Floor = 0;
         Stats.ResetStats();
         //Stats.HeldItems.Add(new TrustyTrowel());
-        Stats.HeldTiles[0] = "Glass";
+        Stats.HeldTiles[0] = "Ball";
+        Stats.HeldTiles[1] = "VectorPlate";
+        Stats.HeldTiles[2] = "SentryTower";
         SceneManager.LoadScene(1);
     }
 

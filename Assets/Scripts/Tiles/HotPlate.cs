@@ -2,7 +2,7 @@
 // File Name : HotPlate.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 12, 2025
-// Last Updated : April 12, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Hot Plate Script
 *****************************************************************************/
@@ -24,7 +24,7 @@ public class HotPlate : AttatchmentBase
 
         if (go.TryGetComponent(out EnemyBase enemy))
         {
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(1, transform.position);
         }
     }
 

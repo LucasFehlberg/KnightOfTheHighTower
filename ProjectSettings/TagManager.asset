@@ -15,6 +15,7 @@ TagManager:
   - StarterButton
   - SelectionButton
   - InventoryTag
+  - Ball
   layers:
   - Default
   - TransparentFX

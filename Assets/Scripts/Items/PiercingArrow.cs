@@ -2,7 +2,7 @@
 // File Name : PiercingArrow.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 2, 2025
-// Last Updated : April 4, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Attacks keep moving through enemies, only stopping when it can't find one
 //                     Also triggers OnHit effects
@@ -44,7 +44,7 @@ public class PiercingArrow : Item
         EnemyBase newEnemy = Physics.OverlapBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers)[0]
             .GetComponent<EnemyBase>();
 
-        newEnemy.TakeDamage(1);
+        newEnemy.TakeDamage(1, enemy.transform.position);
         foreach(Item item in Stats.HeldItems)
         {
             item.OnAttack(newEnemy, damage, direction);

@@ -2,7 +2,7 @@
 // File Name : ExplosivePowder.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : April 5, 2025
+// Last Updated : May 8, 2025
 //
 // Brief Description : 1 tile Radius AOE on hit
 *****************************************************************************/
@@ -54,7 +54,7 @@ public class ExplosivePowder : Item
             EnemyBase newEnemy = Physics.OverlapBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers)[0]
             .GetComponent<EnemyBase>();
 
-            newEnemy.TakeDamage(1);
+            newEnemy.TakeDamage(1, enemy.transform.position);
         }
     }
 }
