@@ -2,16 +2,14 @@
 // File Name : GameController.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 16, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Controls the game flow
 *****************************************************************************/
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

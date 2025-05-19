@@ -66,6 +66,7 @@ public class PlayerTerrain : MonoBehaviour
             if (Stats.HeldTiles[index] == null)
             {
                 slot.transform.parent.gameObject.SetActive(false);
+                index++;
                 continue;
             }
 
