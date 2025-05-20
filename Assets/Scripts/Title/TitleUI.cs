@@ -37,7 +37,7 @@ public class TitleUI : MonoBehaviour
     {
         RoomManager.Floor = 0;
         Stats.ResetStats();
-        //Stats.HeldItems.Add(new TrustyTrowel());
+        Stats.HeldItems.Add(new GravediggersShovel());
         //Stats.HeldTiles[0] = "Ball";
         SceneManager.LoadScene(1);
     }

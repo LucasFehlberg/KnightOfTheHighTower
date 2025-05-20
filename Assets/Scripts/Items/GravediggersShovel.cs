@@ -26,8 +26,7 @@ public class GravediggersShovel : Item
     {
         itemName = "GravediggersShovel";
         itemNameDisplay = "Gravediggers Shovel";
-        itemDescription = "Can remove the floor beneath an enemy, once per turn.\nRequires manipulation equal or" +
-            " greater than the health of the enemy.";
+        itemDescription = "+1 Manipulation\n-0.5 Terrain Range\nCan use manipulation to remove the floor beneath enemies once per turn.";
 
         itemRarity = 1;
     }
@@ -48,6 +47,7 @@ public class GravediggersShovel : Item
     public override void OnStartTurn()
     {
         allShovels.Add(this);
+        Stats.TerrainRange -= 0.5f;
 
         foreach(Item item in Stats.HeldItems)
         {

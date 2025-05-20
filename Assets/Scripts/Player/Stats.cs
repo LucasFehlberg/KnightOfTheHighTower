@@ -20,7 +20,7 @@ public static class Stats
 
     //Stats related to the main stats but not directly them
     private static int damage = 1;
-   private static int terrainRange = 2; //Consider if it's too OP
+    private static float terrainRange = 2; //Consider if it's too OP
                                         //It's too OP
 
     //Misc. Stats
@@ -79,7 +79,7 @@ public static class Stats
     /// <summary>
     /// Range of which the player can manipulate terrain
     /// </summary>
-    public static int TerrainRange { get => terrainRange; set => terrainRange = value; }
+    public static float TerrainRange { get => terrainRange; set => terrainRange = value; }
     /// <summary>
     /// Number of random Rerolls the player has. Rerolls reroll random chances on items for a more favorable event
     /// </summary>
