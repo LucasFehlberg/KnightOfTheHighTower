@@ -175,11 +175,16 @@ public class PlayerTerrain : MonoBehaviour
                     terrainType = "Remove";
                 }
 
-                if (!item.ConsumeTerrain(hit.collider.transform.position, terrainType))
+                if (!item.ConsumeTerrain(hit.collider.transform.position, terrainType, tile))
                 {
                     consumption = false;
                     break;
                 }
+            }
+
+            if(consumption && player.ManipulationRemaining <= 0)
+            {
+                return;
             }
 
             if (add)

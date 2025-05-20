@@ -1,18 +1,15 @@
 /*****************************************************************************
-// File Name : TrustyTrowel.cs
+// File Name : SpecialSponge.cs
 // Author : Lucas Fehlberg
-// Creation Date : April 29, 2025
-// Last Updated : May 17, 2025
+// Creation Date : May 19, 2025
+// Last Updated : May 19, 2025
 //
-// Brief Description : Allow for more walls to be placed per-turn
+// Brief Description : Removing a non-wall and non-floor tile grants an extra manipulation
 *****************************************************************************/
 
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class TrustyTrowel : Item
+public class SpecialSponge : Item
 {
     private bool notUsed = true;
     //Man this is complicated for a common item
@@ -24,9 +21,9 @@ public class TrustyTrowel : Item
     /// </summary>
     public override void SetDefaults()
     {
-        itemName = "TrustyTrowel";
-        itemNameDisplay = "Trusty Trowel";
-        itemDescription = "Allows you to place a wall or floor without consuming any manipulation";
+        itemName = "SpecialSponge";
+        itemNameDisplay = "Special Sponge";
+        itemDescription = "Removing a non-floor and non-wall tile grants you +1 manipulation.\nWorks once per sponge.";
 
         itemRarity = 1;
     }
@@ -56,29 +53,45 @@ public class TrustyTrowel : Item
     //}
 
     /// <summary>
-    /// Doesn't consume terrain if trowel is active
+    /// Doesn't consume terrain if sponge is active and conditions are met
     /// </summary>
     /// <param name="resource"></param>
     /// <returns></returns>
     public override bool ConsumeTerrain(Vector3 position, string type, Tile tile)
     {
-        if(type == "Wall" && notUsed)
+        if (!notUsed)
         {
-            player.GetComponent<PlayerTerrain>().FreebiesType.Remove("Wall");
-            notUsed = false;
-            return false;
+            return true;
         }
 
-        return true;
+        if(type != "Remove")
+        {
+            return true;
+        }
+
+        if (!tile.BuiltUpon)
+        {
+            return true;
+        }
+
+        if (tile.Wall.activeSelf)
+        {
+            return true;
+        }
+
+        player.GetComponent<PlayerTerrain>().FreebiesType.Remove("Remove");
+        player.ManipulationRemaining++;
+        notUsed = false;
+        return false;
     }
 
     /// <summary>
-    /// Add the added damage
+    /// Re-add the freebie and reset
     /// </summary>
     public override void OnStartTurn()
     {
         notUsed = true;
-        player.GetComponent<PlayerTerrain>().FreebiesType.Add("Wall");
+        player.GetComponent<PlayerTerrain>().FreebiesType.Add("Remove");
         //allTrowels.Add(this);
         //foreach(Item item in Stats.HeldItems)
         //{

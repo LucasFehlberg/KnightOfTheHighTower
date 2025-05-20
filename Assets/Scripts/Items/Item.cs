@@ -143,7 +143,7 @@ public class Item
     /// <param name="position"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    public virtual bool ConsumeTerrain(Vector3 position, string type)
+    public virtual bool ConsumeTerrain(Vector3 position, string type, Tile tile)
     {
         return true;
     }

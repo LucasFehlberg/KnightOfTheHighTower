@@ -2,7 +2,7 @@
 // File Name : PlayerBase.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : April 10, 2025
+// Last Updated : May 19, 2025
 //
 // Brief Description : Tile class. Basically, instead of instantiating and deleting everyting we have it all attatched
 //                     to the tile prefab. Stupid? Maybe, but allows for better control of what's active and inactive
@@ -37,6 +37,8 @@ public class Tile : MonoBehaviour
     public bool BuiltUpon { get => builtUpon; set => builtUpon = value; }
     public bool HasTile { get => hasTile; set => hasTile = value; }
     public int TileID { get => tileID; set => tileID = value; }
+    public GameObject Wall { get => wall; set => wall = value; }
+
     /// <summary>
     /// Handles material setting and eventually level design
     /// </summary>
