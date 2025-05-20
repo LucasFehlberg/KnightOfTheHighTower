@@ -25,14 +25,14 @@ public class RoundTrip : Item
     /// </summary>
     public override void LateUpdateStats()
     {
-        Stats.PossibleMovements.Add(Vector2.up * 8);
-        Stats.PossibleMovements.Add(Vector2.right * 8);
-        Stats.PossibleMovements.Add(Vector2.down * 8);
-        Stats.PossibleMovements.Add(Vector2.left * 8);
-        Stats.PossibleMovements.Add((Vector2.up + Vector2.left) * 8);
-        Stats.PossibleMovements.Add((Vector2.up + Vector2.right) * 8);
-        Stats.PossibleMovements.Add((Vector2.down + Vector2.left) * 8);
-        Stats.PossibleMovements.Add((Vector2.down + Vector2.right) * 8);
+        Stats.PossibleMovements.Add(Vector2.up * 7);
+        Stats.PossibleMovements.Add(Vector2.right * 7);
+        Stats.PossibleMovements.Add(Vector2.down * 7);
+        Stats.PossibleMovements.Add(Vector2.left * 7);
+        Stats.PossibleMovements.Add((Vector2.up + Vector2.left) * 7);
+        Stats.PossibleMovements.Add((Vector2.up + Vector2.right) * 7);
+        Stats.PossibleMovements.Add((Vector2.down + Vector2.left) * 7);
+        Stats.PossibleMovements.Add((Vector2.down + Vector2.right) * 7);
     }
 
     /// <summary>

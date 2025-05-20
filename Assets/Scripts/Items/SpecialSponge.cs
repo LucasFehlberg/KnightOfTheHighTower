@@ -81,6 +81,7 @@ public class SpecialSponge : Item
 
         player.GetComponent<PlayerTerrain>().FreebiesType.Remove("Remove");
         player.ManipulationRemaining++;
+        player.UpdateStats();
         notUsed = false;
         return false;
     }
