@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class PickleSword: Item
 {
+    private bool used = false;
     /// <summary>
     /// Set item defaults
     /// </summary>
@@ -19,7 +20,7 @@ public class PickleSword: Item
         itemName = "PickleSword";
         itemNameDisplay = "Pickle Sword";
 
-        itemDescription = "Upon killing an enemy, gain +1 attack";
+        itemDescription = "The first enemy you kill each turn grants +1 attack.";
 
         itemRarity = 2;
     }
@@ -30,6 +31,10 @@ public class PickleSword: Item
     /// <param name="position">Unused here</param>
     public override void OnKillEnemy(Vector3 position, bool voidKill = false)
     {
+        if (used)
+        {
+            return;
+        }
         if (voidKill)
         {
             return;
@@ -37,5 +42,15 @@ public class PickleSword: Item
 
         player.AttackRemaining += 1;
         player.UpdateStats();
+
+        used = true;
+    }
+
+    /// <summary>
+    /// Reset
+    /// </summary>
+    public override void UpdateStats()
+    {
+        used = false;
     }
 }
