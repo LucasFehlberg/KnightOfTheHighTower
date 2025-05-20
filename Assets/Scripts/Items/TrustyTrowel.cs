@@ -9,6 +9,7 @@
 
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class TrustyTrowel : Item
@@ -63,6 +64,7 @@ public class TrustyTrowel : Item
     {
         if(type == "Wall" && notUsed)
         {
+            player.GetComponent<PlayerTerrain>().FreebiesType.Remove("Wall");
             notUsed = false;
             return false;
         }
@@ -76,6 +78,9 @@ public class TrustyTrowel : Item
     public override void OnStartTurn()
     {
         notUsed = true;
+        Debug.Log(player);
+        Debug.Log(player.GetComponent<PlayerTerrain>());
+        player.GetComponent<PlayerTerrain>().FreebiesType.Add("Wall");
         //allTrowels.Add(this);
         //foreach(Item item in Stats.HeldItems)
         //{

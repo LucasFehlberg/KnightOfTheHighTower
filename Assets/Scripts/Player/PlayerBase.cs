@@ -237,7 +237,8 @@ public class PlayerBase : MonoBehaviour
 
         GetComponent<PlayerMovement>().enabled = action == 0 && movementRemaining > 0; //0 is movement
         GetComponent<PlayerAttack>().enabled = action == 1 && attackRemaining > 0; //1 is attack
-        GetComponent<PlayerTerrain>().enabled = action == 2 && manipulationRemaining > 0; //2 is terrain
+        GetComponent<PlayerTerrain>().enabled = action == 2 //2 is terrain
+            && (manipulationRemaining > 0 || GetComponent<PlayerTerrain>().FreebiesType.Count > 0); 
 
         //Setup new indicators
         GetComponent<PlayerMovement>().ResetIndicators();

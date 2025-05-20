@@ -2,7 +2,7 @@
 // File Name : PlayerTerrain.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 30, 2025
-// Last Updated : May 16, 2025
+// Last Updated : May 18, 2025
 //
 // Brief Description : Controls the player's terrain manipulation
 *****************************************************************************/
@@ -26,6 +26,8 @@ public class PlayerTerrain : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private Material indicatorMaterial;
 
+    private List<string> freebiesType = new();
+
     private InputAction click;
 
     private PlayerBase player;
@@ -38,6 +40,7 @@ public class PlayerTerrain : MonoBehaviour
     [SerializeField] private List<GameObject> slots = new();
 
     public bool Add { get => add; set => add = value; }
+    public List<string> FreebiesType { get => freebiesType; set => freebiesType = value; }
 
     /// <summary>
     /// Sets up input actions
@@ -124,7 +127,20 @@ public class PlayerTerrain : MonoBehaviour
 
         if (player.ManipulationRemaining <= 0)
         {
-            return;
+            if(freebiesType.Count == 0)
+            {
+                return;
+            }
+
+            if (add && (!freebiesType.Contains(type) || (freebiesType.Contains("NotWall") && type == "Wall")))
+            {
+                return;
+            }
+
+            if (!add && !freebiesType.Contains("Remove"))
+            {
+                return;
+            }
         }
 
         //Run physics
@@ -242,7 +258,7 @@ public class PlayerTerrain : MonoBehaviour
             player.UpdateStats();
 
             KillIndicators();
-            if (player.ManipulationRemaining > 0)
+            if (player.ManipulationRemaining > 0 || freebiesType.Count > 0)
             {
                 ResetIndicators();
             } 
@@ -350,7 +366,7 @@ public class PlayerTerrain : MonoBehaviour
         add = false;
         KillIndicators();
 
-        if(player.ManipulationRemaining > 0)
+        if(player.ManipulationRemaining > 0 || freebiesType.Contains("Remove"))
         {
             ResetIndicators();
         } 
@@ -364,7 +380,6 @@ public class PlayerTerrain : MonoBehaviour
     {
         if (!SaveSystem.Data.DoneTutorial && TutorialScript.instance.TutorialState != 6)
         {
-            print("Problem.");
             return;
         } 
         else if(!SaveSystem.Data.DoneTutorial)
@@ -375,7 +390,8 @@ public class PlayerTerrain : MonoBehaviour
         add = true;
         this.type = type;
         KillIndicators();
-        if(player.ManipulationRemaining > 0)
+        if(player.ManipulationRemaining > 0 || freebiesType.Contains(type) || (freebiesType.Contains("NotWall") 
+            && type != "Wall"))
         {
             ResetIndicators();
         } 
