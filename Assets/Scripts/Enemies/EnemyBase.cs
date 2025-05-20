@@ -406,7 +406,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// The stupid death, enemy edition
     /// </summary>
-    public void KillEnemyFunny()
+    public void KillEnemyFunny(bool myTurn = true)
     {
         TakeDamage(10000000, Vector3.zero, true);
         dying = true;
@@ -419,8 +419,11 @@ public class EnemyBase : MonoBehaviour
 
         StartCoroutine(Death(10f));
         StopCoroutine(nameof(EnemyTurn));
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
+        if (myTurn)
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().EndTurn();
 
+        }
     }
 
     /// <summary>

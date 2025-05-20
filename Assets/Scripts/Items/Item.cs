@@ -2,7 +2,7 @@
 // File Name : Item.cs
 // Author : Lucas Fehlberg
 // Creation Date : March 29, 2025
-// Last Updated : May 16, 2025
+// Last Updated : May 20, 2025
 //
 // Brief Description : Base class for items
 *****************************************************************************/
@@ -14,6 +14,7 @@ using UnityEngine;
 
 public class Item
 {
+    protected static readonly LayerMask enemyLayers = 1 << LayerMask.NameToLayer("Enemy");
     private static List<Item> allItems = new();
     private static Dictionary<int, List<Item>> rarities = new();
 
@@ -138,6 +139,17 @@ public class Item
     }
 
     /// <summary>
+    /// Checks to see if manipulation is valid
+    /// </summary>
+    /// <param name="type">Type of manipulation (wall, remove, etc.)</param>
+    /// <param name="causeForDisable">Cause of disabling. Usually this is for enemies</param>
+    /// <returns></returns>
+    public virtual bool CheckValidManipulation(string type, string causeForDisable, Vector3 position)
+    {
+        return false;
+    }
+
+    /// <summary>
     /// Runs to check if terrain is consumed
     /// </summary>
     /// <param name="position"></param>
@@ -146,6 +158,11 @@ public class Item
     public virtual bool ConsumeTerrain(Vector3 position, string type, Tile tile)
     {
         return true;
+    }
+
+    public virtual void TerrainDisabled()
+    {
+
     }
 
     /// <summary>

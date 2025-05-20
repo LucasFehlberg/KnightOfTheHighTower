@@ -12,8 +12,6 @@ using UnityEngine;
 
 public class BigFreakingBoot : Item
 {
-    private LayerMask enemyLayers;
-
     /// <summary>
     /// Stun nearby enemies
     /// </summary>
@@ -66,7 +64,5 @@ public class BigFreakingBoot : Item
         itemDescription = "Increases the amount of stun after moving near an enemy. Enemies can only be stunned" +
             "once per floor";
         itemRarity = 1;
-
-        enemyLayers =  1 << LayerMask.NameToLayer("Enemy");
     }
 }

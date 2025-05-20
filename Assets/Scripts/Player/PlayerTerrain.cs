@@ -155,15 +155,34 @@ public class PlayerTerrain : MonoBehaviour
                 return;
             }
 
-            if (Physics.CheckBox(hit.collider.transform.position, Vector3.one * 0.45f, Quaternion.identity,
-                enemyLayers))
-            {
-                return;
-            }
-
             if (!hit.collider.TryGetComponent<Tile>(out var tile))
             {
                 tile = hit.transform.parent.parent.GetComponent<Tile>();
+            }
+
+            if (Physics.CheckBox(hit.collider.transform.position, Vector3.one * 0.45f, Quaternion.identity,
+                enemyLayers))
+            {
+                if (add)
+                {
+                    return;
+                }
+
+                //If the player has an item that allows them to dig underneath the enemy, check it here
+                bool canIgnore = false;
+                foreach (Item item in Stats.HeldItems)
+                {
+                    if (item.CheckValidManipulation("Remove", "Enemy", tile.transform.position))
+                    {
+                        canIgnore = true;
+                        break;
+                    }
+                }
+
+                if (!canIgnore)
+                {
+                    return;
+                }
             }
 
             bool consumption = true;
@@ -331,7 +350,21 @@ public class PlayerTerrain : MonoBehaviour
                 if (Physics.CheckBox(tile.transform.position, Vector3.one * 0.45f, Quaternion.identity,
                     enemyLayers))
                 {
-                    continue;
+                    //If the player has an item that allows them to dig underneath the enemy, check it here
+                    bool canIgnore = false;
+                    foreach (Item item in Stats.HeldItems)
+                    {
+                        if(item.CheckValidManipulation("Remove", "Enemy", tile.transform.position))
+                        {
+                            canIgnore = true;
+                            break;
+                        }
+                    }
+
+                    if (!canIgnore)
+                    {
+                        continue;
+                    }
                 }
 
                 GameObject newUI = Instantiate(indicator);
@@ -355,6 +388,11 @@ public class PlayerTerrain : MonoBehaviour
         foreach (GameObject indicatorA in GameObject.FindGameObjectsWithTag("Indicator"))
         {
             Destroy(indicatorA);
+        }
+
+        foreach(Item item in Stats.HeldItems)
+        {
+            item.TerrainDisabled();
         }
     }
 

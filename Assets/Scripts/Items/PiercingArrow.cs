@@ -12,8 +12,6 @@ using UnityEngine;
 
 public class PiercingArrow : Item
 {
-    private const int enemyLayers = 128; //Enemy Layers
-
     /// <summary>
     /// Set informational stuff up
     /// </summary>
