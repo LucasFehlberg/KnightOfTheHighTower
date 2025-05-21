@@ -29,8 +29,6 @@ public class SliceSkate : Item
         Quaternion rotation = Quaternion.Euler(0, angle, 0);
 
         Collider[] otherHits = Physics.OverlapBox(center, boxSize / 2, rotation, enemyLayers);
-        RaycastHit[] hits = Physics.RaycastAll(startPosition, finalVector.normalized, finalVector.magnitude,
-            enemyLayers);
 
         foreach (Collider hit in otherHits)
         {
