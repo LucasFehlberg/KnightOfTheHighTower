@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
 
             foreach (Item item in Stats.HeldItems)
             {
-                item.OnMove(desiredPos);
+                item.OnMove(originalPos, desiredPos);
             }
 
             KillIndicators();

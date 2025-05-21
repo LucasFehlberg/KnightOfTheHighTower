@@ -15,8 +15,8 @@ public class BigFreakingBoot : Item
     /// <summary>
     /// Stun nearby enemies
     /// </summary>
-    /// <param name="position">Position of stun</param>
-    public override void OnMove(Vector3 position)
+    /// <param name="endPosition">Position of stun</param>
+    public override void OnMove(Vector3 startPosition, Vector3 endPosition)
     {
         int numStun = 0;
         foreach(Item item in Stats.HeldItems)
@@ -36,7 +36,7 @@ public class BigFreakingBoot : Item
                     continue;
                 }
 
-                Vector3 testPos = position + new Vector3(x, 0, z);
+                Vector3 testPos = endPosition + new Vector3(x, 0, z);
 
                 if (!Physics.CheckBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers))
                 {

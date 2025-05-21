@@ -130,7 +130,6 @@ public class GravediggersShovel : Item
             EnemyBase enemy = Physics.OverlapBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers)[0]
                 .GetComponent<EnemyBase>();
 
-            Debug.Log(enemy.HealthRemaining);
             player.ManipulationRemaining -= (enemy.HealthRemaining - 1);
 
             enemy.KillEnemyFunny(false);

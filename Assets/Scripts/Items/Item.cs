@@ -84,7 +84,7 @@ public class Item
     /// <summary>
     /// Runs when the player moves. Used for effects when the player moves, such as cosmetics or maybe a stun effect
     /// </summary>
-    public virtual void OnMove(Vector3 position)
+    public virtual void OnMove(Vector3 startPosition, Vector3 endPosition)
     {
 
     }
