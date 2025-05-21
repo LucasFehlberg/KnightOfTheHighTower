@@ -7,6 +7,9 @@
 // Brief Description : An item that stuns enemies on movement
 *****************************************************************************/
 
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class SliceSkate : Item
@@ -18,19 +21,113 @@ public class SliceSkate : Item
     public override void OnMove(Vector3 startPosition, Vector3 endPosition)
     {
         Vector3 finalVector = endPosition - startPosition;
+        Vector3 center = startPosition + (finalVector * 0.5f);
 
-        RaycastHit[] hits = Physics.RaycastAll(startPosition, finalVector.normalized, finalVector.magnitude, 
+        Vector3 boxSize = new(0.5f, 0.5f, finalVector.magnitude);
+
+        float angle = Mathf.Atan2(finalVector.x, finalVector.z) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0, angle, 0);
+
+        Collider[] otherHits = Physics.OverlapBox(center, boxSize / 2, rotation, enemyLayers);
+        RaycastHit[] hits = Physics.RaycastAll(startPosition, finalVector.normalized, finalVector.magnitude,
             enemyLayers);
 
-        foreach (RaycastHit hit in hits)
+        foreach (Collider hit in otherHits)
         {
-            hit.collider.GetComponent<EnemyBase>().TakeDamage(1, startPosition);
+            hit.GetComponent<Collider>().GetComponent<EnemyBase>().TakeDamage(1, startPosition);
 
-            foreach(Item item in Stats.HeldItems)
+            foreach (Item item in Stats.HeldItems)
             {
-                item.OnAttack(hit.collider.GetComponent<EnemyBase>(), 1, finalVector);
+                item.OnAttack(hit.GetComponent<Collider>().GetComponent<EnemyBase>(), 1, finalVector);
             }
         }
+
+        //Vector3 moveDirection = endPosition - startPosition;
+        //List<Vector3> evaluateAreas = new List<Vector3>
+        //{
+        //    startPosition
+        //};
+
+        //int addBy = 0;
+        ////Prioritize the larger number
+        //if (Mathf.Abs(moveDirection.x) < Mathf.Abs(moveDirection.z))
+        //{
+        //    if(Mathf.Abs(moveDirection.x) == moveDirection.x)
+        //    {
+        //        addBy = 1;
+        //    } 
+        //    else
+        //    {
+        //        addBy = -1;
+        //    }
+
+        //    for (int i = 1; i < Mathf.Abs(moveDirection.x) + 1; i++)
+        //    {
+        //        evaluateAreas.Add(new Vector3(evaluateAreas[^1].x + addBy, 1, evaluateAreas[^1].z));
+        //    }
+
+        //    if (Mathf.Abs(moveDirection.z) == moveDirection.z)
+        //    {
+        //        addBy = 1;
+        //    }
+        //    else
+        //    {
+        //        addBy = -1;
+        //    }
+
+        //    for (int i = 1; i < Mathf.Abs(moveDirection.z) + 1; i++)
+        //    {
+        //        evaluateAreas.Add(new Vector3(evaluateAreas[^1].x, 1, evaluateAreas[^1].z + addBy));
+        //    }
+        //}
+        //else
+        //{
+        //    if (Mathf.Abs(moveDirection.z) == moveDirection.z)
+        //    {
+        //        addBy = 1;
+        //    }
+        //    else
+        //    {
+        //        addBy = -1;
+        //    }
+
+        //    for (int i = 1; i < Mathf.Abs(moveDirection.z) + 1; i++)
+        //    {
+        //        evaluateAreas.Add(new Vector3(evaluateAreas[^1].x, 1, evaluateAreas[^1].z + addBy));
+        //    }
+
+        //    if (Mathf.Abs(moveDirection.x) == moveDirection.x)
+        //    {
+        //        addBy = 1;
+        //    }
+        //    else
+        //    {
+        //        addBy = -1;
+        //    }
+
+        //    for (int i = 1; i < Mathf.Abs(moveDirection.x) + 1; i++)
+        //    {
+        //        evaluateAreas.Add(new Vector3(evaluateAreas[^1].x + addBy, 1, evaluateAreas[^1].z));
+        //    }
+        //}
+
+        //foreach (Vector3 testPos in evaluateAreas)
+        //{
+        //    if (!Physics.CheckBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers))
+        //    {
+        //        continue;
+        //    }
+
+        //    EnemyBase enemy = Physics.OverlapBox(testPos, Vector3.one * 0.45f, Quaternion.identity, enemyLayers)[0]
+        //        .GetComponent<EnemyBase>();
+
+        //    enemy.TakeDamage(1, startPosition);
+
+        //    foreach (Item item in Stats.HeldItems)
+        //    {
+        //        item.OnAttack(enemy, 1, testPos - startPosition);
+        //    }
+        //}
     }
 
     /// <summary>

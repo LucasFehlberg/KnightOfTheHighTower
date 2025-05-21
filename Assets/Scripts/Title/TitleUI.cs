@@ -38,7 +38,7 @@ public class TitleUI : MonoBehaviour
         RoomManager.Floor = 0;
         Stats.ResetStats();
         //Stats.HeldItems.Add(new ExplosivePowder());
-        //Stats.HeldItems.Add(new SliceSkate());
+        Stats.HeldItems.Add(new SliceSkate());
         //Stats.HeldTiles[0] = "Ball";
         SceneManager.LoadScene(1);
     }
