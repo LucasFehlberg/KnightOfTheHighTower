@@ -22,6 +22,8 @@ public class Ball : EnemyBase
 
     private Vector3 velo = Vector3.zero;
 
+    private int bounces = 2;
+
     public bool IsBallRolling { get => isBallRolling; set => isBallRolling = value; }
 
     /// <summary>
@@ -112,6 +114,15 @@ public class Ball : EnemyBase
         if (!isGrounded)
         {
             Destroy(gameObject);
+        }
+
+        if (collision.collider.CompareTag("Wall"))
+        {
+            bounces--;
+            if(bounces == 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (collision.collider.CompareTag("Player"))
