@@ -9,6 +9,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 public class ItemDescriptionController : MonoBehaviour
 {
     [SerializeField] private GameObject box;
@@ -17,6 +18,14 @@ public class ItemDescriptionController : MonoBehaviour
 
     private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
+
+    [SerializeField] private Image rarityBackgroundColor;
+    [SerializeField] private Sprite starterBG;
+    [SerializeField] private Sprite commonBG;
+    [SerializeField] private Sprite uncommonBG;
+    [SerializeField] private Sprite rareBG;
+
+    [SerializeField] private TMP_Text rarityText;
 
     private Item visibleItem = null;
 
@@ -71,6 +80,26 @@ public class ItemDescriptionController : MonoBehaviour
         {
             return;
         }
+        rarityBackgroundColor.gameObject.SetActive(true);
+        switch (item.ItemRarity)
+        {
+            case 0:
+                rarityBackgroundColor.sprite = starterBG;
+                rarityText.text = "Starter";
+                break;
+            case 1:
+                rarityBackgroundColor.sprite = commonBG;
+                rarityText.text = "Common";
+                break;
+            case 2:
+                rarityBackgroundColor.sprite = uncommonBG;
+                rarityText.text = "Uncommon";
+                break;
+            case 3:
+                rarityBackgroundColor.sprite = rareBG;
+                rarityText.text = "Rare";
+                break;
+        }
         itemName.text = item.ItemNameDisplay;
         visibleItem = item;
         box.SetActive(true);
@@ -83,6 +112,7 @@ public class ItemDescriptionController : MonoBehaviour
     /// <param name="tileBio"></param>
     public void ShowTile(string name, string tileBio)
     {
+        rarityBackgroundColor.gameObject.SetActive(false);
         itemName.text = name;
         itemDescription.text = tileBio;
         box.SetActive(true);

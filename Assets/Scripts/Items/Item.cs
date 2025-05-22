@@ -40,6 +40,7 @@ public class Item
     public string ItemNameDisplay { get => itemNameDisplay; set => itemNameDisplay = value; }
     public PlayerBase Player { get => player; set => player = value; }
     public ItemBox Holder { get => holder; set => holder = value; }
+    public int ItemRarity { get => itemRarity; set => itemRarity = value; }
 
     public Item Clone()
     {

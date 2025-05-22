@@ -32,7 +32,6 @@ public class Stunned : Modifier
     public Stunned(int time)
     {
         timer = time;
-        Debug.Log(timer);
     }
 
     /// <summary>
