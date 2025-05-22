@@ -2,7 +2,7 @@
 // File Name : PickleSword.cs
 // Author : Lucas Fehlberg
 // Creation Date : May 16, 2025
-// Last Updated : May 17, 2025
+// Last Updated : May 22, 2025
 //
 // Brief Description : Upon killing an enemy, gain +1 attack
 *****************************************************************************/

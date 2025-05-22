@@ -39,7 +39,7 @@ public class TitleUI : MonoBehaviour
         Stats.ResetStats();
         //Stats.HeldItems.Add(new ExplosivePowder());
         //Stats.HeldItems.Add(new SliceSkate());
-        //Stats.HeldTiles[0] = "Ball";
+        Stats.HeldTiles[0] = "Ball";
         SceneManager.LoadScene(1);
     }
 

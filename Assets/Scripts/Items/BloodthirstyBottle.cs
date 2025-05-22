@@ -2,7 +2,7 @@
 // File Name : BloodthirstyBottle.cs
 // Author : Lucas Fehlberg
 // Creation Date : April 5, 2025
-// Last Updated : May 13, 2025
+// Last Updated : May 22, 2025
 //
 // Brief Description : An item that, onKill, grants a 25% chance (affected by luck stats) to regain health
 *****************************************************************************/

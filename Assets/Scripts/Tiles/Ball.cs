@@ -2,7 +2,7 @@
 // File Name : Ball.cs
 // Author : Lucas Fehlberg
 // Creation Date : May 18, 2025
-// Last Updated : May 18, 2025
+// Last Updated : May 22, 2025
 //
 // Brief Description : Ball moves in a direction until it hits an enemy
 *****************************************************************************/
@@ -78,9 +78,9 @@ public class Ball : EnemyBase
     /// </summary>
     private void Update()
     {
-        if (rb.velocity.x != velo.x || rb.velocity.z != velo.z)
+        if (rb.velocity.magnitude < velo.magnitude)
         {
-            rb.velocity = new(velo.x, rb.velocity.y, velo.z);
+            rb.velocity = rb.velocity.normalized * velo.magnitude;
         }
 
         if(transform.position.y < -50)
@@ -103,23 +103,13 @@ public class Ball : EnemyBase
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(0.2f, 0.1f, 0.2f));
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if(velo.magnitude <= 0f)
         {
             return;
         }
-        if(!isGrounded)
-        {
-            Destroy(gameObject);
-        }
-
-        if (collision.collider.CompareTag("Wall"))
+        if (!isGrounded)
         {
             Destroy(gameObject);
         }
