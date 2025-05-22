@@ -22,7 +22,7 @@ public class BloodthirstyBottle: Item
         string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance + 
-            "% chance to regain +1 health (cannot go over max)";
+            "% chance to regain +1 health on enemy kill (cannot go over max)";
 
         itemRarity = 2;
     }
@@ -35,7 +35,7 @@ public class BloodthirstyBottle: Item
         string chance = GetEffectChance(1, 4);
 
         itemDescription = "Grants a " + chance +
-            "% chance to regain +1 health (cannot go over max)";
+            "% chance to regain +1 health on enemy kill (cannot go over max)";
     }
 
     /// <summary>
