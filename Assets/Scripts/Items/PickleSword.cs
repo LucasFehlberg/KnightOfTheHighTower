@@ -49,7 +49,7 @@ public class PickleSword: Item
     /// <summary>
     /// Reset
     /// </summary>
-    public override void UpdateStats()
+    public override void OnStartTurn()
     {
         used = false;
     }
