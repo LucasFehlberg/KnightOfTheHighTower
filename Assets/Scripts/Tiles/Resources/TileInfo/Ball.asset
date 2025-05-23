@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ball
   m_EditorClassIdentifier: 
   attatchmentDescription: Can be hit. Hitting it causes it to roll until it falls
-    or breaks on something, dealing 2 damage
+    or breaks on something, dealing 2 damage. Can bounce off walls twice.
   attatchmentValue: 79
   attatchmentName: Ball
   attatchmentSprite: {fileID: 21300000, guid: cd451616586e23c47a907a291f614a7f, type: 3}
